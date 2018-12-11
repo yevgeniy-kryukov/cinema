@@ -15,7 +15,7 @@
 	<td><img src="img/CacheCinemaLogo.gif" width="273" height="70" vspace="0" hspace="0">
 	</td>
 	<td align="right">
-		<form name="Search" action="SearchResults.php" target="Main" method="post">
+		<form name="Search" action="search_results.php" target="Main" method="post">
 			<b>Find</b>
 			<select name="CategoryList" size="1">
 				<option value="*" selected>Any Category</option>

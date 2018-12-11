@@ -13,7 +13,7 @@ $orderid = UtilsMain::session_get("Order");
 	<script language="JavaScript" type="text/JavaScript" src="js/myAjax.js"></script>
 	<script language="JavaScript">
 		function ChangeQuantity(pitemid, ptickettype, pnewquantity) {
-			var res = serv('Order_fn_ajax.php', {fn : 'ChangeQuantity', pitemid : pitemid, ptickettype : ptickettype, pnewquantity : pnewquantity});
+			var res = serv('order_fn_ajax.php', {fn : 'ChangeQuantity', pitemid : pitemid, ptickettype : ptickettype, pnewquantity : pnewquantity});
 			if(res >= 0) parent.Order.document.OrderTickets.TotalCharge.value = res;
 			else alert("Error " + res);
 		}
@@ -73,7 +73,7 @@ $orderid = UtilsMain::session_get("Order");
 		<input type="text" name="TotalCharge" size="5" readonly value="<?php echo $TotalCharge; ?>">
 	</form>
 	If you would like confirmation of your order, please enter your email address
-	<form method="post" action="TicketConfirm.php" name="OrderForm">
+	<form method="post" action="ticket_confirm.php" name="OrderForm">
 		<input type="text" name="OrderEmail" size="35"><br>
 		<input type="submit" name="CompleteOrder" value="Complete Order">
 	</form>

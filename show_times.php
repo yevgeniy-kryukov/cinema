@@ -21,9 +21,9 @@
 	<script language="JavaScript" type="text/JavaScript" src="js/myAjax.js"></script>
 	<script language="JavaScript">
 		function AddShow(showid){
-			var res = serv('ShowTimes_fn_ajax.php', {fn : 'AddShow', showid : showid});
+			var res = serv('show_times_fn_ajax.php', {fn : 'AddShow', showid : showid});
 			if(res > 0) {
-				parent.Order.location="Order.php";
+				parent.Order.location="order.php";
 			} else {
 				alert("Error " + res);
 			}
