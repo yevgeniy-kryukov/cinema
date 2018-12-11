@@ -44,7 +44,7 @@
 		<?php echo $row["length"]; ?> minutes</nobr> <nobr><b>Rating</b>
 		<?php echo $row["rating"]; ?></nobr><br><br>
 	</td>
-	<td><a href='show_times.php?FilmID=<?php echo $row["id"]; ?>'><img src="img/ShowTimes.gif" width="130" height="39" border="0" alt="Click to see show times for this film"></a></td>
+	<td><a href='show_times.php?FilmID=<?php echo $row["id"]; ?>'><img src="img/show_times.gif" width="130" height="39" border="0" alt="Click to see show times for this film"></a></td>
 	</tr>
 <?php endfor ?>
 </table>

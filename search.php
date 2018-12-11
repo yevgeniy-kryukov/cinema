@@ -12,7 +12,7 @@
 <body bgcolor="#FFFFFF">
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
 	<tr>
-	<td><img src="img/CacheCinemaLogo.gif" width="273" height="70" vspace="0" hspace="0">
+	<td><img src="img/php_cinema_logo.gif" width="273" height="70" vspace="0" hspace="0">
 	</td>
 	<td align="right">
 		<form name="Search" action="search_results.php" target="Main" method="post">

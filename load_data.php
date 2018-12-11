@@ -5,7 +5,7 @@
 </head>
 
 <body bgcolor="#FFFFFF">
-<p><img src="CacheCinemaLogo.gif" width="273" height="70"> </p>
+<p><img src="php_cinema_logo.gif" width="273" height="70"> </p>
 <csp:if condition='$get(%request.Data("Action",1))="L"'>
 	<script language="cache" runat="server">
 		set classes = $get(%request.Data("Classes",1))

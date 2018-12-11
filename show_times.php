@@ -50,7 +50,7 @@
 		<td><?php echo $row_show["theatername"]; ?></td>
 		<td align="center">
 			<a href="#click" onClick="AddShow(<?php echo $row_show["id"]; ?>)">
-			<img src="img/Tickets.gif" width="130" height="39" border="0" alt="Click to order tickets for this show"></a>
+			<img src="img/tickets.gif" width="130" height="39" border="0" alt="Click to order tickets for this show"></a>
 		</td>
 	</tr>
 <?php endfor ?>

@@ -21,7 +21,7 @@ $orderid = UtilsMain::session_get("Order");
 </head>
 <body bgcolor="#FFFFFF">
 <?php if ($orderid != ""): ?>
-	<img src="img/YourTicketOrder.gif" width="248" height="65">
+	<img src="img/your_ticket_order.gif" width="248" height="65">
 	<br>
 	<?php
 		$result_ticket_order = TicketOrder::ShowTicketOrder($orderid);
