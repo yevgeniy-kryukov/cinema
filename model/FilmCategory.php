@@ -1,5 +1,8 @@
 <?php
+namespace Cinema\Model;
+
 require_once("DataBase.php");
+
 class FilmCategory 
 {
     // Список всех категорий фильмов

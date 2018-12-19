@@ -1,5 +1,8 @@
 <?php
+namespace Cinema\Model;
+
 require_once("DataBase.php");
+
 class TicketOrder 
 {
     // Информация о заказе с id =  porderid

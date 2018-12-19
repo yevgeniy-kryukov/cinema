@@ -1,7 +1,10 @@
 <?php 
+namespace Cinema;
+
 require_once("model/TicketOrder.php");
 require_once("model/TicketItem.php");
 require_once("model/UtilsMain.php");
+
 $orderid = UtilsMain::sessionGet("Order");
 ?>
 <!DOCTYPE html>

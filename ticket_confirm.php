@@ -1,4 +1,6 @@
 <?php
+    namespace Cinema;
+    
     require_once("model/DataBase.php");
     require_once("model/Utils.php");
     require_once("model/UtilsMain.php");

@@ -1,4 +1,6 @@
 <?php 
+namespace Cinema\Model;
+
 require("config.php"); 
 
 class DataBase 

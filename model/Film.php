@@ -1,5 +1,8 @@
 <?php
+namespace Cinema\Model;
+
 require_once("DataBase.php");
+
 class Film 
 {
     // Топ фильмов по продажам, с фильтром по категории и рейтингу

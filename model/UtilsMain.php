@@ -1,4 +1,6 @@
 <?php
+namespace Cinema\Model;
+
 class UtilsMain 
 {
     public static function requestGet($name, $defval = "") 

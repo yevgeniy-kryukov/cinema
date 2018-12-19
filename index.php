@@ -1,8 +1,12 @@
 <?php
+  namespace Cinema;
+
 	require_once("model/DataBase.php");
 	require_once("model/UtilsMain.php");
 	require_once("model/FilmCategory.php");
   require_once("model/Film.php");
+
+  use Cinema\Model\{DataBase, UtilsMain, FilmCategory, Film};
   
   $link = DataBase::dbConnect();
 

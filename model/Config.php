@@ -1,4 +1,6 @@
 <?php
+namespace Cinema\Model;
+
 define("DBHOST", "localhost");
 define("DBPORT", "5432");
 define("DBUSER", "postgres");
