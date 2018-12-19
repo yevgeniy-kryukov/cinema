@@ -3,17 +3,24 @@ require_once("DataBase.php");
 class FilmCategory 
 {
     // Список всех категорий фильмов
-    public static function CategoryName()
+    public static function categoryList($link = null)
     {
-        $result = DataBase::db_query(null, "SELECT * FROM shm1.filmcategory_query_categoryname()");
-        return $result;
+        $resArr = array();
+        $result = DataBase::dbQuery($link, "SELECT * FROM shm1.filmcategory_query_categoryname()");
+        $resArr = pg_fetch_all($result);
+        return $resArr;
     }
 
-    // Данные категории по id категории
-    public static function CategoryInfo($pidcat, $link = null)
+    // Имя категории по ее id
+    public static function categoryName($pidcat, $link = null)
     {
-        $result = DataBase::db_query($link, "SELECT * FROM shm1.filmcategory WHERE id = $1", array($pidcat));
-        return $result;
+        $catName = "";
+        $result = DataBase::dbQuery($link, "SELECT categoryname FROM shm1.filmcategory WHERE id = $1", array($pidcat));
+        if (pg_num_rows($result) > 0) {
+            $rowCat = pg_fetch_array($result);
+            $catName = $rowCat["categoryname"];
+        }
+        return $catName;
     }
 }
 

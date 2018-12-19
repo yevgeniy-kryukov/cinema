@@ -4,14 +4,14 @@
     require_once("model/UtilsMain.php");
     require_once("model/TicketItem.php");
 
-    $link = DataBase::db_connect();
-    $OrderId = UtilsMain::session_get("Order");
+    $link = DataBase::dbConnect();
+    $OrderId = UtilsMain::sessionGet("Order");
     if ($OrderId != "") { 
-         $result = TicketItem::ShowItemLastCategory($OrderId, $link);
+         $result = TicketItem::showItemLastCategory($OrderId, $link);
          if (pg_num_rows($result) > 0) {
             $row = pg_fetch_array($result);
             $Category = $row["category"];
-            UtilsMain::response_set_cookie("CacheCinemaLastCategory", $Category, time()+60*60*24*7, "/");
+            UtilsMain::responseSetCookie("CacheCinemaLastCategory", $Category, time()+60*60*24*7, "/");
          }
     }
 ?>
@@ -24,12 +24,12 @@
 <body bgcolor="#FFFFFF">
     <?php
         if ($OrderId != ""){
-            $res = Utils::CompleteOrder($OrderId, $link);
+            $res = Utils::completeOrder($OrderId, $link);
             if ($res == 1) {
                 echo "Your order was processed successfully. ";
                 echo "Thank you for using PHP Cinema!<br><br>";
-                if (UtilsMain::request_post("OrderEmail") != "") {
-                    echo Utils::SendEmail(UtilsMain::request_post("OrderEmail"));
+                if (UtilsMain::requestPost("OrderEmail") != "") {
+                    echo Utils::sendEmail(UtilsMain::requestPost("OrderEmail"));
                     echo "Your tickets have been ordered.";
                  } 
             } else {

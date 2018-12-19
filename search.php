@@ -1,6 +1,6 @@
 <?php
 	require_once("model/FilmCategory.php");
-	$result = FilmCategory::CategoryName();
+	$result = FilmCategory::categoryName();
 ?>
 <!DOCTYPE html>
 <html>

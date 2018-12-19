@@ -12,7 +12,7 @@
 <font color="#0000FF" size="+2"><b>Search Results</b></font>
 <table>
 <?php
-	$result = Film::ListFilms(UtilsMain::request_post("CategoryList"), UtilsMain::request_post("RatingList"));
+	$result = Film::ListFilms(UtilsMain::requestPost("CategoryList"), UtilsMain::requestPost("RatingList"));
 	for ($ii = 0; $ii < pg_num_rows($result); $ii++):
 		$row = pg_fetch_array($result, $ii);
 ?>

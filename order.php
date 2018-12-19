@@ -2,7 +2,7 @@
 require_once("model/TicketOrder.php");
 require_once("model/TicketItem.php");
 require_once("model/UtilsMain.php");
-$orderid = UtilsMain::session_get("Order");
+$orderid = UtilsMain::sessionGet("Order");
 ?>
 <!DOCTYPE html>
 <html>
@@ -12,8 +12,8 @@ $orderid = UtilsMain::session_get("Order");
 	<script language="JavaScript" type="text/JavaScript" src="js/jquery-2.1.4.min.js"></script>
 	<script language="JavaScript" type="text/JavaScript" src="js/myAjax.js"></script>
 	<script language="JavaScript">
-		function ChangeQuantity(pitemid, ptickettype, pnewquantity) {
-			var res = serv('order_fn_ajax.php', {fn : 'ChangeQuantity', pitemid : pitemid, ptickettype : ptickettype, pnewquantity : pnewquantity});
+		function changeQuantity(pitemid, ptickettype, pnewquantity) {
+			var res = serv('order_fn_ajax.php', {fn : 'changeQuantity', pitemid : pitemid, ptickettype : ptickettype, pnewquantity : pnewquantity});
 			if(res >= 0) parent.Order.document.OrderTickets.TotalCharge.value = res;
 			else alert("Error " + res);
 		}
@@ -24,8 +24,8 @@ $orderid = UtilsMain::session_get("Order");
 	<img src="img/your_ticket_order.gif" width="248" height="65">
 	<br>
 	<?php
-		$result_ticket_order = TicketOrder::ShowTicketOrder($orderid);
-		$result_ticket_item = TicketItem::ShowItem($orderid);
+		$result_ticket_order = TicketOrder::showTicketOrder($orderid);
+		$result_ticket_item = TicketItem::showItem($orderid);
 		$num = 0;
 	?>
 	<form name="OrderTickets">
@@ -36,7 +36,7 @@ $orderid = UtilsMain::session_get("Order");
 			showing of <?php echo $row_ticket_item["title"]; ?> at <?php echo $row_ticket_item["theatername"]; ?><br>
 			<br>
 			&nbsp;&nbsp;
-			<select name="AdultTickets" onChange="ChangeQuantity(<?php echo $row_ticket_item["id"]; ?>, 1, this.selectedIndex)">
+			<select name="AdultTickets" onChange="changeQuantity(<?php echo $row_ticket_item["id"]; ?>, 1, this.selectedIndex)">
 			<?php for($k = 0; $k <= 9; $k++): ?>
 				<?php if ($row_ticket_item["adulttickets"] == $k): ?>
 					<option selected>
@@ -49,7 +49,7 @@ $orderid = UtilsMain::session_get("Order");
 			Adult Tickets<br>
 			<br>
 			&nbsp;&nbsp;
-			<select name="ChildTickets" onChange="ChangeQuantity(<?php echo $row_ticket_item["id"]; ?>, 2, this.selectedIndex)">
+			<select name="ChildTickets" onChange="changeQuantity(<?php echo $row_ticket_item["id"]; ?>, 2, this.selectedIndex)">
 			<?php for($k = 0; $k <= 9; $k++): ?>
 				<?php if ($row_ticket_item["childtickets"] == $k): ?>
 					<option selected>
@@ -75,7 +75,7 @@ $orderid = UtilsMain::session_get("Order");
 	If you would like confirmation of your order, please enter your email address
 	<form method="post" action="ticket_confirm.php" name="OrderForm">
 		<input type="text" name="OrderEmail" size="35"><br>
-		<input type="submit" name="CompleteOrder" value="Complete Order">
+		<input type="submit" name="completeOrder" value="Complete Order">
 	</form>
 <?php endif ?>
 </body>

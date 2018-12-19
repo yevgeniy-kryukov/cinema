@@ -11,23 +11,23 @@ require_once("PHPMailer/SMTP.php");
 class Utils 
 {
     //.
-    public static function AddShow($pshowid, $porderid)
+    public static function addShow($pshowid, $porderid)
     {
         $res = 0;
-        $result = DataBase::db_query(null, "SELECT shm1.utils_addshow($1,$2) As res", array($pshowid, $porderid));
+        $result = DataBase::dbQuery(null, "SELECT shm1.utils_addshow($1,$2) As res", array($pshowid, $porderid));
         if (pg_num_rows($result) > 0) {
             $row = pg_fetch_array($result, 0);
             $res = $row["res"];
-            if ($res > 0) UtilsMain::session_data("Order", $res);
+            if ($res > 0) UtilsMain::sessionData("Order", $res);
         }
         return $res;
     }
 
     //.
-    public static function ChangeQuantity($pitemid, $ptickettype, $pnewquantity)
+    public static function changeQuantity($pitemid, $ptickettype, $pnewquantity)
     {
         $res = 0;
-        $result = DataBase::db_query(null, "SELECT shm1.utils_changequantity($1,$2,$3) As res", array($pitemid, $ptickettype, $pnewquantity));
+        $result = DataBase::dbQuery(null, "SELECT shm1.utils_changequantity($1,$2,$3) As res", array($pitemid, $ptickettype, $pnewquantity));
         if(pg_num_rows($result) > 0){
             $row = pg_fetch_array($result, 0);
             $res = $row["res"];
@@ -36,10 +36,10 @@ class Utils
     }
 
     //.
-    public static function CompleteOrder($porderid, $link = null)
+    public static function completeOrder($porderid, $link = null)
     {
         $res = 0;
-        $result = DataBase::db_query($link, "SELECT shm1.utils_completeorder($1) As res", array($porderid));
+        $result = DataBase::dbQuery($link, "SELECT shm1.utils_completeorder($1) As res", array($porderid));
         if(pg_num_rows($result) > 0){
             $row = pg_fetch_array($result, 0);
             $res = $row["res"];
@@ -48,7 +48,7 @@ class Utils
     }
 
     //.
-    public static function SendEmail($email)
+    public static function sendEmail($email)
     {
 /*         // Multiple recipients
         $to = 'evgkrukov@gmail.com'; // note the comma

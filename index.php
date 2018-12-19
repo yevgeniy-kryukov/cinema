@@ -1,13 +1,33 @@
+<?php
+	require_once("model/DataBase.php");
+	require_once("model/UtilsMain.php");
+	require_once("model/FilmCategory.php");
+  require_once("model/Film.php");
+  
+  $link = DataBase::dbConnect();
+
+  $resultCatList = FilmCategory::categoryList($link);
+  
+  $catName = "";
+  $catID = UtilsMain::requestGet("category");
+  if ($catID == "") $catID = UtilsMain::requestGetCookie("cacheCinemaLastCategory", "*");  // Если запроса от пользователя еще не было, то используем куки.
+  if ($catID != "*") $catName = FilmCategory::categoryName($catID, $link);
+
+  $rating = UtilsMain::requestGet("rating","*");
+  $resultTop = Film::topFilms($catID, $rating, $link);
+
+  pg_close($link);
+?>
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Cinema">
+    <meta name="author" content="Yevgeniy Kryukov">
     <link rel="icon" href="img/favicon.ico">
 
-    <title>Carousel Template for Bootstrap</title>
+    <title>Cinema</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -19,7 +39,7 @@
 
     <header>
       <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="#">Carousel</a>
+        <a class="navbar-brand" href="#">Cinema</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -36,15 +56,38 @@
             </li>
           </ul>
           <form class="form-inline mt-2 mt-md-0">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            <!--<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->
+
+            <label class="text-light" for="category">Find</label>
+            <select class="form-control mx-2" name="category" id="category" size="1">
+              <option value="*" <?php echo $catID == "*" ? "selected" : ""; ?>>Any Category</option>
+              <?php for($ii = 0; $ii < count($resultCatList); $ii++): 
+                  $rowCatList = $resultCatList[$ii];
+                  if ($rowCatList["id"] == $catID) $sel = "selected";
+                  else $sel = "";
+              ?>
+                <option value="<?php echo $rowCatList["id"]; ?>" <?php echo $sel; ?>><?php echo $rowCatList["categoryname"]; ?></option>
+              <?php endfor ?>
+            </select>
+
+            <label class="text-light" for="rating">movies rated</label>
+            <select class="form-control  mx-2" name="rating" id="rating" size="1">
+              <option value="*" <?php echo $rating == "*" ? "selected" : ""; ?>>Any rating</option>
+              <option <?php echo $rating == "G" ? "selected" : ""; ?>>G</option>
+              <option <?php echo $rating == "PG" ? "selected" : ""; ?>>PG</option>
+              <option <?php echo $rating == "PG13" ? "selected" : ""; ?>>PG-13</option>
+              <option <?php echo $rating == "R" ? "selected" : ""; ?>>R</option>
+            </select>
+
+            <button class="btn btn-info my-2 my-sm-0" type="submit">Go!</button>
+            <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
           </form>
         </div>
       </nav>
     </header>
 
     <main role="main">
-
+      <h1 class="text-center my-2">Today's <?php echo $catName; ?> Top Picks</h1>
       <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
           <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -52,6 +95,24 @@
           <li data-target="#myCarousel" data-slide-to="2"></li>
         </ol>
         <div class="carousel-inner">
+        <?php for($ii = 1; $ii <= 3; $ii++):
+            $rowTop = $resultTop[$ii];
+        ?>
+          <div class="carousel-item <?php echo $ii == 1 ? "active" : ""; ?>">
+            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="<?php echo $ii; ?> slide">
+            <div class="container">
+              <div class="carousel-caption <?php if ($ii == 1) echo "text-left"; elseif ($ii == 3) echo "text-right"; ?>">
+                <h1><?php echo $rowTop["title"]; ?></h1>
+                <p><?php echo $rowTop["description"]; ?></p>
+                <p>Genre <span class="font-weight-bold"><?php echo $rowTop["categoryname"]; ?></span> Length <span class="font-weight-bold"><?php echo $rowTop["length"]; ?> minutes</span> rating <span class="font-weight-bold"><?php echo $rowTop["rating"]; ?></span>.</p>
+                <p><a class="btn btn-lg btn-primary" href="#" role="button">Buy a ticket</a></p>
+              </div>
+            </div>
+          </div>
+        <?php endfor ?>
+        </div>
+
+<!--         <div class="carousel-inner">
           <div class="carousel-item active">
             <img class="first-slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="First slide">
             <div class="container">
@@ -82,7 +143,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
         <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="sr-only">Previous</span>
@@ -127,7 +188,32 @@
 
         <hr class="featurette-divider">
 
+        <?php       
+          for($ii = 3; $ii < count($resultTop); $ii++):
+            $rowTop = $resultTop[$ii];
+            if ($ii%2 == 0) {
+                $orderMD7 = "order-md-2";
+                $orderMD5 = "order-md-1";
+            } else {
+                $orderMD7 = "";
+                $orderMD5 = "";
+            }
+        ?>
         <div class="row featurette">
+          <div class="col-md-7 <?=$orderMD7;?>">
+            <h2 class="featurette-heading"><?php echo $rowTop["title"]; ?>.</h2>
+            <p class="lead"><?php echo $rowTop["description"]; ?>.</p>
+            <p>Genre <span class="font-weight-bold"><?php echo $rowTop["categoryname"]; ?></span> Length <span class="font-weight-bold"><?php echo $rowTop["length"]; ?> minutes</span> rating <span class="font-weight-bold"><?php echo $rowTop["rating"]; ?></span>.</p>
+            <p><a class="btn btn-lg btn-primary" href="#" role="button">Buy a ticket</a></p>
+          </div>
+          <div class="col-md-5 <?=$orderMD5;?>">
+            <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+          </div>
+        </div>
+        <hr class="featurette-divider">
+        <?php endfor ?>
+
+<!--         <div class="row featurette">
           <div class="col-md-7">
             <h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
             <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
@@ -160,8 +246,8 @@
             <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
           </div>
         </div>
-
-        <hr class="featurette-divider">
+ -->
+<!--         <hr class="featurette-divider"> -->
 
         <!-- /END THE FEATURETTES -->
 

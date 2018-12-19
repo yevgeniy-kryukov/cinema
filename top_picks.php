@@ -3,7 +3,7 @@
 	require_once("model/UtilsMain.php");
 	require_once("model/FilmCategory.php");
 	require_once("model/Film.php");
-	$link =  DataBase::db_connect();
+	$link =  DataBase::dbConnect();
 ?>
 <!DOCTYPE html>
 <html>
@@ -13,9 +13,9 @@
 <body>
 <?php
 	$CatName = "";
-	$CatID = UtilsMain::request_get_cookie("CacheCinemaLastCategory");
+	$CatID = UtilsMain::requestGetCookie("CacheCinemaLastCategory");
 	if ($CatID != "") {
-		$result_cat = FilmCategory::CategoryInfo($CatID, $link);
+		$result_cat = FilmCategory::categoryInfo($CatID, $link);
 		if (pg_num_rows($result_cat) > 0) {
 			$row = pg_fetch_array($result_cat, 0);
 			$CatName = $row["categoryname"];
@@ -25,7 +25,7 @@
 		$Query = "TopCategory";
 		$P1 = $CatID;
 	} else {
-		$Query = "TopFilms";
+		$Query = "topFilms";
 		$P1 = "";
 	}
 ?>
@@ -33,7 +33,7 @@
 <table>
 <?php 
 	if ($Query == "TopCategory") $result = Film::TopCategory($P1, $link);
-	else if ($Query == "TopFilms") $result = Film::TopFilms($link);
+	else if ($Query == "topFilms") $result = Film::topFilms($link);
 	for($ii = 0; $ii < pg_num_rows($result); $ii++):
 		$row = pg_fetch_array($result, $ii);
 ?>
