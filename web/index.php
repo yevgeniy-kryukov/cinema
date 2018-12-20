@@ -1,21 +1,22 @@
 <?php
-	require_once("model/DataBase.php");
-	require_once("model/UtilsMain.php");
-	require_once("model/FilmCategory.php");
-  require_once("model/Film.php");
+	require_once("../util/DataBase.php");
+	require_once("../util/Main.php");
+	require_once("../model/FilmCategory.php");
+  require_once("../model/Film.php");
 
-  use Cinema\Model\{DataBase, UtilsMain, FilmCategory, Film};
+  use cinema\model\{FilmCategory, Film};
+  use cinema\util\{DataBase, Main};
   
   $link = DataBase::dbConnect();
 
   $resultCatList = FilmCategory::categoryList($link);
   
   $catName = "";
-  $catID = UtilsMain::requestGet("category");
-  if ($catID == "") $catID = UtilsMain::requestGetCookie("cacheCinemaLastCategory", "*");  // Если запроса от пользователя еще не было, то используем куки.
+  $catID = Main::requestGet("category");
+  if ($catID == "") $catID = Main::requestGetCookie("cacheCinemaLastCategory", "*");  // Если запроса от пользователя еще не было, то используем куки.
   if ($catID != "*") $catName = FilmCategory::categoryName($catID, $link);
 
-  $rating = UtilsMain::requestGet("rating","*");
+  $rating = Main::requestGet("rating","*");
   $resultTop = Film::topFilms($catID, $rating, $link);
 
   pg_close($link);

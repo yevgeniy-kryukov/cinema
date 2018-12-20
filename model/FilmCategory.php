@@ -1,7 +1,9 @@
 <?php
-namespace Cinema\Model;
+namespace cinema\model;
 
-require_once("DataBase.php");
+require_once("../util/DataBase.php");
+
+use cinema\util\DataBase;
 
 class FilmCategory 
 {

@@ -1,7 +1,7 @@
 <?php
-namespace Cinema\Model;
+namespace cinema\util;
 
-class UtilsMain 
+class Main 
 {
     public static function requestGet($name, $defval = "") 
     {

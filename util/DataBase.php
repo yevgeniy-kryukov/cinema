@@ -1,7 +1,7 @@
 <?php 
-namespace Cinema\Model;
+namespace cinema\util;
 
-require("config.php"); 
+require("../config/db.php"); 
 
 class DataBase 
 {
