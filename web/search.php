@@ -1,6 +1,4 @@
 <?php
-	namespace Cinema;
-
 	require_once("model/FilmCategory.php");
 	
 	$result = FilmCategory::categoryName();

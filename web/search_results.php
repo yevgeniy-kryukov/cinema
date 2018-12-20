@@ -1,6 +1,4 @@
 <?php
-	namespace Cinema;
-	
 	require_once("model/UtilsMain.php");
 	require_once("model/Film.php");
 ?>
