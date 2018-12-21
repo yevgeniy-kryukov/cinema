@@ -1,11 +1,13 @@
 <?php 
 namespace cinema\model;
 
-require_once("../util/DataBase.php");
+/* require_once("../util/DataBase.php");
 require_once("../util/Main.php");
 require_once("../vendor/PHPMailer/Exception.php");
 require_once("../vendor/PHPMailer/PHPMailer.php");
-require_once("../vendor/PHPMailer/SMTP.php");
+require_once("../vendor/PHPMailer/SMTP.php"); */
+
+require_once("../autoloader.php");
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;

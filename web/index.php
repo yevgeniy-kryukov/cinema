@@ -1,8 +1,9 @@
 <?php
-	require_once("../util/DataBase.php");
+/* 	require_once("../util/DataBase.php");
 	require_once("../util/Main.php");
 	require_once("../model/FilmCategory.php");
-  require_once("../model/Film.php");
+  require_once("../model/Film.php"); */
+  require_once("../autoloader.php");
 
   use cinema\model\{FilmCategory, Film};
   use cinema\util\{DataBase, Main};
