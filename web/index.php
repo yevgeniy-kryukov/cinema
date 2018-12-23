@@ -1,26 +1,28 @@
 <?php
-/* 	require_once("../util/DataBase.php");
-	require_once("../util/Main.php");
-	require_once("../model/FilmCategory.php");
-  require_once("../model/Film.php"); */
-  require_once("../autoloader.php");
+require_once "../autoloader.php";
 
-  use cinema\model\{FilmCategory, Film};
-  use cinema\util\{DataBase, Main};
-  
-  $link = DataBase::dbConnect();
+use cinema\model\{FilmCategory, Film};
+use cinema\util\{DataBase, Main};
 
-  $resultCatList = FilmCategory::categoryList($link);
-  
-  $catName = "";
-  $catID = Main::requestGet("category");
-  if ($catID == "") $catID = Main::requestGetCookie("cacheCinemaLastCategory", "*");  // Если запроса от пользователя еще не было, то используем куки.
-  if ($catID != "*") $catName = FilmCategory::categoryName($catID, $link);
+$link = DataBase::dbConnect();
 
-  $rating = Main::requestGet("rating","*");
-  $resultTop = Film::topFilms($catID, $rating, $link);
+$resultCatList = FilmCategory::categoryList($link);
 
-  pg_close($link);
+$catName = "";
+$catID = Main::requestGet("category");
+
+if ($catID == "") {
+    // Если запроса от пользователя еще не было, то используем куки.
+    $catID = Main::requestGetCookie("cacheCinemaLastCategory", "*");  
+}
+if ($catID != "*") { 
+    $catName = FilmCategory::categoryName($catID, $link); 
+}
+
+$rating = Main::requestGet("rating", "*");
+$resultTop = Film::topFilms($catID, $rating, $link);
+
+pg_close($link);
 ?>
 <!doctype html>
 <html lang="en">
@@ -65,13 +67,16 @@
             <label class="text-light" for="category">Find</label>
             <select class="form-control mx-2" name="category" id="category" size="1">
               <option value="*" <?php echo $catID == "*" ? "selected" : ""; ?>>Any Category</option>
-              <?php for($ii = 0; $ii < count($resultCatList); $ii++): 
-                  $rowCatList = $resultCatList[$ii];
-                  if ($rowCatList["id"] == $catID) $sel = "selected";
-                  else $sel = "";
-              ?>
+                <?php for($ii = 0; $ii < count($resultCatList); $ii++): 
+                    $rowCatList = $resultCatList[$ii];
+                    if ($rowCatList["id"] == $catID) {
+                        $sel = "selected";
+                    } else {
+                        $sel = "";
+                    }
+                    ?>
                 <option value="<?php echo $rowCatList["id"]; ?>" <?php echo $sel; ?>><?php echo $rowCatList["categoryname"]; ?></option>
-              <?php endfor ?>
+                <?php endfor ?>
             </select>
 
             <label class="text-light" for="rating">movies rated</label>
@@ -101,11 +106,19 @@
         <div class="carousel-inner">
         <?php for($ii = 1; $ii <= 3; $ii++):
             $rowTop = $resultTop[$ii];
-        ?>
+            ?>
           <div class="carousel-item <?php echo $ii == 1 ? "active" : ""; ?>">
             <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="<?php echo $ii; ?> slide">
             <div class="container">
-              <div class="carousel-caption <?php if ($ii == 1) echo "text-left"; elseif ($ii == 3) echo "text-right"; ?>">
+              <div class="carousel-caption 
+                <?php 
+                if ($ii == 1) { 
+                     echo "text-left"; 
+                } elseif ($ii == 3) { 
+                     echo "text-right"; 
+                } 
+                ?>
+                ">
                 <h1><?php echo $rowTop["title"]; ?></h1>
                 <p><?php echo $rowTop["description"]; ?></p>
                 <p>Genre <span class="font-weight-bold"><?php echo $rowTop["categoryname"]; ?></span> Length <span class="font-weight-bold"><?php echo $rowTop["length"]; ?> minutes</span> rating <span class="font-weight-bold"><?php echo $rowTop["rating"]; ?></span>.</p>
@@ -193,7 +206,7 @@
         <hr class="featurette-divider">
 
         <?php       
-          for($ii = 3; $ii < count($resultTop); $ii++):
+        for ($ii = 3; $ii < count($resultTop); $ii++):
             $rowTop = $resultTop[$ii];
             if ($ii%2 == 0) {
                 $orderMD7 = "order-md-2";
@@ -202,15 +215,15 @@
                 $orderMD7 = "";
                 $orderMD5 = "";
             }
-        ?>
+            ?>
         <div class="row featurette">
-          <div class="col-md-7 <?=$orderMD7;?>">
+          <div class="col-md-7 <?php echo $orderMD7; ?>">
             <h2 class="featurette-heading"><?php echo $rowTop["title"]; ?>.</h2>
             <p class="lead"><?php echo $rowTop["description"]; ?>.</p>
             <p>Genre <span class="font-weight-bold"><?php echo $rowTop["categoryname"]; ?></span> Length <span class="font-weight-bold"><?php echo $rowTop["length"]; ?> minutes</span> rating <span class="font-weight-bold"><?php echo $rowTop["rating"]; ?></span>.</p>
             <p><a class="btn btn-lg btn-primary" href="#" role="button">Buy a ticket</a></p>
           </div>
-          <div class="col-md-5 <?=$orderMD5;?>">
+          <div class="col-md-5 <?php echo $orderMD5; ?>">
             <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
           </div>
         </div>
@@ -268,7 +281,7 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-	<script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->

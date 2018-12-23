@@ -1,9 +1,6 @@
 <?php
 namespace cinema\model;
 
-//require_once("../util/DataBase.php");
-require_once("../autoloader.php");
-
 use cinema\util\DataBase;
 
 class Film 

@@ -1,14 +1,6 @@
 <?php 
 namespace cinema\model;
 
-/* require_once("../util/DataBase.php");
-require_once("../util/Main.php");
-require_once("../vendor/PHPMailer/Exception.php");
-require_once("../vendor/PHPMailer/PHPMailer.php");
-require_once("../vendor/PHPMailer/SMTP.php"); */
-
-require_once("../autoloader.php");
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -32,7 +24,7 @@ class Utils
     {
         $res = 0;
         $result = DataBase::dbQuery(null, "SELECT shm1.utils_changequantity($1,$2,$3) As res", array($pitemid, $ptickettype, $pnewquantity));
-        if(pg_num_rows($result) > 0){
+        if (pg_num_rows($result) > 0) {
             $row = pg_fetch_array($result, 0);
             $res = $row["res"];
         }
@@ -44,7 +36,7 @@ class Utils
     {
         $res = 0;
         $result = DataBase::dbQuery($link, "SELECT shm1.utils_completeorder($1) As res", array($porderid));
-        if(pg_num_rows($result) > 0){
+        if (pg_num_rows($result) > 0) {
             $row = pg_fetch_array($result, 0);
             $res = $row["res"];
         }
