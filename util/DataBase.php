@@ -1,14 +1,21 @@
 <?php 
+/**
+ * Class for working with the database
+ * 
+ * @author    Yevgeniy Kryukov <evgkrukov@gmail.com>
+ * @copyright 2018 - 2019 Yevgeniy Kryukov
+ */
+
 namespace cinema\util;
 
 /**
- * DataBase
+ * Class for working with the database
  * 
  */
 class DataBase
 {
     /**
-     * Поключаемся к БД 
+     * Сonnect to the database
      * 
      * @return $link resource
      */
@@ -22,18 +29,18 @@ class DataBase
             ." password=".DBPASS
         );
         if (!$link) {
-            exit("An error occurred while connecting to PostgreSQL\n");
+            exit("An error occurred while connecting to database\n");
         } else {
             $stat = pg_connection_status($link);
             if ($stat === PGSQL_CONNECTION_BAD) { 
-                exit("PostgreSQL connection lost\n"); 
+                exit("Database connection lost\n"); 
             }
         }
         return $link;
     }
 
     /**
-     * Выполняем запрос к БД
+     * Execute database query
      * 
      * @param resource   $link1  database connection
      * @param string     $squery query text
@@ -54,7 +61,7 @@ class DataBase
             $result = pg_query_params($link, $squery, $apar);
         }
         if (!$result) {
-            exit("Error executing query to PostgreSQL");
+            exit("Error executing query to database");
         }
         if ($link1 == null) { 
             pg_close($link); 
