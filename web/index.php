@@ -122,7 +122,7 @@ pg_close($link);
                 <h1><?php echo $rowTop["title"]; ?></h1>
                 <p><?php echo $rowTop["description"]; ?></p>
                 <p>Genre <span class="font-weight-bold"><?php echo $rowTop["categoryname"]; ?></span> Length <span class="font-weight-bold"><?php echo $rowTop["length"]; ?> minutes</span> rating <span class="font-weight-bold"><?php echo $rowTop["rating"]; ?></span>.</p>
-                <p><a class="btn btn-lg btn-primary" href="#" role="button">Buy a ticket</a></p>
+                <p><a class="btn btn-lg btn-primary" href="show_times.php?filmID=<?php echo $rowTop["id"]; ?>" role="button">Buy a ticket</a></p>
               </div>
             </div>
           </div>
@@ -221,7 +221,7 @@ pg_close($link);
             <h2 class="featurette-heading"><?php echo $rowTop["title"]; ?>.</h2>
             <p class="lead"><?php echo $rowTop["description"]; ?>.</p>
             <p>Genre <span class="font-weight-bold"><?php echo $rowTop["categoryname"]; ?></span> Length <span class="font-weight-bold"><?php echo $rowTop["length"]; ?> minutes</span> rating <span class="font-weight-bold"><?php echo $rowTop["rating"]; ?></span>.</p>
-            <p><a class="btn btn-lg btn-primary" href="#" role="button">Buy a ticket</a></p>
+            <p><a class="btn btn-lg btn-primary" href="show_times.php?filmID=<?php echo $rowTop["id"]; ?>" role="button">Buy a ticket</a></p>
           </div>
           <div class="col-md-5 <?php echo $orderMD5; ?>">
             <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">

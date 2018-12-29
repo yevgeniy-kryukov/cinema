@@ -10,15 +10,22 @@ class Film
     {
         $resArr = array();
         $result = DataBase::dbQuery($link, "SELECT * FROM shm1.film_query_top_films($1, $2)", array($pcat, $prat));
-        $resArr = pg_fetch_all($result);
+        if (pg_num_rows($result) > 0) {
+            $resArr = pg_fetch_all($result);
+        }
         return $resArr;
     }
 
-    //.
-    public static function infoFilm($pidfilm, $link = null)
+    // Возвращает название фильма по его id
+    public static function titleFilm($pidfilm, $link = null)
     {
-        $result = DataBase::dbQuery($link, "SELECT * FROM shm1.film WHERE id = $1", array($pidfilm));
-        return $result;
+        $title = "";
+        $result = DataBase::dbQuery($link, "SELECT title FROM shm1.film WHERE id = $1", array($pidfilm));
+        if (pg_num_rows($result) > 0) {
+            $row = pg_fetch_array($result);
+            $title = $row["title"];
+        }
+        return $title;
     }
 }
 

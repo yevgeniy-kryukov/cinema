@@ -1,60 +1,73 @@
 <?php
-	require_once("model/UtilsMain.php");
-	require_once("model/Utils.php");
-	require_once("model/DataBase.php");
-	require_once("model/Film.php");
-	require_once("model/Show.php");
+require_once "../autoloader.php";
 
-	$title_film = "";
-	$link = DataBase::dbConnect();
-	$result_film = Film::infoFilm(UtilsMain::requestGet("FilmID"), $link);
-	if (pg_num_rows($result_film) > 0) {
-		$row_film = pg_fetch_array($result_film, 0);
-		$title_film = $row_film["title"];
-	}
+use cinema\model\{Film, Show};
+use cinema\util\{DataBase, Main};
+
+$link = DataBase::dbConnect();
+$filmID = Main::requestGet("filmID");
+$titleFilm = "";
+
+$titleFilm = Film::titleFilm($filmID, $link);
+$resultShow = Show::showTimes($filmID, $link); 
+
+pg_close($link);
 ?>
 <DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-	<script language="JavaScript" type="text/JavaScript" src="js/jquery-2.1.4.min.js"></script>
-	<script language="JavaScript" type="text/JavaScript" src="js/myAjax.js"></script>
-	<script language="JavaScript">
-		function addShow(showid){
-			var res = serv('show_times_fn_ajax.php', {fn : 'addShow', showid : showid});
-			if(res > 0) {
-				parent.Order.location="order.php";
-			} else {
-				alert("Error " + res);
-			}
-			return false;
-		}
-	</script>
-	<title>Cinema PHP Show Times</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Cinema">
+    <meta name="author" content="Yevgeniy Kryukov">
+    <link rel="icon" href="img/favicon.ico">
+	<title>Cinema Show Times</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body bgcolor="#FFFFFF">
-<font color="#0000FF" size="+2"><b>Today's Show Times for <nobr><?php echo $title_film; ?></nobr></b></font>
-<table cellpadding="5">
-	<tr>
-		<td><b>Time</b></td>
-		<td><b>Theater</b></td>
-		<td align="center">&nbsp;</td>
-	</tr>
-<?php
-	$result_show = Show::showTimes(UtilsMain::requestGet("FilmID"), $link); 
-	for($ii = 0; $ii < pg_num_rows($result_show); $ii++): 
-		$row_show = pg_fetch_array($result_show, $ii);
-?>
-	<tr>
-		<td><?php echo $row_show["starttime_disp"]; ?></td>
-		<td><?php echo $row_show["theatername"]; ?></td>
-		<td align="center">
-			<a href="#click" onClick="addShow(<?php echo $row_show["id"]; ?>)">
-			<img src="img/tickets.gif" width="130" height="39" border="0" alt="Click to order tickets for this show"></a>
-		</td>
-	</tr>
-<?php endfor ?>
-</table>
+<body>
+
+	<h3>Today's Show Times for <?php echo $titleFilm; ?></h3>
+	<table class="table table-hover">
+		<thead class="thead-dark">
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Time</th>
+				<th scope="col">Theater</b></th>
+				<th scope="col">&nbsp;</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php
+			for($ii = 0; $ii < count($resultShow); $ii++): 
+				$rowShow = $resultShow[$ii];
+			?>
+			<tr>
+				<td scope="row"><?php echo $ii + 1; ?></td>
+				<td><?php echo $rowShow["starttime_disp"]; ?></td>
+				<td><?php echo $rowShow["theatername"]; ?></td>
+				<td align="center">
+					<a href="ticket_to_order.php?showID=<?php echo $rowShow["id"]; ?>">
+						<img src="img/tickets.gif" width="130" height="39" border="0" alt="Click to book tickets for this show">
+					</a>
+				</td>
+			</tr>
+			<?php 
+			endfor 
+			?>
+		</tbody>
+	</table>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="js/holder.min.js"></script>
+	<script language="JavaScript" type="text/JavaScript" src="js/myAjax.js"></script>
+
 </body>
 </html>
-<?php pg_close($link); ?>
