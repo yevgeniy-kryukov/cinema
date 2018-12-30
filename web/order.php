@@ -23,7 +23,7 @@ pg_close($link);
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Cinema">
     <meta name="author" content="Yevgeniy Kryukov">
-    <link rel="icon" href="img/favicon.ico">
+    <link rel="icon" href="img/cinema.ico">
 	<script language="JavaScript">
 		function changeQuantity(pitemid, ptickettype, pnewquantity) {
 			var res = serv('order_fn_ajax.php', { fn : 'changeQuantity', pitemid : pitemid, ptickettype : ptickettype, pnewquantity : pnewquantity });

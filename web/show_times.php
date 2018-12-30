@@ -13,15 +13,15 @@ $resultShow = Show::showTimes($filmID, $link);
 
 pg_close($link);
 ?>
-<DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
+	<title>Cinema Show Times</title>
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Cinema">
     <meta name="author" content="Yevgeniy Kryukov">
-    <link rel="icon" href="img/favicon.ico">
-	<title>Cinema Show Times</title>
+    <link rel="icon" href="img/cinema.ico">
 
 	<!-- Bootstrap core CSS -->
 	<link href="css/bootstrap.min.css" rel="stylesheet">

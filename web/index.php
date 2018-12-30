@@ -24,14 +24,14 @@ $resultTop = Film::topFilms($catID, $rating, $link);
 
 pg_close($link);
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Cinema">
     <meta name="author" content="Yevgeniy Kryukov">
-    <link rel="icon" href="img/favicon.ico">
+    <link rel="icon" href="img/cinema.ico">
 
     <title>Cinema</title>
 
