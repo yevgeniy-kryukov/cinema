@@ -40,12 +40,21 @@ pg_close($link);
 
     <!-- Custom styles for this template -->
     <link href="css/carousel.css" rel="stylesheet">
+
+    <script language="JavaScript">
+      function signOut() 
+      {
+        var res = serv('index_fn_ajax.php', { fn : 'signOut' });
+			  if (res > 0) window.location = "index.php";
+			  else alert("Error " + res);
+      }
+      </script>
   </head>
   <body>
 
     <header>
-      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="#">Cinema</a>
+      <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="#"><img src="img/cinema.png" alt="" width="24" height="24"> Cinema</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -55,42 +64,54 @@ pg_close($link);
               <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Link</a>
+              <a class="nav-link" href="about.php">About</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link disabled" href="#">Disabled</a>
+              <a class="nav-link" href="contact.php">Contact</a>
             </li>
           </ul>
-          <form class="form-inline mt-2 mt-md-0">
-            <!--<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">-->
-
-            <label class="text-light" for="category">Find</label>
-            <select class="form-control mx-2" name="category" id="category" size="1">
-              <option value="*" <?php echo $catID == "*" ? "selected" : ""; ?>>Any Category</option>
-                <?php for($ii = 0; $ii < count($resultCatList); $ii++): 
-                    $rowCatList = $resultCatList[$ii];
-                    if ($rowCatList["id"] == $catID) {
-                        $sel = "selected";
-                    } else {
-                        $sel = "";
-                    }
-                    ?>
-                <option value="<?php echo $rowCatList["id"]; ?>" <?php echo $sel; ?>><?php echo $rowCatList["categoryname"]; ?></option>
-                <?php endfor ?>
-            </select>
-
-            <label class="text-light" for="rating">movies rated</label>
-            <select class="form-control  mx-2" name="rating" id="rating" size="1">
-              <option value="*" <?php echo $rating == "*" ? "selected" : ""; ?>>Any rating</option>
-              <option <?php echo $rating == "G" ? "selected" : ""; ?>>G</option>
-              <option <?php echo $rating == "PG" ? "selected" : ""; ?>>PG</option>
-              <option <?php echo $rating == "PG13" ? "selected" : ""; ?>>PG-13</option>
-              <option <?php echo $rating == "R" ? "selected" : ""; ?>>R</option>
-            </select>
-
-            <button class="btn btn-info my-2 my-sm-0" type="submit">Go!</button>
-            <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>-->
+          &nbsp;
+          <form class="form-inline mr-5">
+            <div class="form-group">
+              <label class="text-light" for="category">Find</label>
+              <select class="form-control-sm mx-2" name="category" id="category" size="1">
+                <option value="*" <?php echo $catID == "*" ? "selected" : ""; ?>>Any Category</option>
+                  <?php for($ii = 0; $ii < count($resultCatList); $ii++): 
+                      $rowCatList = $resultCatList[$ii];
+                      if ($rowCatList["id"] == $catID) {
+                          $sel = "selected";
+                      } else {
+                          $sel = "";
+                      }
+                      ?>
+                  <option value="<?php echo $rowCatList["id"]; ?>" <?php echo $sel; ?>><?php echo $rowCatList["categoryname"]; ?></option>
+                  <?php endfor ?>
+              </select>
+              <label class="text-light" for="rating">movies rated</label>
+              <select class="form-control-sm  mx-2" name="rating" id="rating" size="1">
+                <option value="*" <?php echo $rating == "*" ? "selected" : ""; ?>>Any rating</option>
+                <option <?php echo $rating == "G" ? "selected" : ""; ?>>G</option>
+                <option <?php echo $rating == "PG" ? "selected" : ""; ?>>PG</option>
+                <option <?php echo $rating == "PG13" ? "selected" : ""; ?>>PG-13</option>
+                <option <?php echo $rating == "R" ? "selected" : ""; ?>>R</option>
+              </select>
+              <button class="btn btn-sm btn-info" type="submit">Go!</button>
+            </div>
           </form>
+          &nbsp;
+          <?php if (Main::sessionGet("userID", 0) == 0): ?>
+            <div><a class="btn btn-sm btn-primary" href="signin.php">Sign in</a></div>
+          <?php else: ?>
+            <div class="dropdown">
+              <button class="btn btn-success btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <?php echo Main::sessionGet("userEmail"); ?>
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="order_list.php">Orders</a>
+                <a class="dropdown-item" href="#click" onClick="signOut()">Sign out</a>
+              </div>
+            </div>
+          <?php endif ?>
         </div>
       </nav>
     </header>
@@ -286,5 +307,6 @@ pg_close($link);
     <script src="js/bootstrap.min.js"></script>
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
     <script src="js/holder.min.js"></script>
+    <script language="JavaScript" type="text/JavaScript" src="js/myAjax.js"></script>
   </body>
 </html>

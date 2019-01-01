@@ -1,7 +1,7 @@
 <?php   
 require_once "../autoloader.php";
 
-use cinema\model\Utils;
+use cinema\security\UserApp;
 use cinema\util\Main;
 
 $fn = Main::requestGet("fn");
@@ -10,9 +10,8 @@ if ($fn == "") { $err = "No function name!"; }
 if ($err != "") { echo $err; }
 else {
     switch($fn) {
-        case "addShow":
-            echo Utils::addShow(Main::sessionGet("userID"), Main::requestGet("showID"), Main::sessionGet("orderID", -1),
-                                 Main::requestGet("adultTickets"), Main::requestGet("childTickets"));
+        case "signOut":
+            echo UserApp::signOut();
             break;
         default:
             echo "Not found function " . $fn . "!";

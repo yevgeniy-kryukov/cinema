@@ -25,12 +25,14 @@ pg_close($link);
     <meta name="author" content="Yevgeniy Kryukov">
     <link rel="icon" href="img/cinema.ico">
 	<script language="JavaScript">
-		function changeQuantity(pitemid, ptickettype, pnewquantity) {
+		function changeQuantity(pitemid, ptickettype, pnewquantity) 
+		{
 			var res = serv('order_fn_ajax.php', { fn : 'changeQuantity', pitemid : pitemid, ptickettype : ptickettype, pnewquantity : pnewquantity });
 			if (res >= 0) document.orderTickets.totalCharge.value = res;
 			else alert("Error " + res);
 		}
-		function removeFromOrder(pitemid) {
+		function removeFromOrder(pitemid) 
+		{
 			if (!confirm("Do you really want to remove from the order?")) return;
 			var res = serv('order_fn_ajax.php', { fn : 'removeItem', pitemid : pitemid });
 			if (res >= 0) $( "#orderItem" + pitemid ).remove();

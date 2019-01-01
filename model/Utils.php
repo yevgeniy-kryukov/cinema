@@ -8,10 +8,10 @@ use PHPMailer\PHPMailer\Exception;
 class Utils 
 {
     //.
-    public static function addShow($pshowid, $porderid, $link = null, $patickets = 2, $pctickets = 0)
+    public static function addShow($puserid, $pshowid, $porderid, $patickets, $pctickets, $link = null)
     {
         $res = 0;
-        $result = DataBase::dbQuery($link, "SELECT shm1.utils_addshow($1, $2, $3, $4) As res", array($pshowid, $porderid, $patickets, $pctickets));
+        $result = DataBase::dbQuery($link, "SELECT shm1.utils_addshow($1, $2, $3, $4, $5) As res", array($puserid, $pshowid, $porderid, $patickets, $pctickets));
         if (pg_num_rows($result) > 0) {
             $row = pg_fetch_array($result, 0);
             $res = $row["res"];
