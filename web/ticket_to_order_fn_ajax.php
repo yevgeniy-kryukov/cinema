@@ -1,7 +1,7 @@
 <?php   
 require_once "../autoloader.php";
 
-use cinema\model\Utils;
+use cinema\model\{TicketOrder, TicketItem};
 use cinema\util\Main;
 
 $fn = Main::requestGet("fn");
@@ -10,8 +10,11 @@ if ($fn == "") { $err = "No function name!"; }
 if ($err != "") { echo $err; }
 else {
     switch($fn) {
-        case "addShow":
-            echo Utils::addShow(Main::sessionGet("userID"), Main::requestGet("showID"), Main::sessionGet("orderID", -1),
+        case "getOrderID":
+            echo TicketOrder::getOrderID(Main::sessionGet("userID"));
+            break;
+        case "addItem":
+            echo TicketItem::addItem(Main::sessionGet("userID"), Main::requestGet("showID"), Main::requestGet("orderID"),
                                  Main::requestGet("adultTickets"), Main::requestGet("childTickets"));
             break;
         default:

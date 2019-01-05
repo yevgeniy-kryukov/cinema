@@ -1,22 +1,19 @@
 <?php
 require_once "../autoloader.php";
 
-use cinema\model\{Film, Show};
+use cinema\model\TicketOrder;
 use cinema\util\{DataBase, Main};
 
-$link = DataBase::dbConnect();
-$filmID = Main::requestGet("filmID");
-$titleFilm = "";
+$userID = Main::sessionGet("userID");
+$userEmail = Main::sessionGet("userEmail");
 
-$titleFilm = Film::titleFilm($filmID, $link);
-$resultShow = Show::showTimes($filmID, $link); 
+$resultShowUserOrders = TicketOrder::showUserOrders($userID);
 
-pg_close($link);
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Cinema Show Times</title>
+	<title>Cinema Show User Orders</title>
 	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Cinema">
@@ -28,29 +25,29 @@ pg_close($link);
 </head>
 <body>
 
-	<h3>Today's Show Times for <?php echo $titleFilm; ?></h3>
+	<h3>Show user orders <?php echo $userEmail; ?></h3>
 	<table class="table table-hover">
 		<thead class="thead-dark">
 			<tr>
 				<th scope="col">#</th>
-				<th scope="col">Time</th>
-				<th scope="col">Theater</th>
+				<th scope="col">Order date</th>
+				<th scope="col">Total order amount</th>
+				<th scope="col">Order completed</th>
 				<th scope="col">&nbsp;</th>
 			</tr>
 		</thead>
 		<tbody>
 			<?php
-			for($ii = 0; $ii < count($resultShow); $ii++): 
-				$rowShow = $resultShow[$ii];
+			for($ii = 0; $ii < count($resultShowUserOrders); $ii++): 
+				$rowShowUserOrders = $resultShowUserOrders[$ii];
 			?>
 			<tr>
 				<td scope="row"><?php echo $ii + 1; ?></td>
-				<td><?php echo $rowShow["starttime_disp"]; ?></td>
-				<td><?php echo $rowShow["theatername"]; ?></td>
+				<td><?php echo $rowShowUserOrders["order_date"]; ?></td>
+				<td><?php echo $rowShowUserOrders["total"]; ?></td>
+				<td><?php echo $rowShowUserOrders["complete"]; ?></td>
 				<td align="center">
-					<a href="ticket_to_order.php?showID=<?php echo $rowShow["id"]; ?>">
-						<img src="img/tickets.gif" width="130" height="39" border="0" alt="Click to book tickets for this show">
-					</a>
+					<a class="btn btn-primary" href="order.php?orderID=<?php echo $rowShowUserOrders["id"]; ?>" role="button">Go to order</a>
 				</td>
 			</tr>
 			<?php 

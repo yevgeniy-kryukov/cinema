@@ -13,7 +13,7 @@ $catID = Main::requestGet("category");
 
 if ($catID == "") {
     // Если запроса от пользователя еще не было, то используем куки.
-    $catID = Main::requestGetCookie("cacheCinemaLastCategory", "*");  
+    $catID = Main::requestGetCookie("cinemaLastCategory", "*");  
 }
 if ($catID != "*") { 
     $catName = FilmCategory::categoryName($catID, $link); 
@@ -107,7 +107,7 @@ pg_close($link);
                 <?php echo Main::sessionGet("userEmail"); ?>
               </button>
               <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="order_list.php">Orders</a>
+                <a class="dropdown-item" href="show_user_orders.php">Orders</a>
                 <a class="dropdown-item" href="#click" onClick="signOut()">Sign out</a>
               </div>
             </div>

@@ -1,42 +1,17 @@
 <?php 
 namespace cinema\model;
 
-use cinema\util\{DataBase, Main};
+use cinema\util\DataBase;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 class Utils 
 {
     //.
-    public static function addShow($puserid, $pshowid, $porderid, $patickets, $pctickets, $link = null)
-    {
-        $res = 0;
-        $result = DataBase::dbQuery($link, "SELECT shm1.utils_addshow($1, $2, $3, $4, $5) As res", array($puserid, $pshowid, $porderid, $patickets, $pctickets));
-        if (pg_num_rows($result) > 0) {
-            $row = pg_fetch_array($result, 0);
-            $res = $row["res"];
-            if ($res > 0) Main::sessionData("orderID", $res);
-        }
-        return $res;
-    }
-
-    //.
     public static function changeQuantity($pitemid, $ptickettype, $pnewquantity)
     {
-        $res = 0;
+        $res = -101;
         $result = DataBase::dbQuery(null, "SELECT shm1.utils_changequantity($1, $2, $3) As res", array($pitemid, $ptickettype, $pnewquantity));
-        if (pg_num_rows($result) > 0) {
-            $row = pg_fetch_array($result, 0);
-            $res = $row["res"];
-        }
-        return $res;
-    }
-
-    //.
-    public static function completeOrder($porderid, $link = null)
-    {
-        $res = 0;
-        $result = DataBase::dbQuery($link, "SELECT shm1.utils_completeorder($1) As res", array($porderid));
         if (pg_num_rows($result) > 0) {
             $row = pg_fetch_array($result, 0);
             $res = $row["res"];
@@ -125,11 +100,11 @@ class Utils
                 echo 'Ошибка: ' . $mail->ErrorInfo;
             } */
             $mail->send();
-            echo 'Message has been sent.';
-            //return 1;
+            //echo 'Message has been sent.';
+            return 1;
         } catch(Exception $e) {
-            echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo . ".";
-            //return 0;
+            //echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo . ".";
+            return 0;
         }
     }
 }

@@ -22,32 +22,43 @@ pg_close($link);
     <meta name="author" content="Yevgeniy Kryukov">
     <link rel="icon" href="img/cinema.ico">
 	<script language="JavaScript">
-    function addShow()
+    function addItem()
     {
-        var body = "";
-        var footer = "";
-        var jobj = { fn : 'addShow', showID : <?php echo $showID; ?>, 
-                     adultTickets : document.getElementById("adultTickets").value, 
-                     childTickets : document.getElementById("childTickets").value };
-        var res = serv('ticket_to_order_fn_ajax.php', jobj);
-        if(res > 0) {
-            body = "Ticket added to order successfully.";
-            footer = '<a class="btn btn-primary" href="order.php" role="button">Complete order</a>' +
+        var adultTickets = document.tickets.adultTickets.value;
+        var childTickets = document.tickets.childTickets.value;
+        if ( (adultTickets == 0) && (childTickets == 0) ) {
+            alert("Error: not specified number of tickets.");
+            return;
+        } 
+        var orderID = serv('ticket_to_order_fn_ajax.php', { fn : "getOrderID" });
+        if (orderID > 0) { 
+            var body = "";
+            var footer = "";
+            var par = "?orderID=" + orderID;
+            var jobj = { fn : 'addItem', showID : <?php echo $showID; ?>, orderID : orderID,
+                        adultTickets : adultTickets, childTickets : childTickets };
+            var res = serv('ticket_to_order_fn_ajax.php', jobj);
+            if (res > 0) {
+                body = "Ticket added to order successfully.";
+                footer = '<a class="btn btn-primary" href="order.php' + par +'" role="button">Complete order</a>' +
                         '<a class="btn btn-primary" href="index.php" role="button">Back to movie selection</a>';
-        } else { 
-            if (res == -100) {
-                body = "You have already added this show to your order. The number of tickets can be changed in the order.";
-                footer = '<a class="btn btn-primary" href="order.php" role="button">Complete order</a>' +
-                        '<a class="btn btn-primary" href="index.php" role="button">Back to movie selection</a>';
-            } else {
-                body = "It was not possible to add a ticket to the order. Error #" + res;
-                footer = '<button type="button" class="btn btn-primary" data-dismiss="modal">Try again</button>';
+            } else { 
+                if (res == -5) {
+                    body = "You have already added this show to your order. The number of tickets can be changed in the order.";
+                    footer = '<a class="btn btn-primary" href="order.php' + par + '" role="button">Complete order</a>' +
+                            '<a class="btn btn-primary" href="index.php" role="button">Back to movie selection</a>';
+                } else {
+                    body = "It was not possible to add a ticket to the order. Error #" + res;
+                    footer = '<button type="button" class="btn btn-primary" data-dismiss="modal">Try again</button>';
+                }
             }
+        } else {
+            body = "Error: failed to get order ID.";
+            footer = '<button type="button" class="btn btn-primary" data-dismiss="modal">Try again</button>';
         }
         $('#dialogModal .modal-body').html(body);
         $('#dialogModal .modal-footer').html(footer);
         $('#dialogModal').modal();
-        return false;
     }
 	</script>
 	<!-- Bootstrap core CSS -->
@@ -77,7 +88,7 @@ pg_close($link);
             <?php endfor ?>
             </select>
         </div>
-        <button type="button" class="btn btn-primary" onClick="addShow()">Add to order</button>
+        <button type="button" class="btn btn-primary" onClick="addItem()">Add to order</button>
 
         <!-- Modal dialog -->
         <div class="modal fade" id="dialogModal" tabindex="-1" role="dialog" aria-labelledby="dialogModal" aria-hidden="true">

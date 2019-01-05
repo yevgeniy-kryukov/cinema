@@ -4,14 +4,16 @@ require_once "../autoloader.php";
 use cinema\model\{TicketOrder, TicketItem};
 use cinema\util\{DataBase, Main};
 
-$orderID = Main::sessionGet("orderID");
+$orderID = Main::requestGet("orderID");
 
 $link = DataBase::dbConnect();
 
 $resultTicketOrder = TicketOrder::showTicketOrder($orderID, $link);
-$totalCharge = $resultTicketOrder["total"];
+$orderTotalSum = $resultTicketOrder["total"];
+$orderComplete = $resultTicketOrder["complete"];
 
 $resultTicketItem = TicketItem::showItems($orderID, $link);
+$countTicketItem = count($resultTicketItem);
 
 pg_close($link);
 ?>
@@ -28,15 +30,36 @@ pg_close($link);
 		function changeQuantity(pitemid, ptickettype, pnewquantity) 
 		{
 			var res = serv('order_fn_ajax.php', { fn : 'changeQuantity', pitemid : pitemid, ptickettype : ptickettype, pnewquantity : pnewquantity });
-			if (res >= 0) document.orderTickets.totalCharge.value = res;
+			if (res >= 0) $("#orderTotalSum").val(res);
 			else alert("Error " + res);
 		}
 		function removeFromOrder(pitemid) 
 		{
 			if (!confirm("Do you really want to remove from the order?")) return;
 			var res = serv('order_fn_ajax.php', { fn : 'removeItem', pitemid : pitemid });
-			if (res >= 0) $( "#orderItem" + pitemid ).remove();
-			else alert("Error " + res);
+			if (res >= 0) {
+				$("#orderItem" + pitemid).remove();
+				$("#orderTotalSum").val(res);
+			} else {
+				alert("Error " + res);
+			}
+		}
+		function completeOrder(porderid)
+		{
+			for (var i = 0; i < $("#countTicketItem").val(); i++) {
+				if ( ($("#adultTickets" + i).val() == 0) && ($("#childTickets" + i).val() == 0) ) {
+					alert("Error: you did not specify the number of tickets.\n" + $("#orderItemTitul" + i).text());
+					return;
+				}
+			}
+			if (!confirm("Do you really want complete order?")) return;
+			var res = serv('order_fn_ajax.php', { fn : 'completeOrder', porderid : porderid });
+			if (res > 0) {
+				alert("Your order was processed successfully.");
+				window.location = "show_user_orders.php";
+			} else {
+				alert("Error " + res);
+			}			
 		}
 	</script>
 	<!-- Bootstrap core CSS -->
@@ -46,15 +69,16 @@ pg_close($link);
 	<img src="img/your_ticket_order.gif" width="248" height="65">
 	<br>
 	<form name="orderTickets">
-		<?php for($ii = 0; $ii < count($resultTicketItem); $ii++): 
+		<input type="hidden" name="countTicketItem" id="countTicketItem" value="<?php echo $countTicketItem; ?>">
+		<?php for($ii = 0; $ii < $countTicketItem; $ii++): 
 				$rowTicketItem = $resultTicketItem[$ii];
 			?>
-			<div id="orderItem<?php echo $rowTicketItem["id"]; ?>">
-				For the <?php echo $rowTicketItem["starttime_disp"]; ?> 
-				showing of <?php echo $rowTicketItem["title"]; ?> at <?php echo $rowTicketItem["theatername"]; ?><br>
+			<div id="orderItem<?php echo $ii; ?>">
+				<div id="orderItemTitul<?php echo $ii; ?>">For the <?php echo $rowTicketItem["starttime_disp"]; ?> showing of <?php echo $rowTicketItem["title"]; ?> at <?php echo $rowTicketItem["theatername"]; ?></div>
 				<div class="form-group col-12">
-					<label for="adultTickets">Adult Tickets</label>
-					<select name="adultTickets" id="adultTickets" class="form-control" onChange="changeQuantity(<?php echo $rowTicketItem["id"]; ?>, 1, this.selectedIndex)">
+					<label for="adultTickets<?php echo $ii; ?>">Adult Tickets</label>
+					<select name="adultTickets<?php echo $ii; ?>" id="adultTickets<?php echo $ii; ?>" class="form-control" 
+						onChange="changeQuantity(<?php echo $rowTicketItem["id"]; ?>, 1, this.selectedIndex)" <?php echo $orderComplete == 't' ? "disabled" : ""; ?>>
 					<?php for($k = 0; $k <= 9; $k++): ?>
 						<?php if ($rowTicketItem["adulttickets"] == $k): ?>
 							<option selected>
@@ -66,8 +90,9 @@ pg_close($link);
 					</select>
 				</div>
 				<div class="form-group col-12">
-					<label for="childTickets">Child Tickets</label>
-					<select name="childTickets" id="childTickets" class="form-control" onChange="changeQuantity(<?php echo $rowTicketItem["id"]; ?>, 2, this.selectedIndex)">
+					<label for="childTickets<?php echo $ii; ?>">Child Tickets</label>
+					<select name="childTickets<?php echo $ii; ?>" id="childTickets<?php echo $ii; ?>" class="form-control" 
+						onChange="changeQuantity(<?php echo $rowTicketItem["id"]; ?>, 2, this.selectedIndex)" <?php echo $orderComplete == 't' ? "disabled" : ""; ?>>
 					<?php for($k = 0; $k <= 9; $k++): ?>
 						<?php if ($rowTicketItem["childtickets"] == $k): ?>
 							<option selected>
@@ -78,23 +103,25 @@ pg_close($link);
 					<?php endfor ?>
 					</select>
 				</div>
-				<button type="button" name="removeFromOrder<?php echo $rowTicketItem["id"]; ?>" id="removeFromOrder<?php echo $rowTicketItem["id"]; ?>" class="btn btn-outline-danger" 
-					onClick="removeFromOrder(<?php echo $rowTicketItem["id"]; ?>)">remove from order</button>
+				<button type="button" name="removeFromOrder<?php echo $ii; ?>" id="removeFromOrder<?php echo $ii; ?>" 
+					class="btn btn-outline-danger <?php echo $orderComplete == 't' ? " d-none" : ""; ?>" 
+					onClick="removeFromOrder(<?php echo $rowTicketItem["id"]; ?>)"> 
+					remove from order
+				</button>
 				<hr>
 			</div>
 		<?php endfor ?>
 		<div class="form-group col-12">
-			<label for="totalCharge">Total Charge:</label>
-			<input type="text" name="totalCharge" id="totalCharge" class="form-control" size="5" readonly value="<?php echo $totalCharge; ?>">
+			<label for="orderTotalSum">Total Sum:</label>
+			<input type="text" name="orderTotalSum" id="orderTotalSum" class="form-control" size="5" readonly value="<?php echo $orderTotalSum; ?>">
 		</div>
-	</form>
-	If you would like confirmation of your order, please enter your email address
-	<form method="post" action="ticket_confirm.php" name="orderForm">
 		<div class="form-group col-12">
-			<input type="text" name="orderEmail" id="orderEmail" class="form-control" size="35"><br>
-			<button type="submit" name="completeOrder" id="completeOrder" class="btn btn-success" onClick="addShow()">Complete Order</button>
-			<a class="btn btn-primary" href="index.php" role="button">Back to movie selection</a>
-		</div>
+		<button type="button" name="btnCompleteOrder" id="btnCompleteOrder" class="btn btn-success <?php echo $orderComplete == 't' ? " d-none" : ""; ?>" 
+			onClick="completeOrder(<?php echo $orderID; ?>)">
+			Complete Order
+		</button>
+		<a class="btn btn-primary" href="index.php" role="button">Back to movie selection</a>
+	</div>
 	</form>
 
     <!-- Bootstrap core JavaScript

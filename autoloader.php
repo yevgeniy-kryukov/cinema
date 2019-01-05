@@ -43,7 +43,7 @@ function autoloadVendor($class)
     $base_dir = __DIR__."/vendor/";
 
     // does the class use the namespace prefix?
-        $len = strlen($prefix);
+    $len = strlen($prefix);
     if (strncmp($prefix, $class, $len) !== 0) {
         // no, move to the next registered autoloader
         return;

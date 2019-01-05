@@ -14,12 +14,27 @@ class TicketItem
         return $rows;
     }
 
+    //.
+    public static function addItem($puserid, $pshowid, $porderid, $patickets, $pctickets, $link = null)
+    {
+        $res = 0;
+        $result = DataBase::dbQuery($link, "SELECT shm1.utils_addshow($1, $2, $3, $4, $5) As res", array($puserid, $pshowid, $porderid, $patickets, $pctickets));
+        if (pg_num_rows($result) > 0) {
+            $row = pg_fetch_array($result, 0);
+            $res = $row["res"];
+        }
+        return $res;
+    }
+
     // Удалить строку заказа c id = p1
     public static function removeItem($p1, $link = null)
     {
-        $res = 0;
-        $result = DataBase::dbQuery($link, "DELETE FROM shm1.ticketitem WHERE id = $1", array($p1));
-        if (pg_affected_rows($result) > 0) $res = 1;
+        $res = -101;
+        $result = DataBase::dbQuery($link, "SELECT shm1.ticketitem_remove($1) AS res", array($p1));
+        if (pg_num_rows($result) > 0) {
+            $row = pg_fetch_array($result);
+            $res = $row["res"];
+        }
         return $res;
     }
 

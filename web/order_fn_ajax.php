@@ -2,7 +2,7 @@
 require_once "../autoloader.php";
 
 use cinema\util\Main;
-use cinema\model\{TicketItem, Utils};
+use cinema\model\{TicketOrder, TicketItem, Utils};
 
 $fn = Main::requestGet("fn");
 $err = "";
@@ -15,6 +15,9 @@ else {
             break;
         case "removeItem":
             echo TicketItem::removeItem(Main::requestGet("pitemid"));
+            break;
+        case "completeOrder":
+            echo TicketOrder::completeOrder(Main::requestGet("porderid"));
             break;
         default:
             echo "Not found function " . $fn . "!";
