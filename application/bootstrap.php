@@ -26,5 +26,7 @@ require_once 'core/Utils.php';
     > и др.
 */
 
+session_start();
+
 require_once 'core/route.php';
 Route::Start(); // запускаем маршрутизатор

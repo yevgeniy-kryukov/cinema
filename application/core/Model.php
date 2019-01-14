@@ -22,7 +22,7 @@ class Model
     public function categoryList($link = null)
     {
         $resArr = array();
-        $result = DataBase::dbQuery($link, "SELECT * FROM shm1.filmcategory_query_categoryname()");
+        $result = DataBase::dbQuery($link, 'SELECT * FROM shm1.filmcategory_query_categoryname()');
         $resArr = pg_fetch_all($result);
         return $resArr;
     }

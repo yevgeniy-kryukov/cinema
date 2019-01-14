@@ -10,10 +10,10 @@ class ControllerSite extends Controller
 
     public function actionIndex()
     {	
-        $idCat = $_SESSION["category"];
-        $rating = $_SESSION["rating"];
-        $dataView["listTopFilm"] = $this->model->topFilms($idCat, $rating);
-        $dataView["catName"] = $this->model->categoryName($idCat);
+        $idCat = $_SESSION['category'];
+        $rating = $_SESSION['rating'];
+        $dataView['listTopFilm'] = $this->model->topFilms($idCat, $rating);
+        $dataView['catName'] = $this->model->categoryName($idCat);
         $this->view->generate('/site/index.php', '/layouts/main.php', $dataView);
     }
 

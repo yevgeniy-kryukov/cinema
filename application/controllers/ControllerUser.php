@@ -15,17 +15,17 @@ class ControllerUser extends Controller
             $password = $_POST['inputPassword'];
             $res = $this->model->signIn($email, $password);
             if ($res > 0) {
-                $_SESSION["idUser"] = $res;
-                $_SESSION["emailUser"] = $email;                
+                $_SESSION['idUser'] = $res;
+                $_SESSION['emailUser'] = $email;                
                 header('Location:/');
-                $signinStatus = "AccessGranted";
+                $signinStatus = 'AccessGranted';
             } else {
-                $signinStatus = "AccessDenied";
+                $signinStatus = 'AccessDenied';
             }
         } else {
             $signinStatus = "";
         }
-        $dataView["signinStatus"] = $signinStatus;
+        $dataView['signinStatus'] = $signinStatus;
         $this->view->generate('/user/signin.php', '/layouts/sign.php', $dataView);
     }
     
@@ -37,14 +37,14 @@ class ControllerUser extends Controller
             $res = $this->model->signUp($email, $password);           
             if ($res == 1) {
                 header('Location:/signin');
-                $signupStatus = "SignupSuccess";
+                $signupStatus = 'SignupSuccess';
             } else if ($res == -1) {
-                $signupStatus = "EmailDuplicate";
+                $signupStatus = 'EmailDuplicate';
             } else {
-                $signupStatus = "UnknownError";
+                $signupStatus = 'UnknownError';
             }
         } else {
-            $signupStatus = "";
+            $signupStatus = '';
         }
         
         $dataView["signupStatus"] = $signupStatus;

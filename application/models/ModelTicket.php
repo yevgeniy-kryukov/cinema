@@ -21,10 +21,10 @@ class ModelTicket extends Model
     public function getIdOrder($idUser, $link = null)
     {
         $res = 0;
-        $result = DataBase::dbQuery($link, "SELECT shm1.utils_getorderid($1) As res", array($idUser));
+        $result = DataBase::dbQuery($link, 'SELECT shm1.utils_getorderid($1) As res', array($idUser));
         if (pg_num_rows($result) > 0) {
             $row = pg_fetch_array($result, 0);
-            $res = $row["res"];
+            $res = $row['res'];
         }
         return $res;
     }
@@ -32,10 +32,10 @@ class ModelTicket extends Model
     public function addItem($idUser, $idShow, $idOrder, $aTickets, $cTickets, $link = null)
     {
         $res = 0;
-        $result = DataBase::dbQuery($link, "SELECT shm1.utils_addshow($1, $2, $3, $4, $5) As res", array($idUser, $idShow, $idOrder, $aTickets, $cTickets));
+        $result = DataBase::dbQuery($link, 'SELECT shm1.utils_addshow($1, $2, $3, $4, $5) As res', array($idUser, $idShow, $idOrder, $aTickets, $cTickets));
         if (pg_num_rows($result) > 0) {
             $row = pg_fetch_array($result, 0);
-            $res = $row["res"];
+            $res = $row['res'];
         }
         return $res;
     }
