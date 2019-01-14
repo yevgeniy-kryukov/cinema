@@ -42,19 +42,14 @@ class DataBase
     /**
      * Execute database query
      * 
-     * @param resource   $link1  database connection
+     * @param resource   $link  database connection
      * @param string     $squery query text
      * @param array|null $apar   query parameters as an array
      * 
      * @return $result resource
      */
-    public static function dbQuery($link1, $squery, $apar = null) 
+    public static function dbQuery($link, $squery, $apar = null) 
     {
-        if ($link1 == null) { 
-            $link = self::dbConnect(); 
-        } else { 
-            $link = $link1; 
-        }
         if ($apar == null) {
             $result = pg_query($link, $squery); 
         } else {
@@ -62,9 +57,6 @@ class DataBase
         }
         if (!$result) {
             exit("Error executing query to database");
-        }
-        if ($link1 == null) { 
-            pg_close($link); 
         }
         return $result;
     }

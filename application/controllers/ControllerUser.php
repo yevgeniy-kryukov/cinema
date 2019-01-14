@@ -15,9 +15,9 @@ class ControllerUser extends Controller
             $password = $_POST['inputPassword'];
             $res = $this->model->signIn($email, $password);
             if ($res > 0) {
+                header('Location:/');
                 $_SESSION['idUser'] = $res;
                 $_SESSION['emailUser'] = $email;                
-                header('Location:/');
                 $signinStatus = 'AccessGranted';
             } else {
                 $signinStatus = 'AccessDenied';

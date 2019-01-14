@@ -3,9 +3,10 @@
 class ModelOrder extends Model
 {
     // Список всех заказов пользователя с id = $idUser
-    public function showUserOrders($idUser, $link = null)
+    public function showUserOrders($idUser)
     {
         $rows = array();
+        $link = DataBase::dbConnect();
         $result = DataBase::dbQuery($link, 
                                     'SELECT * FROM shm1.ticketorder WHERE userapp = $1 
                                     ORDER BY complete, order_date DESC, id DESC', 
@@ -17,9 +18,10 @@ class ModelOrder extends Model
     }
 
     // Информация о заказе с id =  $idOrder
-    public function showTicketOrder($idOrder, $link = null)
+    public function showTicketOrder($idOrder)
     {
         $row = null;
+        $link = DataBase::dbConnect();
         $result = DataBase::dbQuery($link, 'SELECT * FROM shm1.ticketorder WHERE id = $1', array($idOrder));
         if (pg_num_rows($result) > 0) {
             $row = pg_fetch_array($result);
@@ -28,9 +30,10 @@ class ModelOrder extends Model
     }
 
     // Удалить строку заказа c id = $orderItemId
-    public function deleteItem($orderItemId, $link = null)
+    public function deleteItem($orderItemId)
     {
         $res = -101;
+        $link = DataBase::dbConnect();
         $result = DataBase::dbQuery($link, 'SELECT shm1.ticketitem_remove($1) AS res', array($orderItemId));
         if (pg_num_rows($result) > 0) {
             $row = pg_fetch_array($result);
@@ -40,26 +43,29 @@ class ModelOrder extends Model
     }
 
     // Возвращает данные всех cтрок заказа c id = $idOrder
-    public function showAllItems($idOrder, $link = null)
+    public function showAllItems($idOrder)
     {
         $rows = array();
+        $link = DataBase::dbConnect();
         $result = DataBase::dbQuery($link, 'SELECT * FROM shm1.ticketorder_query_showitems($1)', array($idOrder));
         if (pg_num_rows($result) > 0) $rows = pg_fetch_all($result);
         return $rows;
     }
 
     // Возвращает данные строки заказа c id = $itemOrderId
-    public function showOneItem($itemOrderId, $link = null)
+    public function showOneItem($itemOrderId)
     {
         $row = null;
+        $link = DataBase::dbConnect();
         $result = DataBase::dbQuery($link, 'SELECT * FROM shm1.ticketitem_query_showitem($1)', array($itemOrderId));
         if (pg_num_rows($result) > 0) $row = pg_fetch_array($result);
         return $row;
     }
 
-    public function completeOrder($idOrder, $link = null)
+    public function completeOrder($idOrder)
     {
         $res = 0;
+        $link = DataBase::dbConnect();
         $result = DataBase::dbQuery($link, 'SELECT shm1.utils_completeorder($1) As res', array($idOrder));
         if (pg_num_rows($result) > 0) {
             $row = pg_fetch_array($result, 0);
@@ -69,9 +75,10 @@ class ModelOrder extends Model
     }
 
     // Категория последней строки заказа с id = $idOrder
-    public function showItemLastCategory($idOrder, $link = null)
+    public function showItemLastCategory($idOrder)
     {
         $resCat = '';
+        $link = DataBase::dbConnect();
         $result = DataBase::dbQuery($link, 'SELECT * FROM shm1.ticketitem_query_lastcategory($1)', array($idOrder));
         if (pg_num_rows($result) > 0) {
             $row = pg_fetch_array($result);

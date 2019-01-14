@@ -2,9 +2,10 @@
 
 class ModelUser extends Model
 {
-    public function signIn($email, $pw, $link = null) 
+    public function signIn($email, $pw) 
     {
-        $res = 0;    
+        $res = 0;
+        $link = DataBase::dbConnect();
         $result = DataBase::dbQuery($link, 'SELECT id, pw FROM security.userapp WHERE email = $1', array($email));
         if (pg_num_rows($result) > 0) {
             $row = pg_fetch_array($result);            
@@ -17,9 +18,10 @@ class ModelUser extends Model
         return $res;
     }
 
-    public function signUp($email, $pw, $link = null) 
+    public function signUp($email, $pw) 
     {
         $res = 0;    
+        $link = DataBase::dbConnect();
         $result = DataBase::dbQuery($link, 'SELECT id FROM security.userapp WHERE email = $1', array($email));
         if (pg_num_rows($result) == 0) {
             $pwHash = password_hash($pw, PASSWORD_DEFAULT);

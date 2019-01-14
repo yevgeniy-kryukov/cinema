@@ -1,1 +1,1 @@
-<h1 class="text-center my-2">author Yevgeniy Kryukov</h1>
+<h1 class="text-center my-2">Cinema MVC test project</h1>
