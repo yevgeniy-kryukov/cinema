@@ -48,16 +48,16 @@ class Route
         // подцепляем файл с классом модели (файла модели может и не быть)
 
         $modelFile = $modelName.'.php';
-        $modelPath = "application/models/".$modelFile;
+        $modelPath = "models/".$modelFile;
         if (file_exists($modelPath)) {
-            include "application/models/".$modelFile;
+            include "models/".$modelFile;
         }
 
         // подцепляем файл с классом контроллера
         $controllerFile = $controllerName.'.php';
-        $controllerPath = "application/controllers/".$controllerFile;
+        $controllerPath = "controllers/".$controllerFile;
         if (file_exists($controllerPath)) {
-            include "application/controllers/".$controllerFile;
+            include "controllers/".$controllerFile;
         } else {
             /*
             правильно было бы кинуть здесь исключение,

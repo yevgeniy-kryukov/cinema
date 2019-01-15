@@ -32,7 +32,7 @@
   <body class="text-center">
     <form class="form-sign" method="post">
       <img class="mb-4" src="/template/img/cinema.png" alt="" width="72" height="72">
-      <?php include 'application/views/' . $contentView; ?>
+      <?php include 'views/' . $contentView; ?>
       <p class="mt-5 mb-3 text-muted">© 2018-2019</p>
     </form>
     <!-- Bootstrap core JavaScript

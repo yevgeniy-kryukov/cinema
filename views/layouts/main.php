@@ -82,7 +82,7 @@
     </header>
 
     <main role="main">
-		<?php include 'application/views/' . $contentView; ?>
+		<?php include 'views/' . $contentView; ?>
     </main>
 
 	  <footer class="container">

@@ -25,6 +25,6 @@ class View
         внутри которого будет встраиваться вид
         для отображения контента конкретной страницы.
         */
-        include 'application/views/'.$templateView;
+        include 'views/'.$templateView;
     }
 }
