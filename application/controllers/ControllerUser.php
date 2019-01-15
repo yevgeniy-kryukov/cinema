@@ -10,44 +10,56 @@ class ControllerUser extends Controller
     
     public function actionSignin()
     {
+        $errors = false;
+        $email = '';
+        
         if (isset($_POST['inputEmail']) && isset($_POST['inputPassword'])) {
             $email = $_POST['inputEmail'];
             $password = $_POST['inputPassword'];
-            $res = $this->model->signIn($email, $password);
-            if ($res > 0) {
-                header('Location:/');
-                $_SESSION['idUser'] = $res;
-                $_SESSION['emailUser'] = $email;                
-                $signinStatus = 'AccessGranted';
-            } else {
-                $signinStatus = 'AccessDenied';
+
+            if (!$this->model->checkEmail($email)) $errors[] = "Invalid email.";
+
+            if ($errors == false) {
+                $idUser = $this->model->signIn($email, $password);
+                if ($idUser == false) {
+                    $errors[] = "Incorrect  data for sign in.";
+                } else {
+                    header('Location:/');
+                    $_SESSION['idUser'] = $idUser;
+                    $_SESSION['emailUser'] = $email;                
+                }
             }
-        } else {
-            $signinStatus = "";
-        }
-        $dataView['signinStatus'] = $signinStatus;
+        } 
+
+        $dataView['signinEmail'] = $email;
+        $dataView['signinErrors'] = $errors;
         $this->view->generate('/user/signin.php', '/layouts/sign.php', $dataView);
     }
-    
+   
     public function actionSignup()
     {
+        $result = false;
+        $errors = false;
+        $email = '';
+
         if (isset($_POST['inputEmail']) && isset($_POST['inputPassword'])) {
             $email = $_POST['inputEmail'];
             $password = $_POST['inputPassword'];
-            $res = $this->model->signUp($email, $password);           
-            if ($res == 1) {
-                header('Location:/signin');
-                $signupStatus = 'SignupSuccess';
-            } else if ($res == -1) {
-                $signupStatus = 'EmailDuplicate';
-            } else {
-                $signupStatus = 'UnknownError';
+
+            if (!$this->model->checkEmail($email)) $errors[] = "Invalid email.";
+            if ($this->model->checkEmailExists($email)) $errors[] = "This email is already in use.";
+            if (!$this->model->checkPassword($password)) $errors[] = "Password must not be shorter than 6 characters.";
+
+            if ($errors == false) {
+                $result = $this->model->signUp($email, $password);
+                if ($result == false) $errors[] = "Error to write in database.";
             }
-        } else {
-            $signupStatus = '';
         }
         
-        $dataView["signupStatus"] = $signupStatus;
+        $dataView["signupEmail"] = $email;
+        $dataView["signupResult"] = $result;
+        $dataView["signupErrors"] = $errors;
+
         $this->view->generate('/user/signup.php', '/layouts/sign.php', $dataView);
     }
     
