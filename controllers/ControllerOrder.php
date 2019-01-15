@@ -12,9 +12,11 @@ class ControllerOrder extends Controller
     {
         if (!$this->isGuest()) {
             $idUser = $_SESSION["idUser"];
+            $dataView = $this->getDataViewHeader();
             $dataView['listUserOrder'] = $this->model->showUserOrders($idUser);
             $this->view->generate('/order/index.php', '/layouts/main.php', $dataView);
         }
+        return true;
     }
 
     public function actionView(int $id)
@@ -27,12 +29,14 @@ class ControllerOrder extends Controller
                 $orderTotalSum = $orderInfo['total'];
                 $orderComplete = $orderInfo['complete'];
             }
+            $dataView = $this->getDataViewHeader();
             $dataView["idOrder"] = $id;
             $dataView['orderTotalSum'] = $orderTotalSum;
             $dataView['orderComplete'] = $orderComplete;
             $dataView['listItemOrder'] = $this->model->showAllItems($id);
             $this->view->generate('/order/view.php', '/layouts/main.php', $dataView);
         }
+        return true;
     }
 
     public function actionDeleteItem(int $idOrder, int $id)
@@ -43,10 +47,12 @@ class ControllerOrder extends Controller
                 header('Location: /order/view/'.$idOrder);
                 return;
             }
+            $dataView = $this->getDataViewHeader();
             $dataView['idOrder'] = $idOrder;
             $dataView['itemOrder'] = $this->model->showOneItem($id);
             $this->view->generate('/order/delete_item.php', '/layouts/main.php', $dataView);
         }
+        return true;
     }
 
     public function actionComplete(int $id)
@@ -67,10 +73,12 @@ class ControllerOrder extends Controller
             if ($orderInfo != null) {
                 $orderTotalSum = $orderInfo['total'];
             }
+            $dataView = $this->getDataViewHeader();
             $dataView['idOrder'] = $id;
             $dataView['orderTotalSum'] = $orderTotalSum;
             $dataView['listItemOrder'] = $this->model->showAllItems($id);
             $this->view->generate('/order/complete.php', '/layouts/main.php', $dataView);
         }
+        return true;
     }
 }

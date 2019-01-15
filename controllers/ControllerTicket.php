@@ -42,6 +42,7 @@ class ControllerTicket extends Controller
                 $ticketsStatus = '';
             }
         
+            $dataView = $this->getDataViewHeader();
             $dataView['idOrder'] = $idOrder;
             $dataView['infoShow'] = $this->model->infoShow($id);
             $dataView['adultTickets'] = $adultTickets;
@@ -50,6 +51,7 @@ class ControllerTicket extends Controller
                 
             $this->view->generate('/ticket/index.php', '/layouts/main.php', $dataView);
         }
+        return true;
     }
     
 }

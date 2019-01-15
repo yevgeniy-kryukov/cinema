@@ -1,34 +1,22 @@
 <?php
 
+
+// FRONT CONTROLLER
+
+// general settings
 ini_set('display_errors', 1);
-
-// подключаем файлы ядра
-require_once 'core/Model.php';
-require_once 'core/View.php';
-require_once 'core/Controller.php';
-
-require_once 'config/db.php';
-require_once 'core/DataBase.php';
-require_once 'vendors/PHPMailer/Exception.php';
-require_once 'vendors/PHPMailer/SMTP.php';
-require_once 'vendors/PHPMailer/PHPMailer.php';
-require_once 'core/Utils.php';
-
-/*
-Здесь обычно подключаются дополнительные модули, реализующие различный функционал:
-    > аутентификацию
-    > кеширование
-    > работу с формами
-    > абстракции для доступа к данным
-    > ORM
-    > Unit тестирование
-    > Benchmarking
-    > Работу с изображениями
-    > Backup
-    > и др.
-*/
+error_reporting(E_ALL);
 
 session_start();
 
-require_once 'core/route.php';
-Route::Start(); // запускаем маршрутизатор
+// include files
+define('ROOT', dirname(__FILE__));
+require_once ROOT . '/config/db.php';
+require_once ROOT . '/vendors/PHPMailer/Exception.php';
+require_once ROOT . '/vendors/PHPMailer/SMTP.php';
+require_once ROOT . '/vendors/PHPMailer/PHPMailer.php';
+require_once ROOT . '/core/Autoload.php';
+
+// call Router
+$router = new Router();
+$router->run();

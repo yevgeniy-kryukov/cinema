@@ -34,6 +34,7 @@ class ControllerUser extends Controller
         $dataView['signinEmail'] = $email;
         $dataView['signinErrors'] = $errors;
         $this->view->generate('/user/signin.php', '/layouts/sign.php', $dataView);
+        return true;
     }
    
     public function actionSignup()
@@ -61,6 +62,7 @@ class ControllerUser extends Controller
         $dataView["signupErrors"] = $errors;
 
         $this->view->generate('/user/signup.php', '/layouts/sign.php', $dataView);
+        return true;
     }
     
     public function actionSignout()
@@ -69,6 +71,7 @@ class ControllerUser extends Controller
         session_unset();
         session_destroy();
         header('Location:/');
+        return true;
     }
     
 }
