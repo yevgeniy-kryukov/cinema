@@ -9,9 +9,9 @@ require_once 'core/Controller.php';
 
 require_once 'config/db.php';
 require_once 'core/DataBase.php';
-require_once 'vendor/PHPMailer/Exception.php';
-require_once 'vendor/PHPMailer/SMTP.php';
-require_once 'vendor/PHPMailer/PHPMailer.php';
+require_once 'vendors/PHPMailer/Exception.php';
+require_once 'vendors/PHPMailer/SMTP.php';
+require_once 'vendors/PHPMailer/PHPMailer.php';
 require_once 'core/Utils.php';
 
 /*
