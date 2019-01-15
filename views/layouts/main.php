@@ -6,21 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Cinema">
     <meta name="author" content="Yevgeniy Kryukov">
-    <link rel="icon" href="/img/cinema.ico">
+    <link rel="icon" href="/template/img/cinema.ico">
 
     <title>Cinema</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/template/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="/css/carousel.css" rel="stylesheet">
+    <link href="/template/css/carousel.css" rel="stylesheet">
   </head>
   <body>
 
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="/"><img src="/img/cinema.png" alt="" width="24" height="24"> Cinema</a>
+        <a class="navbar-brand" href="/"><img src="/template/img/cinema.png" alt="" width="24" height="24"> Cinema</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -93,11 +93,11 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/js/jquery-3.3.1.min.js"></script>
-    <script src="/js/popper.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
+    <script src="/template/js/jquery-3.3.1.min.js"></script>
+    <script src="/template/js/popper.min.js"></script>
+    <script src="/template/js/bootstrap.min.js"></script>
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-    <script src="/js/holder.min.js"></script>
-    <script language="JavaScript" type="text/JavaScript" src="/js/myAjax.js"></script>
+    <script src="/template/js/holder.min.js"></script>
+    <script language="JavaScript" type="text/JavaScript" src="/template/js/myAjax.js"></script>
   </body>
 </html>

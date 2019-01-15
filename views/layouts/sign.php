@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Cinema">
     <meta name="author" content="Yevgeniy Kryukov">
-    <link rel="icon" href="/img/cinema.ico">
+    <link rel="icon" href="/template/img/cinema.ico">
     <title>Cinema sign</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/template/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
@@ -26,12 +26,12 @@
     </style>
     
     <!-- Custom styles for this template -->
-    <link href="/css/sign.css" rel="stylesheet">
+    <link href="/template/css/sign.css" rel="stylesheet">
     
   </head>
   <body class="text-center">
     <form class="form-sign" method="post">
-      <img class="mb-4" src="/img/cinema.png" alt="" width="72" height="72">
+      <img class="mb-4" src="/template/img/cinema.png" alt="" width="72" height="72">
       <?php include 'application/views/' . $contentView; ?>
       <p class="mt-5 mb-3 text-muted">© 2018-2019</p>
     </form>

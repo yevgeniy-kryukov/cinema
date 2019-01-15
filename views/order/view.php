@@ -1,4 +1,4 @@
-<h3 class="text-center my-3"><img src="/img/your_ticket_order.gif" width="248" height="65"></h3>
+<h3 class="text-center my-3"><img src="/template/img/your_ticket_order.gif" width="248" height="65"></h3>
 <br>
 <form method="post">
     <?php foreach ($listItemOrder as $itemOrder): ?>

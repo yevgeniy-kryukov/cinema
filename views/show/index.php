@@ -20,7 +20,7 @@
             <td><?php echo $itemShow["theatername"]; ?></td>
             <td align="center">
                 <a href="/ticket/index/<?php echo $itemShow["id"]; ?>">
-                    <img src="/img/tickets.gif" width="130" height="39" border="0" alt="Click to book tickets for this show">
+                    <img src="/template/img/tickets.gif" width="130" height="39" border="0" alt="Click to book tickets for this show">
                 </a>
             </td>
         </tr>
