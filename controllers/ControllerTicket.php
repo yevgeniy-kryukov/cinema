@@ -2,13 +2,8 @@
 
 class ControllerTicket extends Controller
 {
-    public function __construct()
-    {
-        $this->view = new View();
-        $this->model = new ModelTicket();
-    }
-    
-    public function actionIndex(int $id)
+   
+    public function actionIndex($id)
     {
        if (!$this->isGuest()) {
             $idUser = $_SESSION['idUser'];
@@ -23,9 +18,9 @@ class ControllerTicket extends Controller
                 if ( ($adultTickets == 0) && ($childTickets == 0) ) {
                     $ticketsStatus = 'TicketsZero';
                 } else {
-                    $idOrder = $this->model->getIdOrder($idUser);
+                    $idOrder = ModelTicket::getIdOrder($idUser);
                     if ($idOrder > 0) {
-                        $resAddItem = $this->model->addItem($idUser, $id, $idOrder, $adultTickets, $childTickets);
+                        $resAddItem = ModelTicket::addItem($idUser, $id, $idOrder, $adultTickets, $childTickets);
                     } else {
                         $resAddItem = 0;
                     }
@@ -44,12 +39,12 @@ class ControllerTicket extends Controller
         
             $dataView = $this->getDataViewHeader();
             $dataView['idOrder'] = $idOrder;
-            $dataView['infoShow'] = $this->model->infoShow($id);
+            $dataView['infoShow'] = ModelTicket::infoShow($id);
             $dataView['adultTickets'] = $adultTickets;
             $dataView['childTickets'] = $childTickets;
             $dataView['ticketsStatus'] = $ticketsStatus;
                 
-            $this->view->generate('/ticket/index.php', '/layouts/main.php', $dataView);
+            View::generate('/ticket/index.php', '/layouts/main.php', $dataView);
         }
         return true;
     }

@@ -2,7 +2,7 @@
 
 class ModelUser extends Model
 {
-    public function signIn($email, $password) 
+    public static function signIn($email, $password) 
     {
         $link = DataBase::dbConnect();
         $result = DataBase::dbQuery($link, 'SELECT id, pw FROM security.userapp WHERE email = $1', array($email));
@@ -15,7 +15,7 @@ class ModelUser extends Model
         return false;
     }
 
-    public function checkPassword($password)
+    public static function checkPassword($password)
     {
         if (strlen($password) >= 6) {
             return true;
@@ -23,7 +23,7 @@ class ModelUser extends Model
         return false;
     }
 
-    public function checkEmail($email)
+    public static function checkEmail($email)
     {
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return true;
@@ -31,7 +31,7 @@ class ModelUser extends Model
         return false;
     }
 
-    public function checkEmailExists($email)
+    public static function checkEmailExists($email)
     {
         $link = DataBase::dbConnect();
         $result = DataBase::dbQuery($link, 'SELECT id FROM security.userapp WHERE email = $1', array($email));
@@ -41,7 +41,7 @@ class ModelUser extends Model
         return false;
     }
 
-    public function signUp($email, $password) 
+    public static function signUp($email, $password) 
     {
         $link = DataBase::dbConnect();
         $pwHash = password_hash($password, PASSWORD_DEFAULT);

@@ -3,7 +3,7 @@
 class ModelOrder extends Model
 {
     // Список всех заказов пользователя с id = $idUser
-    public function showUserOrders($idUser)
+    public static function showUserOrders($idUser)
     {
         $rows = array();
         $link = DataBase::dbConnect();
@@ -18,7 +18,7 @@ class ModelOrder extends Model
     }
 
     // Информация о заказе с id =  $idOrder
-    public function showTicketOrder($idOrder)
+    public static function showTicketOrder($idOrder)
     {
         $row = null;
         $link = DataBase::dbConnect();
@@ -30,7 +30,7 @@ class ModelOrder extends Model
     }
 
     // Удалить строку заказа c id = $orderItemId
-    public function deleteItem($orderItemId)
+    public static function deleteItem($orderItemId)
     {
         $res = -101;
         $link = DataBase::dbConnect();
@@ -43,7 +43,7 @@ class ModelOrder extends Model
     }
 
     // Возвращает данные всех cтрок заказа c id = $idOrder
-    public function showAllItems($idOrder)
+    public static function showAllItems($idOrder)
     {
         $rows = array();
         $link = DataBase::dbConnect();
@@ -53,7 +53,7 @@ class ModelOrder extends Model
     }
 
     // Возвращает данные строки заказа c id = $itemOrderId
-    public function showOneItem($itemOrderId)
+    public static function showOneItem($itemOrderId)
     {
         $row = null;
         $link = DataBase::dbConnect();
@@ -62,7 +62,7 @@ class ModelOrder extends Model
         return $row;
     }
 
-    public function completeOrder($idOrder)
+    public static function completeOrder($idOrder)
     {
         $res = 0;
         $link = DataBase::dbConnect();
@@ -75,7 +75,7 @@ class ModelOrder extends Model
     }
 
     // Категория последней строки заказа с id = $idOrder
-    public function showItemLastCategory($idOrder)
+    public static function showItemLastCategory($idOrder)
     {
         $resCat = '';
         $link = DataBase::dbConnect();

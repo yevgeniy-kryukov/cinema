@@ -4,7 +4,7 @@ class Model
 {
 
     // Список всех категорий фильмов
-    public function categoryList()
+    public static function categoryList()
     {
         $resArr = array();
         $link = DataBase::dbConnect();

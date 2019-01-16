@@ -4,7 +4,7 @@ class ModelShow extends Model
 {
 
     // Список показов в театрах фильма по его id
-    public function showTimes($idFilm)
+    public static function showTimes($idFilm)
     {
         $resArr = array();
         $link = DataBase::dbConnect();
@@ -16,7 +16,7 @@ class ModelShow extends Model
     }
 
     // Возвращает название фильма по его id
-    public function titleFilm($idFilm)
+    public static function titleFilm($idFilm)
     {
         $title = '';
         $link = DataBase::dbConnect();

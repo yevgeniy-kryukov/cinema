@@ -3,7 +3,7 @@
 class ModelTicket extends Model
 {
     // Информация о показе по его id
-    public function infoShow($idShow)
+    public static function infoShow($idShow)
     {
         $row = null;
         $link = DataBase::dbConnect();
@@ -19,7 +19,7 @@ class ModelTicket extends Model
         return $row;
     }
 
-    public function getIdOrder($idUser)
+    public static function getIdOrder($idUser)
     {
         $res = 0;
         $link = DataBase::dbConnect();
@@ -31,7 +31,7 @@ class ModelTicket extends Model
         return $res;
     }
 
-    public function addItem($idUser, $idShow, $idOrder, $aTickets, $cTickets)
+    public static function addItem($idUser, $idShow, $idOrder, $aTickets, $cTickets)
     {
         $res = 0;
         $link = DataBase::dbConnect();

@@ -2,12 +2,6 @@
 
 class ControllerUser extends Controller
 {
-    public function __construct()
-    {
-        $this->view = new View();
-        $this->model = new ModelUser();
-    }
-    
     public function actionSignin()
     {
         $errors = false;
@@ -17,10 +11,10 @@ class ControllerUser extends Controller
             $email = $_POST['inputEmail'];
             $password = $_POST['inputPassword'];
 
-            if (!$this->model->checkEmail($email)) $errors[] = "Invalid email.";
+            if (!ModelUser::checkEmail($email)) $errors[] = "Invalid email.";
 
             if ($errors == false) {
-                $idUser = $this->model->signIn($email, $password);
+                $idUser = ModelUser::signIn($email, $password);
                 if ($idUser == false) {
                     $errors[] = "Incorrect  data for sign in.";
                 } else {
@@ -33,7 +27,7 @@ class ControllerUser extends Controller
 
         $dataView['signinEmail'] = $email;
         $dataView['signinErrors'] = $errors;
-        $this->view->generate('/user/signin.php', '/layouts/sign.php', $dataView);
+        View::generate('/user/signin.php', '/layouts/sign.php', $dataView);
         return true;
     }
    
@@ -47,12 +41,12 @@ class ControllerUser extends Controller
             $email = $_POST['inputEmail'];
             $password = $_POST['inputPassword'];
 
-            if (!$this->model->checkEmail($email)) $errors[] = "Invalid email.";
-            if ($this->model->checkEmailExists($email)) $errors[] = "This email is already in use.";
-            if (!$this->model->checkPassword($password)) $errors[] = "Password must not be shorter than 6 characters.";
+            if (!ModelUser::checkEmail($email)) $errors[] = "Invalid email.";
+            if (ModelUser::checkEmailExists($email)) $errors[] = "This email is already in use.";
+            if (!ModelUser::checkPassword($password)) $errors[] = "Password must not be shorter than 6 characters.";
 
             if ($errors == false) {
-                $result = $this->model->signUp($email, $password);
+                $result = ModelUser::signUp($email, $password);
                 if ($result == false) $errors[] = "Error to write in database.";
             }
         }
@@ -61,7 +55,7 @@ class ControllerUser extends Controller
         $dataView["signupResult"] = $result;
         $dataView["signupErrors"] = $errors;
 
-        $this->view->generate('/user/signup.php', '/layouts/sign.php', $dataView);
+        View::generate('/user/signup.php', '/layouts/sign.php', $dataView);
         return true;
     }
     

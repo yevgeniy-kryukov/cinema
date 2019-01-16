@@ -2,18 +2,12 @@
 
 class ControllerShow extends Controller
 {
-    public function __construct()
-    {
-        $this->view = new View();
-        $this->model = new ModelShow();
-    }
-
-    public function actionIndex(int $id)
+    public function actionIndex($id)
     {	
         $dataView = $this->getDataViewHeader();
-        $dataView['titleFilm'] = $this->model->titleFilm($id);
-        $dataView['listShow'] = $this->model->showTimes($id);
-        $this->view->generate('/show/index.php', '/layouts/main.php', $dataView);
+        $dataView['titleFilm'] = ModelShow::titleFilm($id);
+        $dataView['listShow'] = ModelShow::showTimes($id);
+        View::generate('/show/index.php', '/layouts/main.php', $dataView);
         return true;
     }
 }

@@ -3,7 +3,7 @@
 class ModelSite extends Model
 {   
     // Топ фильмов по продажам, с фильтром по категории и рейтингу
-    public function topFilms($pidcat, $prat)
+    public static function topFilms($pidcat, $prat)
     {
         $resArr = array();
         $link = DataBase::dbConnect();
@@ -15,7 +15,7 @@ class ModelSite extends Model
     }
 
     // Имя категории по ее id
-    public function categoryName($pidcat)
+    public static function categoryName($pidcat)
     {
         $catName = '';
         if ($pidcat != '*') {

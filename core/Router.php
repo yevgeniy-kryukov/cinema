@@ -24,20 +24,15 @@ class Router
 
     public function run()
     {
-
         $uri = $this->getURI();
 
         foreach ($this->routes as $uriPattern => $path) {
 
             if (preg_match("~^$uriPattern$~", $uri)) {
-                //echo '|uriPattern '.$uriPattern.',path '.$path.'|';
-                //echo '|'.$uriPattern.'|';
-                //echo preg_replace("~$uriPattern~", $path, $uri);
 
                 $internalRoute = preg_replace("~^$uriPattern$~", $path, $uri);
 
                 $segments = explode('/', $internalRoute);
-                //print_r($segments);
 
                 $controllerName = array_shift($segments);
                 $controllerName = 'Controller' . ucfirst($controllerName);

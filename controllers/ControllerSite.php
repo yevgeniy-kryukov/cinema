@@ -2,12 +2,6 @@
 
 class ControllerSite extends Controller
 {
-    public function __construct()
-    {
-        $this->view = new View();
-        $this->model = new ModelSite();
-    }
-
     public function actionIndex()
     {	
         if (isset($_POST['category'])) {
@@ -22,15 +16,15 @@ class ControllerSite extends Controller
         $idCat = $dataViewHeader["idCat"];
         $rating = $dataViewHeader["rating"];
         $dataView = $dataViewHeader;
-        $dataView['listTopFilm'] = $this->model->topFilms($idCat, $rating);
-        $dataView['catName'] = $this->model->categoryName($idCat);
-        $this->view->generate('/site/index.php', '/layouts/main.php', $dataView);
+        $dataView['listTopFilm'] = ModelSite::topFilms($idCat, $rating);
+        $dataView['catName'] = ModelSite::categoryName($idCat);
+        View::generate('/site/index.php', '/layouts/main.php', $dataView);
         return true;
     }
 
     public function actionAbout()
     {	
-        $this->view->generate('/site/about.php', '/layouts/main.php', $this->getDataViewHeader());
+        View::generate('/site/about.php', '/layouts/main.php', $this->getDataViewHeader());
         return true;
     }
 }
