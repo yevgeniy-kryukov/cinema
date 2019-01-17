@@ -1,7 +1,11 @@
 <?php
-define('DBHOST', 'localhost');
-define('DBPORT', '5432');
-define('DBUSER', 'postgres');
-define('DBPASS', 'postgresCache');
-define('DBNAME', 'cinema');
+
+
+return array(
+    'dbhost' => 'localhost',
+    'dbport' => '5432',
+    'dbuser' => 'postgres',
+    'dbpass' => 'postgresCache',
+    'dbname' => 'cinema',
+);
 ?>

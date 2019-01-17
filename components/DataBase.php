@@ -21,12 +21,15 @@ class DataBase
      */
     public static function dbConnect() 
     {
+        $paramsPath = ROOT . '/config/db.php';
+        $params = include($paramsPath);
+        
         $link = pg_connect(
-            "host=".DBHOST
-            ." port=".DBPORT
-            ." dbname=".DBNAME
-            ." user=".DBUSER
-            ." password=".DBPASS
+            "host=" . $params['dbhost']
+            ." port=" . $params['dbport']
+            ." dbname=" . $params['dbname']
+            ." user=" . $params['dbuser']
+            ." password=" . $params['dbpass']
         );
         if (!$link) {
             exit("An error occurred while connecting to database\n");

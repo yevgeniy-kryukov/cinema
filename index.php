@@ -11,12 +11,9 @@ session_start();
 
 // include files
 define('ROOT', dirname(__FILE__));
-require_once ROOT . '/config/db.php';
-require_once ROOT . '/vendors/PHPMailer/Exception.php';
-require_once ROOT . '/vendors/PHPMailer/SMTP.php';
-require_once ROOT . '/vendors/PHPMailer/PHPMailer.php';
-require_once ROOT . '/core/Autoload.php';
+require_once ROOT . '/vendor/autoload.php';
+require_once ROOT . '/components/autoload.php';
 
-// call Router
+
 $router = new Router();
 $router->run();

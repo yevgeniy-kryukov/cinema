@@ -1,17 +1,20 @@
 <?php
 
 
-function __autoload($class_name)
+function autoloadApp($class)
 {
     $array_paths = array(
-        '/core/',
+        '/components/',
         '/controllers/',
-        '/models/'
+        '/models/',
+        '/views/',
     );
     foreach ($array_paths as $path) {
-        $path = ROOT . $path . $class_name . '.php';
+        $path = ROOT . $path . $class . '.php';
         if (is_file($path)) {
             include_once $path;
         }
     }
 }
+
+spl_autoload_register('autoloadApp');
