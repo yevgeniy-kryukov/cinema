@@ -59,7 +59,7 @@ class ControllerOrder extends Controller
                     $lastCatId = ModelOrder::showItemLastCategory($id);
                     setcookie('cinemaLastCategory', $lastCatId, time() + 60 * 60 * 24 * 7, '/');
                     Utils::sendEmail($_SESSION['emailUser']);
-                    return;
+                    return true;
                 }
             }
             $orderTotalSum = 0;

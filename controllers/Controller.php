@@ -4,9 +4,19 @@ class Controller
 {
     public function getDataViewHeader()
     {
+        if (isset($_SESSION['category'])) {
+            $idCat = $_SESSION['category'];
+        } else {
+            if (isset($_COOKIE['cinemaLastCategory'])) {
+                $idCat = $_COOKIE['cinemaLastCategory'];    
+            } else {
+                $idCat = '*';
+            }
+        }
+        
         return      [	'idUser' 	=> isset($_SESSION['idUser']) ? $_SESSION['idUser'] : 0,
                         'emailUser' => isset($_SESSION['emailUser']) ? $_SESSION['emailUser'] : '',
-                        'idCat' 	=> isset($_SESSION['category']) ? $_SESSION['category'] : '*',
+                        'idCat' 	=> $idCat,
                         'rating' 	=> isset($_SESSION['rating']) ? $_SESSION['rating'] : '*',
                         'listCat' 	=> Model::categoryList()
                     ];
