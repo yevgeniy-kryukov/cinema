@@ -19,9 +19,9 @@
             <td scope="row"><?php echo $ii; ?></td>
             <td><?php echo $itemUserOrder["order_date"]; ?></td>
             <td><?php echo $itemUserOrder["total"]; ?></td>
-            <td><?php echo $itemUserOrder["complete"]; ?></td>
+            <td><?php echo $itemUserOrder["complete"] == 't' ? 'yes' : 'no'; ?></td>
             <td align="center">
-                <a class="btn btn-primary" href="/order/view/<?php echo $itemUserOrder["id"]; ?>" role="button">Go to order</a>
+                <a class="btn btn-primary" href="/order/view/<?php echo $itemUserOrder["id"]; ?>" role="button">order</a>
             </td>
         </tr>
         <?php endforeach ?>

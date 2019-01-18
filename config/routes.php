@@ -21,9 +21,12 @@ return array(
     'site/about' => 'site/about',
     'about' => 'site/about',
     // index site
-    //'/' => 'site/index', 
-    'index.php' => 'site/index', 
     '' => 'site/index',
+    '/' => 'site/index', 
+    'site' => 'site/index', 
+    'site/index' => 'site/index', 
+    'index.php' => 'site/index', 
+    // error 404
     '404' => '404/index',
     '404/index' => '404/index',
 );
