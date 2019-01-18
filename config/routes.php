@@ -23,5 +23,7 @@ return array(
     // index site
     //'/' => 'site/index', 
     'index.php' => 'site/index', 
-    '' => 'site/index'
+    '' => 'site/index',
+    '404' => '404/index',
+    '404/index' => '404/index',
 );

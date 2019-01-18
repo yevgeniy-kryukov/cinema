@@ -22,9 +22,18 @@ class Router
         }
     }
 
+    private function error404()
+	{
+        header('HTTP/1.1 404 Not Found');
+		header("Status: 404 Not Found");
+        header('Location:/404');
+    }
+
     public function run()
     {
         $uri = $this->getURI();
+
+        $result = null;
 
         foreach ($this->routes as $uriPattern => $path) {
 
@@ -51,7 +60,10 @@ class Router
                 } 
             }
         }
-    }
 
+        if ($result == null) {
+            $this->error404();
+        }
+    }
     
 }
