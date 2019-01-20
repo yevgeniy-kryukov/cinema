@@ -32,7 +32,7 @@ class ControllerOrder extends Controller
             $dataView["idOrder"] = $id;
             $dataView['orderTotalSum'] = $orderTotalSum;
             $dataView['orderComplete'] = $orderComplete;
-            $dataView['listItemOrder'] = ModelOrder::getOrderItems($id);
+            $dataView['orderItems'] = ModelOrder::getOrderItems($id);
             
             View::generate('/order/view.php', '/layouts/main.php', $dataView);
         }
@@ -82,7 +82,7 @@ class ControllerOrder extends Controller
             $dataView = $this->getDataViewHeader();
             $dataView['idOrder'] = $id;
             $dataView['orderTotalSum'] = $orderTotalSum;
-            $dataView['listItemOrder'] = ModelOrder::getOrderItems($id);
+            $dataView['orderItems'] = ModelOrder::getOrderItems($id);
 
             View::generate('/order/complete.php', '/layouts/main.php', $dataView);
         }

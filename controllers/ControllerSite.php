@@ -16,8 +16,8 @@ class ControllerSite extends Controller
         $idCat = $dataViewHeader["idCat"];
         $rating = $dataViewHeader["rating"];
         $dataView = $dataViewHeader;
-        $dataView['listTopFilm'] = ModelSite::topFilms($idCat, $rating);
-        $dataView['catName'] = ModelSite::categoryName($idCat);
+        $dataView['listFilms'] = ModelSite::getListFilms($idCat, $rating);
+        $dataView['catName'] = ModelSite::getCategoryNameById($idCat);
 
         View::generate('/site/index.php', '/layouts/main.php', $dataView);
 

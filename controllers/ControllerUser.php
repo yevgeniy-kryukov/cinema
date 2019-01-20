@@ -11,7 +11,7 @@ class ControllerUser extends Controller
             $email = $_POST['inputEmail'];
             $password = $_POST['inputPassword'];
 
-            if (!ModelUser::checkEmail($email)) $errors[] = "Invalid email.";
+            if (!ModelUser::isGoodEmail($email)) $errors[] = "Invalid email.";
 
             if ($errors == false) {
                 $idUser = ModelUser::signIn($email, $password);
@@ -43,9 +43,9 @@ class ControllerUser extends Controller
             $email = $_POST['inputEmail'];
             $password = $_POST['inputPassword'];
 
-            if (!ModelUser::checkEmail($email)) $errors[] = "Invalid email.";
+            if (!ModelUser::isGoodEmail($email)) $errors[] = "Invalid email.";
             if (ModelUser::isEmailExists($email)) $errors[] = "This email is already in use.";
-            if (!ModelUser::checkPassword($password)) $errors[] = "Password must not be shorter than 6 characters.";
+            if (!ModelUser::isGoodPassword($password)) $errors[] = "Password must not be shorter than 6 characters.";
 
             if ($errors == false) {
                 $result = ModelUser::signUp($email, $password);

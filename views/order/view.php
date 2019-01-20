@@ -1,7 +1,7 @@
 <h3 class="text-center my-3"><img src="/template/img/your_ticket_order.gif" width="248" height="65"></h3>
 <br>
 <form method="post">
-    <?php foreach ($listItemOrder as $itemOrder): ?>
+    <?php foreach ($orderItems as $itemOrder): ?>
         <div>
             <div>
                 For the <?php echo $itemOrder["starttime_disp"]; ?> showing of <?php echo $itemOrder["title"]; ?> 

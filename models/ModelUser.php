@@ -21,7 +21,7 @@ class ModelUser extends Model
         return false;
     }
 
-    public static function checkPassword($password)
+    public static function isGoodPassword($password)
     {
         if (strlen($password) >= 6) {
             return true;
@@ -29,7 +29,7 @@ class ModelUser extends Model
         return false;
     }
 
-    public static function checkEmail($email)
+    public static function isGoodEmail($email)
     {
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return true;

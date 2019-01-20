@@ -1,7 +1,7 @@
 <h3 class="text-center my-3">Do you really want complete this order?</h3>
 <br>
 <form method="post">
-    <?php foreach ($listItemOrder as $itemOrder): ?>
+    <?php foreach ($orderItems as $itemOrder): ?>
         <div>
             <div>For the <?php echo $itemOrder["starttime_disp"]; ?> showing of <?php echo $itemOrder["title"]; ?> at <?php echo $itemOrder["theatername"]; ?></div>
             <div class="form-group col-12">

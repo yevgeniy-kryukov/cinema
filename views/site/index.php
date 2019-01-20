@@ -7,8 +7,8 @@
     </ol>
     <div class="carousel-inner">
         <?php
-            for($ii = 0; $ii < min(3, count($listTopFilm)); $ii++):
-                $itemTopFilm = $listTopFilm[$ii];
+            for($ii = 0; $ii < min(3, count($listFilms)); $ii++):
+                $itemTopFilm = $listFilms[$ii];
             ?>
             <div class="carousel-item <?php echo $ii == 0 ? "active" : ""; ?>">
                 <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="<?php echo $ii; ?> slide">
@@ -45,8 +45,8 @@
 <hr class="featurette-divider">
 <div class="container marketing">
     <?php       
-    for ($ii = 3; $ii < count($listTopFilm); $ii++):
-        $itemTopFilm = $listTopFilm[$ii];
+    for ($ii = 3; $ii < count($listFilms); $ii++):
+        $itemTopFilm = $listFilms[$ii];
         if ($ii%2 == 0) {
             $orderMD7 = "order-md-2";
             $orderMD5 = "order-md-1";

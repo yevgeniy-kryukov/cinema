@@ -4,12 +4,12 @@ class ModelSite extends Model
 {  
 
     /**
-     * Returns list top films
+     * Returns list films
      */
-    public static function topFilms($idCat, $rat)
+    public static function getListFilms($idCat, $rat)
     {
         $db = DataBase::getConnection();  
-        $sql = 'SELECT * FROM shm1.film_query_top_films(:idCat, :rat)';
+        $sql = 'SELECT * FROM shm1.film_query_films(:idCat, :rat)';
 
         $result = $db->prepare($sql);
         $result->bindParam(':idCat', $idCat, PDO::PARAM_INT);
@@ -22,7 +22,7 @@ class ModelSite extends Model
     /**
      * Returns category name by id
      */
-    public static function categoryName($idCat)
+    public static function getCategoryNameById($idCat)
     {
         $catName = '';
         
