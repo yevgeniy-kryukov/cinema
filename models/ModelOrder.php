@@ -78,7 +78,11 @@ class ModelOrder extends Model
     public static function getCategoryLastOrderItem($idOrder)
     {
         $db = DataBase::getConnection();
-        $sql = 'SELECT shm1.ticketitem_query_lastcategory(:idOrder) As res';
+        $sql = 'SELECT t3.category 
+                FROM shm1.ticketitem AS t1, shm1.show AS t2, shm1.film AS t3
+                WHERE (t1.show = t2.id) AND (t2.film = t3.id) AND (t1.ticketorder = :idOrder)
+                ORDER BY t1.id DESC 
+                LIMIT 1;';
         
         $result = $db->prepare($sql);
         $result->bindParam(':idOrder', $idOrder, PDO::PARAM_INT);
