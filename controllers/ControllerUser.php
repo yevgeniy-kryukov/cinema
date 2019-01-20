@@ -27,7 +27,9 @@ class ControllerUser extends Controller
 
         $dataView['signinEmail'] = $email;
         $dataView['signinErrors'] = $errors;
+
         View::generate('/user/signin.php', '/layouts/sign.php', $dataView);
+
         return true;
     }
    
@@ -42,7 +44,7 @@ class ControllerUser extends Controller
             $password = $_POST['inputPassword'];
 
             if (!ModelUser::checkEmail($email)) $errors[] = "Invalid email.";
-            if (ModelUser::checkEmailExists($email)) $errors[] = "This email is already in use.";
+            if (ModelUser::isEmailExists($email)) $errors[] = "This email is already in use.";
             if (!ModelUser::checkPassword($password)) $errors[] = "Password must not be shorter than 6 characters.";
 
             if ($errors == false) {
@@ -56,6 +58,7 @@ class ControllerUser extends Controller
         $dataView["signupErrors"] = $errors;
 
         View::generate('/user/signup.php', '/layouts/sign.php', $dataView);
+
         return true;
     }
     
@@ -65,6 +68,7 @@ class ControllerUser extends Controller
         session_unset();
         session_destroy();
         header('Location:/');
+        
         return true;
     }
     

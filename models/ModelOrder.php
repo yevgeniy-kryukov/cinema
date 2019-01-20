@@ -2,88 +2,88 @@
 
 class ModelOrder extends Model
 {
-    // Список всех заказов пользователя с id = $idUser
-    public static function showUserOrders($idUser)
+
+    public static function getUserOrders($idUser)
     {
-        $rows = array();
-        $link = DataBase::dbConnect();
-        $result = DataBase::dbQuery($link, 
-                                    'SELECT * FROM shm1.ticketorder WHERE userapp = $1 
-                                    ORDER BY complete, order_date DESC, id DESC', 
-                                    array($idUser));
-        if (pg_num_rows($result) > 0) {
-            $rows = pg_fetch_all($result);
-        }
-        return $rows;
+        $db = DataBase::getConnection();
+        $sql = 'SELECT * FROM shm1.ticketorder WHERE userapp = :idUser ORDER BY complete, order_date DESC, id DESC';
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':idUser', $idUser, PDO::PARAM_INT);
+        $result->execute();
+
+        return $result->fetchAll();
     }
 
-    // Информация о заказе с id =  $idOrder
-    public static function showTicketOrder($idOrder)
+    public static function getOrderData($idOrder)
     {
-        $row = null;
-        $link = DataBase::dbConnect();
-        $result = DataBase::dbQuery($link, 'SELECT * FROM shm1.ticketorder WHERE id = $1', array($idOrder));
-        if (pg_num_rows($result) > 0) {
-            $row = pg_fetch_array($result);
-        }
-        return $row;
+        $db = DataBase::getConnection();
+        $sql = 'SELECT * FROM shm1.ticketorder WHERE id = :idOrder';
+
+        $result = $db->prepare($sql);
+        $result->bindParam(':idOrder', $idOrder, PDO::PARAM_INT);
+        $result->execute();
+
+        return $result->fetch();
     }
 
-    // Удалить строку заказа c id = $orderItemId
-    public static function deleteItem($orderItemId)
+    public static function deleteOrderItem($idItem)
     {
-        $res = -101;
-        $link = DataBase::dbConnect();
-        $result = DataBase::dbQuery($link, 'SELECT shm1.ticketitem_remove($1) AS res', array($orderItemId));
-        if (pg_num_rows($result) > 0) {
-            $row = pg_fetch_array($result);
-            $res = $row['res'];
-        }
-        return $res;
+        $db = DataBase::getConnection();
+        $sql = 'SELECT shm1.ticketitem_remove(:idItem) AS res';
+
+        $result = $db->prepare($sql);
+        $result->bindParam(':idItem', $idItem, PDO::PARAM_INT);
+        $result->execute();
+
+        return $result->fetchColumn();
     }
 
-    // Возвращает данные всех cтрок заказа c id = $idOrder
-    public static function showAllItems($idOrder)
+    public static function getOrderItems($idOrder)
     {
-        $rows = array();
-        $link = DataBase::dbConnect();
-        $result = DataBase::dbQuery($link, 'SELECT * FROM shm1.ticketorder_query_showitems($1)', array($idOrder));
-        if (pg_num_rows($result) > 0) $rows = pg_fetch_all($result);
-        return $rows;
+        $db = DataBase::getConnection();
+        $sql = 'SELECT * FROM shm1.ticketorder_query_showitems(:idOrder)';
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':idOrder', $idOrder, PDO::PARAM_INT);
+        $result->execute();
+
+        return $result->fetchAll();
     }
 
-    // Возвращает данные строки заказа c id = $itemOrderId
-    public static function showOneItem($itemOrderId)
+    public static function getOrderItemData($idItem)
     {
-        $row = null;
-        $link = DataBase::dbConnect();
-        $result = DataBase::dbQuery($link, 'SELECT * FROM shm1.ticketitem_query_showitem($1)', array($itemOrderId));
-        if (pg_num_rows($result) > 0) $row = pg_fetch_array($result);
-        return $row;
+        $db = DataBase::getConnection();
+        $sql = 'SELECT * FROM shm1.ticketitem_query_showitem(:idItem)';
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':idItem', $idItem, PDO::PARAM_INT);
+        $result->execute();
+
+        return $result->fetch();
     }
 
     public static function completeOrder($idOrder)
     {
-        $res = 0;
-        $link = DataBase::dbConnect();
-        $result = DataBase::dbQuery($link, 'SELECT shm1.utils_completeorder($1) As res', array($idOrder));
-        if (pg_num_rows($result) > 0) {
-            $row = pg_fetch_array($result, 0);
-            $res = $row['res'];
-        }
-        return $res;
+        $db = DataBase::getConnection();
+        $sql = 'SELECT shm1.utils_completeorder(:idOrder) As res';
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':idOrder', $idOrder, PDO::PARAM_INT);
+        $result->execute();
+
+        return $result->fetchColumn();
     }
 
-    // Категория последней строки заказа с id = $idOrder
-    public static function showItemLastCategory($idOrder)
+    public static function getCategoryLastOrderItem($idOrder)
     {
-        $resCat = '';
-        $link = DataBase::dbConnect();
-        $result = DataBase::dbQuery($link, 'SELECT * FROM shm1.ticketitem_query_lastcategory($1)', array($idOrder));
-        if (pg_num_rows($result) > 0) {
-            $row = pg_fetch_array($result);
-            $resCat = $row['category'];
-        }
-        return $resCat;
+        $db = DataBase::getConnection();
+        $sql = 'SELECT shm1.ticketitem_query_lastcategory(:idOrder) As res';
+        
+        $result = $db->prepare($sql);
+        $result->bindParam(':idOrder', $idOrder, PDO::PARAM_INT);
+        $result->execute();
+
+        return $result->fetchColumn();
     }
 }

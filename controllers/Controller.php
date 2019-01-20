@@ -18,7 +18,8 @@ class Controller
                         'emailUser' => isset($_SESSION['emailUser']) ? $_SESSION['emailUser'] : '',
                         'idCat' 	=> $idCat,
                         'rating' 	=> isset($_SESSION['rating']) ? $_SESSION['rating'] : '*',
-                        'listCat' 	=> Model::categoryList()
+                        'listCat' 	=> Model::categoryList(),
+                        'menuItem'  => 'home'
                     ];
     } 
 
@@ -27,7 +28,8 @@ class Controller
         if (!isset($_SESSION['idUser'])) {
             header('Location:/user/signin');
             return true;
-        } 
+        }
+
         return false;
     }
 }

@@ -18,13 +18,19 @@ class ControllerSite extends Controller
         $dataView = $dataViewHeader;
         $dataView['listTopFilm'] = ModelSite::topFilms($idCat, $rating);
         $dataView['catName'] = ModelSite::categoryName($idCat);
+
         View::generate('/site/index.php', '/layouts/main.php', $dataView);
+
         return true;
     }
 
     public function actionAbout()
     {	
-        View::generate('/site/about.php', '/layouts/main.php', $this->getDataViewHeader());
+        $dataView = $this->getDataViewHeader();
+        $dataView['menuItem'] = 'about'; // replace default value from $dataView['menuItem']
+
+        View::generate('/site/about.php', '/layouts/main.php', $dataView);
+        
         return true;
     }
 }

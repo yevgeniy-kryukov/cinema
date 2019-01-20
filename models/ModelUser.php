@@ -2,16 +2,22 @@
 
 class ModelUser extends Model
 {
+
     public static function signIn($email, $password) 
     {
-        $link = DataBase::dbConnect();
-        $result = DataBase::dbQuery($link, 'SELECT id, pw FROM security.userapp WHERE email = $1', array($email));
-        if (pg_num_rows($result) > 0) {
-            $row = pg_fetch_array($result);            
-            if (password_verify($password, $row['pw'])) {
-                return $row['id'];
-            }
-        } 
+        $db = DataBase::getConnection();
+        $sql = 'SELECT id, pw FROM security.userapp WHERE email = :email';
+
+        $result = $db->prepare($sql);
+        $result->bindParam(':email', $email, PDO::PARAM_STR);
+        $result->execute();
+
+        $dataUser = $result->fetch();
+        
+        if (password_verify($password, $dataUser['pw'])) {
+            return $dataUser['id'];
+        }
+
         return false;
     }
 
@@ -31,24 +37,33 @@ class ModelUser extends Model
         return false;
     }
 
-    public static function checkEmailExists($email)
+    public static function isEmailExists($email)
     {
-        $link = DataBase::dbConnect();
-        $result = DataBase::dbQuery($link, 'SELECT id FROM security.userapp WHERE email = $1', array($email));
-        if (pg_num_rows($result) > 0) {
+        $db = DataBase::getConnection();
+        $sql = 'SELECT id FROM security.userapp WHERE email = :email';
+
+        $result = $db->prepare($sql);
+        $result->bindParam(':email', $email, PDO::PARAM_STR);
+        $result->execute();
+
+        if ($result->fetch() !== false) {
             return true;
-        } 
+        }
+
         return false;
     }
 
     public static function signUp($email, $password) 
     {
-        $link = DataBase::dbConnect();
         $pwHash = password_hash($password, PASSWORD_DEFAULT);
-        $result = DataBase::dbQuery($link, 'INSERT INTO security.userapp (email, pw) VALUES ($1, $2)', array($email, $pwHash));
-        if (pg_affected_rows($result) > 0) {
-            return true;
-        }
-        return false;
+        
+        $db = DataBase::getConnection();
+        $sql = 'INSERT INTO security.userapp (email, pw) VALUES (:email, :pw)';
+
+        $result = $db->prepare($sql);
+        $result->bindParam(':email', $email, PDO::PARAM_STR);
+        $result->bindParam(':pw', $pwHash, PDO::PARAM_STR);
+        
+        return $result->execute();
     }
 }

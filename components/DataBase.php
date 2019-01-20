@@ -6,62 +6,24 @@
  * @copyright 2018 - 2019 Yevgeniy Kryukov
  */
 
-//namespace cinema\util;
-
-/**
- * Class for working with the database
- * 
- */
 class DataBase
 {
+
+
     /**
-     * Сonnect to the database
-     * 
-     * @return $link resource
+     * Connects to database and returns PDO object
      */
-    public static function dbConnect() 
+    public static function getConnection()
     {
         $paramsPath = ROOT . '/config/db.php';
         $params = include($paramsPath);
-        
-        $link = pg_connect(
-            "host=" . $params['dbhost']
-            ." port=" . $params['dbport']
-            ." dbname=" . $params['dbname']
-            ." user=" . $params['dbuser']
-            ." password=" . $params['dbpass']
-        );
-        if (!$link) {
-            exit("An error occurred while connecting to database\n");
-        } else {
-            $stat = pg_connection_status($link);
-            if ($stat === PGSQL_CONNECTION_BAD) { 
-                exit("Database connection lost\n"); 
-            }
-        }
-        return $link;
-    }
+      
+        $dsn = "pgsql:host={$params['dbhost']};dbname={$params['dbname']}";
+        $db = new PDO($dsn, $params['dbuser'], $params['dbpass']);
 
-    /**
-     * Execute database query
-     * 
-     * @param resource   $link  database connection
-     * @param string     $squery query text
-     * @param array|null $apar   query parameters as an array
-     * 
-     * @return $result resource
-     */
-    public static function dbQuery($link, $squery, $apar = null) 
-    {
-        if ($apar == null) {
-            $result = pg_query($link, $squery); 
-        } else {
-            $result = pg_query_params($link, $squery, $apar);
-        }
-        if (!$result) {
-            exit("Error executing query to database");
-        }
-        return $result;
+        $db->exec("set names utf8");
+
+        return $db;
     }
 
 }

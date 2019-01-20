@@ -3,14 +3,17 @@
 class Model
 {
 
-    // Список всех категорий фильмов
+    /**
+     * Returns category list
+     */
     public static function categoryList()
     {
-        $resArr = array();
-        $link = DataBase::dbConnect();
-        $result = DataBase::dbQuery($link, 'SELECT * FROM shm1.filmcategory_query_categoryname()');
-        $resArr = pg_fetch_all($result);
-        return $resArr;
+        $db = DataBase::getConnection();  
+        $sql = 'SELECT * FROM shm1.filmcategory_query_categoryname()';
+
+        $result = $db->query($sql);
+
+        return $result->fetchAll();
     }
     
 }

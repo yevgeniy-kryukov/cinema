@@ -20,7 +20,7 @@ class ControllerTicket extends Controller
                 } else {
                     $idOrder = ModelTicket::getIdOrder($idUser);
                     if ($idOrder > 0) {
-                        $resAddItem = ModelTicket::addItem($idUser, $id, $idOrder, $adultTickets, $childTickets);
+                        $resAddItem = ModelTicket::addOrderItem($idUser, $id, $idOrder, $adultTickets, $childTickets);
                     } else {
                         $resAddItem = 0;
                     }
@@ -39,13 +39,14 @@ class ControllerTicket extends Controller
         
             $dataView = $this->getDataViewHeader();
             $dataView['idOrder'] = $idOrder;
-            $dataView['infoShow'] = ModelTicket::infoShow($id);
+            $dataView['infoShow'] = ModelTicket::getShowData($id);
             $dataView['adultTickets'] = $adultTickets;
             $dataView['childTickets'] = $childTickets;
             $dataView['ticketsStatus'] = $ticketsStatus;
                 
             View::generate('/ticket/index.php', '/layouts/main.php', $dataView);
         }
+        
         return true;
     }
     

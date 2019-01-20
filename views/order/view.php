@@ -13,7 +13,7 @@
             <div class="form-group col-12">
                 <div>Child Tickets <?php echo $itemOrder["childtickets"]; ?></div>
             </div>
-            <a href="/order/deleteItem/<?php echo $idOrder; ?>/<?php echo $itemOrder["id"]; ?>" 
+            <a href="/order/deleteOrderItem/<?php echo $idOrder; ?>/<?php echo $itemOrder["id"]; ?>" 
             class="btn btn-outline-danger <?php echo $orderComplete == 't' ? " d-none" : ""; ?>" role="button"> 
                 delete from order
             </a>

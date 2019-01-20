@@ -3,28 +3,37 @@
 class ModelShow extends Model
 {
 
-    // Список показов в театрах фильма по его id
+    /**
+     * Returns film shows by film id 
+     */
     public static function showTimes($idFilm)
     {
-        $resArr = array();
-        $link = DataBase::dbConnect();
-        $result = DataBase::dbQuery($link, 'SELECT * FROM shm1.show_query_showtimes($1)', array($idFilm));
-        if (pg_num_rows($result) > 0) {
-            $resArr = pg_fetch_all($result);
-        }
-        return $resArr;
+        $db = DataBase::getConnection();  
+        $sql = 'SELECT * FROM shm1.show_query_showtimes(:idFilm)';
+
+        $result = $db->prepare($sql);
+        $result->bindParam(':idFilm', $idFilm, PDO::PARAM_INT);
+        $result->execute();
+
+        return $result->fetchAll();
     }
 
-    // Возвращает название фильма по его id
+    /**
+     * Returns name film by id
+     */
     public static function titleFilm($idFilm)
     {
         $title = '';
-        $link = DataBase::dbConnect();
-        $result = DataBase::dbQuery($link, 'SELECT title FROM shm1.film WHERE id = $1', array($idFilm));
-        if (pg_num_rows($result) > 0) {
-            $row = pg_fetch_array($result);
-            $title = $row['title'];
-        }
+        
+        $db = DataBase::getConnection();
+        $sql = 'SELECT title FROM shm1.film WHERE id = :idFilm';
+
+        $result = $db->prepare($sql);
+        $result->bindParam(':idFilm', $idFilm, PDO::PARAM_INT);
+        $result->execute();
+
+        $title = $result->fetchColumn();
+
         return $title;
     }
 

@@ -9,7 +9,7 @@ return array(
     'order' => 'order/index',
     'order/index' => 'order/index',
     'order/view/([0-9]+)' => 'order/view/$1',
-    'order/deleteItem/([0-9]+)/([0-9]+)' => 'order/deleteItem/$1/$2',
+    'order/deleteOrderItem/([0-9]+)/([0-9]+)' => 'order/deleteOrderItem/$1/$2',
     'order/complete/([0-9]+)' => 'order/complete/$1',
     // user
     'user/signup' => 'user/signup',
