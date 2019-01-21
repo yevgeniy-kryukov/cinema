@@ -16,7 +16,7 @@ class ControllerTicket extends Controller
                 $childTickets = $_POST['childTickets'];
 
                 if ( ($adultTickets == 0) && ($childTickets == 0) ) {
-                    $ticketsStatus = 'TicketsZero';
+                    $error = 'TicketsZero';
                 } else {
                     $idOrder = ModelTicket::getIdOrder($idUser);
                     if ($idOrder > 0) {
@@ -26,15 +26,15 @@ class ControllerTicket extends Controller
                     }
 
                     if ($resAddItem > 0) {
-                        $ticketsStatus = 'SuccessAdded';
+                        $error = 'SuccessAdded';
                     } else if ($resAddItem == -5) {
-                        $ticketsStatus = 'AlreadyAdded';
+                        $error = 'AlreadyAdded';
                     } else {
-                        $ticketsStatus = 'UnknownError';
+                        $error = 'UnknownError';
                     }
                 }
             } else {
-                $ticketsStatus = '';
+                $error = '';
             }
         
             $dataView = $this->getDataViewHeader();
@@ -42,7 +42,7 @@ class ControllerTicket extends Controller
             $dataView['infoShow'] = ModelTicket::getShowData($id);
             $dataView['adultTickets'] = $adultTickets;
             $dataView['childTickets'] = $childTickets;
-            $dataView['ticketsStatus'] = $ticketsStatus;
+            $dataView['error'] = $error;
                 
             View::generate('/ticket/index.php', '/layouts/main.php', $dataView);
         }
