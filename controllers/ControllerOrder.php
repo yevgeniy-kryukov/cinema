@@ -10,7 +10,7 @@ class ControllerOrder extends Controller
             $dataView = $this->getDataViewHeader();
             $dataView['listUserOrder'] = ModelOrder::getUserOrders($idUser);
             
-            View::generate('/order/index.php', '/layouts/main.php', $dataView);
+            View::generate('order/index.php', 'layouts/main.php', $dataView);
         }
 
         return true;
@@ -34,7 +34,7 @@ class ControllerOrder extends Controller
             $dataView['orderComplete'] = $orderComplete;
             $dataView['orderItems'] = ModelOrder::getOrderItems($id);
             
-            View::generate('/order/view.php', '/layouts/main.php', $dataView);
+            View::generate('order/view.php', 'layouts/main.php', $dataView);
         }
 
         return true;
@@ -53,7 +53,7 @@ class ControllerOrder extends Controller
             $dataView['idOrder'] = $idOrder;
             $dataView['itemOrder'] = ModelOrder::getOrderItemData($id);
             
-            View::generate('/order/delete_item.php', '/layouts/main.php', $dataView);
+            View::generate('order/delete_item.php', 'layouts/main.php', $dataView);
         }
 
         return true;
@@ -84,7 +84,7 @@ class ControllerOrder extends Controller
             $dataView['orderTotalSum'] = $orderTotalSum;
             $dataView['orderItems'] = ModelOrder::getOrderItems($id);
 
-            View::generate('/order/complete.php', '/layouts/main.php', $dataView);
+            View::generate('order/complete.php', 'layouts/main.php', $dataView);
         }
         
         return true;

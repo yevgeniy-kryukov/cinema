@@ -18,7 +18,11 @@ class ControllerUser extends Controller
                 if ($idUser == false) {
                     $errors[] = "Incorrect  data for sign in.";
                 } else {
-                    header('Location:/');
+                    if (ModelUser::isAdmin($idUser)) {
+                        header('Location:/admin');
+                    } else {
+                        header('Location:/');
+                    }
                     $_SESSION['idUser'] = $idUser;
                     $_SESSION['emailUser'] = $email;                
                 }
@@ -28,7 +32,7 @@ class ControllerUser extends Controller
         $dataView['signinEmail'] = $email;
         $dataView['signinErrors'] = $errors;
 
-        View::generate('/user/signin.php', '/layouts/sign.php', $dataView);
+        View::generate('user/signin.php', 'layouts/sign.php', $dataView);
 
         return true;
     }
@@ -57,7 +61,7 @@ class ControllerUser extends Controller
         $dataView["signupResult"] = $result;
         $dataView["signupErrors"] = $errors;
 
-        View::generate('/user/signup.php', '/layouts/sign.php', $dataView);
+        View::generate('user/signup.php', 'layouts/sign.php', $dataView);
 
         return true;
     }
@@ -67,7 +71,7 @@ class ControllerUser extends Controller
         setcookie(session_name(), session_id(), time()-60*60*24, "/");
         session_unset();
         session_destroy();
-        header('Location:/');
+        header('Location:/user/signin');
         
         return true;
     }

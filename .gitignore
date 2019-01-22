@@ -1,4 +1,4 @@
 *.log
 .vscode/*.*
-controllers/test*.*
+controllers/*test*.*
 vendor

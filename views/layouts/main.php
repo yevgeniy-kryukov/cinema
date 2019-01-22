@@ -1,4 +1,3 @@
-<?php //extract($dataView); ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>

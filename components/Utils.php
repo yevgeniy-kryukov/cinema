@@ -34,10 +34,10 @@ class Utils
         $mail->SMTPAuth = true;
 
         //Username to use for SMTP authentication - use full email address for gmail
-        $mail->Username = "cinema.teatr.kz@gmail.com";
+        $mail->Username = 'cinema.teatr.kz@gmail.com';
 
         //Password to use for SMTP authentication
-        $mail->Password = "Columbia_PictureS";
+        $mail->Password = 'Columbia_PictureS';
 
         //Set who the message is to be sent from
         $mail->setFrom('cinema.teatr.kz@gmail.com', 'Cinema');

@@ -15,9 +15,10 @@ return array(
     'user/signup' => 'user/signup',
     'user/signin' => 'user/signin',
     'user/signout' => 'user/signout',
-    // about site
+    // contact site
     'site/contact' => 'site/contact',
     'contacts' => 'site/contact',
+    // about site
     'site/about' => 'site/about',
     'about' => 'site/about',
     // index site
@@ -29,4 +30,11 @@ return array(
     // error 404
     '404' => '404/index',
     '404/index' => '404/index',
+    // test
+    'test' => 'test/index',
+    'test/index' => 'test/index',
+    // admin
+    'admin' => 'admin/index',
+    'admin/site' => 'admin/index',
+    'admin/site/index' => 'admin/index',
 );

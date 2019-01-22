@@ -53,6 +53,24 @@ class ModelUser extends Model
         return false;
     }
 
+    public static function isAdmin($idUser)
+    {
+        $db = DataBase::getConnection();
+        $sql = "SELECT us.id FROM security.userapp AS us, security.roleapp AS rol 
+                WHERE (us.roleapp = rol.id) AND (rol.name = 'admin') AND (us.id = :idUser)";
+
+        $result = $db->prepare($sql);
+        $result->bindParam(':idUser', $idUser, PDO::PARAM_INT);
+        $result->execute();
+
+        if ($result->fetch() !== false) {
+            return true;
+        }
+
+        return false;
+    }
+
+
     public static function signUp($email, $password) 
     {
         $pwHash = password_hash($password, PASSWORD_DEFAULT);

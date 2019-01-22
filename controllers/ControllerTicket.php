@@ -44,7 +44,7 @@ class ControllerTicket extends Controller
             $dataView['childTickets'] = $childTickets;
             $dataView['error'] = $error;
                 
-            View::generate('/ticket/index.php', '/layouts/main.php', $dataView);
+            View::generate('ticket/index.php', 'layouts/main.php', $dataView);
         }
         
         return true;

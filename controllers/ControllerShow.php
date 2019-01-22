@@ -8,7 +8,7 @@ class ControllerShow extends Controller
         $dataView['titleFilm'] = ModelShow::titleFilm($id);
         $dataView['listShow'] = ModelShow::showTimes($id);
 
-        View::generate('/show/index.php', '/layouts/main.php', $dataView);
+        View::generate('show/index.php', 'layouts/main.php', $dataView);
         
         return true;
     }
