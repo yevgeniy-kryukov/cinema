@@ -14,7 +14,7 @@
                 <div>Child Tickets <?php echo $itemOrder["childtickets"]; ?></div>
             </div>
             <a href="/order/deleteOrderItem/<?php echo $idOrder; ?>/<?php echo $itemOrder["id"]; ?>" 
-            class="btn btn-outline-danger <?php echo $orderComplete == 't' ? " d-none" : ""; ?>" role="button"> 
+            class="btn btn-outline-danger <?php echo $orderComplete == 1 ? " d-none" : ""; ?>" role="button"> 
                 delete from order
             </a>
             <hr>
@@ -24,7 +24,7 @@
         Total Sum: <?php echo $orderTotalSum; ?>
     </div>
     <div class="form-group col-12">
-        <a class="btn btn-success <?php echo $orderComplete == 't' ? " d-none" : ""; ?>" 
+        <a class="btn btn-success <?php echo $orderComplete == 1 ? " d-none" : ""; ?>" 
         href="/order/complete/<?php echo $idOrder; ?>" role="button">Complete order</a>
         <a class="btn btn-primary" href="/order" role="button">Back to order list</a>
         <a class="btn btn-primary" href="/" role="button">Back to movie selection</a>

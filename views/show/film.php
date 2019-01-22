@@ -1,4 +1,4 @@
-<h3 class="text-center my-2">List of shows</h3>
+<h3 class="text-center my-2">Show Times for <?php echo $titleFilm; ?></h3>
 <table class="table table-hover">
     <thead>
         <tr>
@@ -7,7 +7,6 @@
             <th scope="col">Start time</th>
             <th scope="col">Theater</th>
             <th scope="col">Hall</th>
-            <th scope="col">Film</th>
             <th scope="col">&nbsp;</th>
         </tr>
     </thead>
@@ -23,9 +22,10 @@
             <td><?php echo $itemShow["starttime_disp"]; ?></td>
             <td><?php echo $itemShow["theatername"]; ?></td>
             <td><?php echo $itemShow["hall_name"]; ?></td>
-            <td><?php echo $itemShow["film_title"]; ?></td>
             <td align="center">
-                <a href="/show/view/<?php echo $itemShow["id"]; ?>">View</a>
+                <a href="/ticket/index/<?php echo $itemShow["id"]; ?>">
+                    <img src="/template/img/tickets.gif" width="130" height="39" border="0" alt="Click to book tickets for this show">
+                </a>
             </td>
         </tr>
         <?php 

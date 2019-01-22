@@ -25,7 +25,7 @@
                         <h1><?php echo $itemTopFilm["title"]; ?></h1>
                         <p><?php echo $itemTopFilm["description"]; ?></p>
                         <p>Genre <span class="font-weight-bold"><?php echo $itemTopFilm["categoryname"]; ?></span> Length <span class="font-weight-bold"><?php echo $itemTopFilm["length"]; ?> minutes</span> rating <span class="font-weight-bold"><?php echo $itemTopFilm["rating"]; ?></span>.</p>
-                        <p><a class="btn btn-lg btn-primary" href="/show/index/<?php echo $itemTopFilm["id"]; ?>" role="button">Buy a ticket</a></p>
+                        <p><a class="btn btn-lg btn-primary" href="/show/film/<?php echo $itemTopFilm["id"]; ?>" role="button">Buy a ticket</a></p>
                     </div>
                 </div>
             </div>
@@ -60,7 +60,7 @@
         <h2 class="featurette-heading"><?php echo $itemTopFilm["title"]; ?>.</h2>
         <p class="lead"><?php echo $itemTopFilm["description"]; ?>.</p>
         <p>Genre <span class="font-weight-bold"><?php echo $itemTopFilm["categoryname"]; ?></span> Length <span class="font-weight-bold"><?php echo $itemTopFilm["length"]; ?> minutes</span> rating <span class="font-weight-bold"><?php echo $itemTopFilm["rating"]; ?></span>.</p>
-        <p><a class="btn btn-lg btn-primary" href="/show/index/<?php echo $itemTopFilm["id"]; ?>" role="button">Buy a ticket</a></p>
+        <p><a class="btn btn-lg btn-primary" href="/show/film/<?php echo $itemTopFilm["id"]; ?>" role="button">Buy a ticket</a></p>
         </div>
         <div class="col-md-5 <?php echo $orderMD5; ?>">
         <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">

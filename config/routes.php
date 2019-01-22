@@ -2,7 +2,9 @@
 
 return array(
     // show
-    'show/index/([0-9]+)' => 'show/index/$1',
+    'show' => 'show/index',
+    'show/index' => 'show/index',
+    'show/film/([0-9]+)' => 'show/film/$1',
     // ticket
     'ticket/index/([0-9]+)' => 'ticket/index/$1',
     // order
@@ -43,6 +45,13 @@ return array(
     // theater
     'theater' => 'theater/index',
     'theater/index' => 'theater/index',
-    'theater/view/([0-9]+)' => 'theater/view/$1'
+    'theater/view/([0-9]+)' => 'theater/view/$1',
+    // theater hall
+    'theaterHall' => 'theaterHall/index',
+    'theaterHall/index' => 'theaterHall/index',
+    'theaterHall/view/([0-9]+)' => 'theaterHall/view/$1',
+    'hall' => 'theaterHall/index',
+    'hall/index' => 'theaterHall/index',
+    'hall/view/([0-9]+)' => 'theaterHall/view/$1',
 
 );

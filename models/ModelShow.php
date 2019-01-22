@@ -3,17 +3,30 @@
 class ModelShow extends Model
 {
 
-    /**
-     * Returns film shows by film id 
-     */
-    public static function showTimes($idFilm)
+    public static function getShowsAll()
     {
         $db = DataBase::getConnection();  
-        $sql = "SELECT id, to_char(starttime,'hh:mm') AS starttime_disp, 
-                    (SELECT theatername FROM shm1.theater WHERE id = t1.theater) AS theatername
-                FROM shm1.show AS t1
-                WHERE film = :idFilm
-                ORDER BY starttime, theater";
+        $sql = "SELECT sh.id, sh.dateshow, to_char(sh.starttime, 'hh:mm') AS starttime_disp, 
+                    th.theatername, hl.hall_name, fm.title AS film_title
+                FROM shm1.show AS sh, shm1.theaterhall AS hl, shm1.theater AS th, shm1.film AS fm
+                WHERE (sh.theaterhall = hl.id) AND (hl.theater = th.id) AND (sh.film = fm.id)
+                    AND (fm.playingnow = true)
+                ORDER BY th.theatername, hl.hall_name, sh.dateshow DESC, sh.starttime DESC";
+
+        $result = $db->query($sql);
+
+        return $result->fetchAll();
+    }
+
+    public static function getShowsByFilmId($idFilm)
+    {
+        $db = DataBase::getConnection();  
+        $sql = "SELECT sh.id, sh.dateshow, to_char(sh.starttime, 'hh:mm') AS starttime_disp, 
+                    th.theatername, hl.hall_name
+                FROM shm1.show AS sh, shm1.theaterhall AS hl, shm1.theater AS th, shm1.film AS fm
+                WHERE (sh.theaterhall = hl.id) AND (hl.theater = th.id)  AND (sh.film = fm.id)
+                    AND (fm.playingnow = true) AND (dateshow >= current_date) AND (sh.film = :idFilm)
+                ORDER BY th.theatername, hl.hall_name, sh.dateshow DESC, sh.starttime, sh.id";
 
         $result = $db->prepare($sql);
         $result->bindParam(':idFilm', $idFilm, PDO::PARAM_INT);
@@ -22,10 +35,7 @@ class ModelShow extends Model
         return $result->fetchAll();
     }
 
-    /**
-     * Returns name film by id
-     */
-    public static function titleFilm($idFilm)
+    public static function getTitleByFilmId($idFilm)
     {
         $title = '';
         

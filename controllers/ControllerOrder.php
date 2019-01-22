@@ -20,7 +20,7 @@ class ControllerOrder extends Controller
     {
         if (!$this->isGuest()) {
             $orderTotalSum = 0;
-            $orderComplete = 'f';
+            $orderComplete = 0;
         
             $orderInfo = ModelOrder::getOrderData($id);
             if ($orderInfo != null) {
@@ -33,7 +33,7 @@ class ControllerOrder extends Controller
             $dataView['orderTotalSum'] = $orderTotalSum;
             $dataView['orderComplete'] = $orderComplete;
             $dataView['orderItems'] = ModelOrder::getOrderItems($id);
-            
+
             View::generate('order/view.php', 'layouts/main.php', $dataView);
         }
 

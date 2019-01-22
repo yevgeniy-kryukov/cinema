@@ -9,7 +9,7 @@ class Model
     public static function categoryList()
     {
         $db = DataBase::getConnection();  
-        $sql = 'SELECT * FROM shm1.filmcategory_query_categoryname()';
+        $sql = 'SELECT * FROM shm1.filmcategory ORDER BY categoryname';
 
         $result = $db->query($sql);
 

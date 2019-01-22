@@ -31,11 +31,14 @@
             <li class="nav-item <?php echo $menuItem == 'theater' ? 'active' : '';?>">
               <a class="nav-link" href="/theater">Theater</a>
             </li>
+            <li class="nav-item <?php echo $menuItem == 'hall' ? 'active' : '';?>">
+              <a class="nav-link" href="/hall">Hall</a>
+            </li>
             <li class="nav-item <?php echo $menuItem == 'film' ? 'active' : '';?>">
               <a class="nav-link" href="/film">Film</a>
             </li>
-            <li class="nav-item" <?php echo $menuItem == 'show' ? 'active' : '';?>>
-              <a class="nav-link" href="/schedule">Show</a>
+            <li class="nav-item <?php echo $menuItem == 'show' ? 'active' : '';?>">
+              <a class="nav-link" href="/show">Show</a>
             </li>
           </ul>
           &nbsp;
