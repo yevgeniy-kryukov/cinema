@@ -35,6 +35,14 @@ return array(
     'test/index' => 'test/index',
     // admin
     'admin' => 'admin/index',
-    'admin/site' => 'admin/index',
-    'admin/site/index' => 'admin/index',
+    'admin/index' => 'admin/index',
+    // film
+    'film' => 'film/index',
+    'film/index' => 'film/index',
+    'film/view/([0-9]+)' => 'film/view/$1',
+    // theater
+    'theater' => 'theater/index',
+    'theater/index' => 'theater/index',
+    'theater/view/([0-9]+)' => 'theater/view/$1'
+
 );

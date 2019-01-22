@@ -9,7 +9,11 @@ class ModelShow extends Model
     public static function showTimes($idFilm)
     {
         $db = DataBase::getConnection();  
-        $sql = 'SELECT * FROM shm1.show_query_showtimes(:idFilm)';
+        $sql = "SELECT id, to_char(starttime,'hh:mm') AS starttime_disp, 
+                    (SELECT theatername FROM shm1.theater WHERE id = t1.theater) AS theatername
+                FROM shm1.show AS t1
+                WHERE film = :idFilm
+                ORDER BY starttime, theater";
 
         $result = $db->prepare($sql);
         $result->bindParam(':idFilm', $idFilm, PDO::PARAM_INT);

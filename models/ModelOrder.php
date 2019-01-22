@@ -6,7 +6,10 @@ class ModelOrder extends Model
     public static function getUserOrders($idUser)
     {
         $db = DataBase::getConnection();
-        $sql = 'SELECT * FROM shm1.ticketorder WHERE userapp = :idUser ORDER BY complete, order_date DESC, id DESC';
+        $sql = "SELECT id,  total, (CASE WHEN complete = true THEN 'yes' ELSE 'no' END) AS complete_yn, order_date 
+                FROM shm1.ticketorder 
+                WHERE userapp = :idUser 
+                ORDER BY complete, order_date DESC, id DESC";
         
         $result = $db->prepare($sql);
         $result->bindParam(':idUser', $idUser, PDO::PARAM_INT);
