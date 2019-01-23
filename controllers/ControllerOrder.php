@@ -40,25 +40,6 @@ class ControllerOrder extends Controller
         return true;
     }
 
-    public function actionDeleteOrderItem($idOrder, $id)
-    {
-        if (!$this->isGuest()) {
-            if (isset($_POST['submit'])) {
-                ModelOrder::deleteOrderItem($id);
-                header('Location: /order/view/'.$idOrder);
-                return true;
-            }
-
-            $dataView = $this->getDataViewHeader();
-            $dataView['idOrder'] = $idOrder;
-            $dataView['itemOrder'] = ModelOrder::getOrderItemData($id);
-            
-            View::generate('order/delete_item.php', 'layouts/main.php', $dataView);
-        }
-
-        return true;
-    }
-
     public function actionComplete($id)
     {
         if (!$this->isGuest()) {

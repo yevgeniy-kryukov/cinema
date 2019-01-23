@@ -23,7 +23,7 @@
             <td><?php echo $itemShow["theatername"]; ?></td>
             <td><?php echo $itemShow["hall_name"]; ?></td>
             <td align="center">
-                <a href="/ticket/index/<?php echo $itemShow["id"]; ?>">
+                <a href="/orderItem/index/<?php echo $itemShow["id"]; ?>">
                     <img src="/template/img/tickets.gif" width="130" height="39" border="0" alt="Click to book tickets for this show">
                 </a>
             </td>

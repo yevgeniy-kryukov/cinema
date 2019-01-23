@@ -5,13 +5,13 @@ return array(
     'show' => 'show/index',
     'show/index' => 'show/index',
     'show/film/([0-9]+)' => 'show/film/$1',
-    // ticket
-    'ticket/index/([0-9]+)' => 'ticket/index/$1',
+    // order item
+    'orderItem/index/([0-9]+)' => 'orderItem/index/$1',
+    'orderItem/delete/([0-9]+)/([0-9]+)' => 'orderItem/delete/$1/$2',
     // order
     'order' => 'order/index',
     'order/index' => 'order/index',
     'order/view/([0-9]+)' => 'order/view/$1',
-    'order/deleteOrderItem/([0-9]+)/([0-9]+)' => 'order/deleteOrderItem/$1/$2',
     'order/complete/([0-9]+)' => 'order/complete/$1',
     // user
     'user/signup' => 'user/signup',
