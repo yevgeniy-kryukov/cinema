@@ -18,7 +18,7 @@ class Controller
                         'emailUser' => isset($_SESSION['emailUser']) ? $_SESSION['emailUser'] : '',
                         'idCat' 	=> $idCat,
                         'rating' 	=> isset($_SESSION['rating']) ? $_SESSION['rating'] : '*',
-                        'listCat' 	=> Model::categoryList(),
+                        'listCat' 	=> ModelFilmCategory::categoryList(),
                         'menuItem'  => 'home'
                     ];
     } 

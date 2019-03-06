@@ -1,4 +1,6 @@
 <h3 class="text-center my-2">List of shows</h3>
+<a class="btn btn-primary" href="/show/create" role="button">Create</a>
+<br><br>
 <table class="table table-hover">
     <thead>
         <tr>
@@ -26,6 +28,7 @@
             <td><?php echo $itemShow["film_title"]; ?></td>
             <td align="center">
                 <a href="/show/view/<?php echo $itemShow["id"]; ?>">View</a>
+                <a href="/show/update/<?php echo $itemShow["id"]; ?>">Update</a>
             </td>
         </tr>
         <?php 

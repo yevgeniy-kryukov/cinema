@@ -2,18 +2,17 @@
 
 class Model
 {
-
-    /**
-     * Returns category list
-     */
-    public static function categoryList()
-    {
-        $db = DataBase::getConnection();  
-        $sql = 'SELECT * FROM shm1.filmcategory ORDER BY categoryname';
-
-        $result = $db->query($sql);
-
-        return $result->fetchAll();
-    }
     
+    public static function validateDate($date, $format = 'Y-m-d')
+    {
+        $d = DateTime::createFromFormat($format, $date);
+        // The Y ( 4 digits year ) returns TRUE for any integer with any number of digits so changing the comparison from == to === fixes the issue.
+        return $d && $d->format($format) === $date;
+    }
+
+    public static function validateTime($time, $format = 'H:i')
+    {
+        $t = DateTime::createFromFormat($format, $time);
+        return $t && $t->format($format) === $time;
+    }
 }

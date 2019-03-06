@@ -4,7 +4,10 @@ return array(
     // show
     'show' => 'show/index',
     'show/index' => 'show/index',
+    'show/create' => 'show/create',
     'show/film/([0-9]+)' => 'show/film/$1',
+    'show/view/([0-9]+)' => 'show/view/$1',
+    'show/update/([0-9]+)' => 'show/update/$1',
     // order item
     'orderItem/index/([0-9]+)' => 'orderItem/index/$1',
     'orderItem/delete/([0-9]+)/([0-9]+)' => 'orderItem/delete/$1/$2',
@@ -41,7 +44,9 @@ return array(
     // film
     'film' => 'film/index',
     'film/index' => 'film/index',
+    'film/create' => 'film/create',
     'film/view/([0-9]+)' => 'film/view/$1',
+    'film/update/([0-9]+)' => 'film/update/$1',
     // theater
     'theater' => 'theater/index',
     'theater/index' => 'theater/index',

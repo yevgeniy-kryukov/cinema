@@ -21,7 +21,7 @@ class DataBase
         $dsn = "pgsql:host={$params['dbhost']};dbname={$params['dbname']}";
         $db = new PDO($dsn, $params['dbuser'], $params['dbpass']);
 
-        $db->exec("set names utf8");
+        //$db->exec("set names utf8");
 
         return $db;
     }

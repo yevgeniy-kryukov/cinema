@@ -6,7 +6,7 @@ class ModelShow extends Model
     public static function getShowsAll()
     {
         $db = DataBase::getConnection();  
-        $sql = "SELECT sh.id, sh.dateshow, to_char(sh.starttime, 'hh:mm') AS starttime_disp, 
+        $sql = "SELECT sh.id, sh.dateshow, to_char(sh.starttime, 'HH24:MI') AS starttime_disp, 
                     th.theatername, hl.hall_name, fm.title AS film_title
                 FROM shm1.show AS sh, shm1.theaterhall AS hl, shm1.theater AS th, shm1.film AS fm
                 WHERE (sh.theaterhall = hl.id) AND (hl.theater = th.id) AND (sh.film = fm.id)
@@ -21,7 +21,7 @@ class ModelShow extends Model
     public static function getShowsByFilmId($idFilm)
     {
         $db = DataBase::getConnection();  
-        $sql = "SELECT sh.id, sh.dateshow, to_char(sh.starttime, 'hh:mm') AS starttime_disp, 
+        $sql = "SELECT sh.id, sh.dateshow, to_char(sh.starttime, 'HH24:MI') AS starttime_disp, 
                     th.theatername, hl.hall_name
                 FROM shm1.show AS sh, shm1.theaterhall AS hl, shm1.theater AS th, shm1.film AS fm
                 WHERE (sh.theaterhall = hl.id) AND (hl.theater = th.id)  AND (sh.film = fm.id)
@@ -54,7 +54,8 @@ class ModelShow extends Model
     public static function getShowData($idShow)
     {
         $db = DataBase::getConnection();
-        $sql = "SELECT t2.title AS filmtitle, to_char(t1.starttime,'hh:mm') AS starttime_disp, t3.theatername 
+        $sql = "SELECT t1.id, t2.title AS filmtitle, to_char(t1.starttime,'HH24:MI') AS starttime_disp, t3.theatername,
+                     t1.dateshow, t1.adultprice, t1.childprice, t4.hall_name, t4.id AS hallid, t2.id AS filmid
                 FROM shm1.show AS t1, shm1.film AS t2, shm1.theater AS t3, shm1.theaterhall AS t4
                 WHERE (t1.id = :idShow) AND (t1.film = t2.id) AND (t1.theaterhall = t4.id) AND (t4.theater = t3.id)";
         
@@ -63,6 +64,43 @@ class ModelShow extends Model
         $result->execute();
 
         return $result->fetch();
+    }
+
+    public static function updateShow($id, $film, $starttime, $dateshow, $theaterhall, $adultprice, $childprice)
+    {        
+        $db = DataBase::getConnection();
+        $sql = "UPDATE shm1.show 
+                SET film = :film, starttime = :starttime::time, dateshow = TO_DATE(:dateshow, 'yyyy-mm-dd'), 
+                    theaterhall = :theaterhall, adultprice = :adultprice, childprice = :childprice
+                WHERE id = :id";
+                
+        $result = $db->prepare($sql);
+        $result->bindParam(':film', $film, PDO::PARAM_INT);
+        $result->bindParam(':starttime', $starttime, PDO::PARAM_STR);
+        $result->bindParam(':dateshow', $dateshow, PDO::PARAM_STR);
+        $result->bindParam(':theaterhall', $theaterhall, PDO::PARAM_INT);
+        $result->bindParam(':adultprice', $adultprice, PDO::PARAM_STR);
+        $result->bindParam(':childprice', $childprice, PDO::PARAM_STR);
+        $result->bindParam(':id', $id, PDO::PARAM_INT);
+
+        return $result->execute();
+    }
+
+    public static function createShow($film, $starttime, $dateshow, $theaterhall, $adultprice, $childprice)
+    {        
+        $db = DataBase::getConnection();
+        $sql = 'INSERT INTO shm1.show (film, starttime, dateshow, theaterhall, adultprice, childprice)
+                VALUES (:film, :starttime, :dateshow, :theaterhall, :adultprice, :childprice)';
+                
+        $result = $db->prepare($sql);
+        $result->bindParam(':film', $film, PDO::PARAM_INT);
+        $result->bindParam(':starttime', $starttime, PDO::PARAM_STR);
+        $result->bindParam(':dateshow', $dateshow, PDO::PARAM_STR);
+        $result->bindParam(':theaterhall', $theaterhall, PDO::PARAM_INT);
+        $result->bindParam(':adultprice', $adultprice, PDO::PARAM_STR);
+        $result->bindParam(':childprice', $childprice, PDO::PARAM_STR);
+        
+        return $result->execute();
     }
 
 }
