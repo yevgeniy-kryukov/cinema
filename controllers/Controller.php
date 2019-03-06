@@ -2,6 +2,9 @@
 
 class Controller 
 {
+
+    const ADMIN_ROLE_NAME = 'admin';
+
     public function getDataViewHeader()
     {
         if (isset($_SESSION['category'])) {
@@ -26,11 +29,39 @@ class Controller
     public function isGuest() 
     {
         if (!isset($_SESSION['idUser'])) {
-            header('Location:/user/signin');
             return true;
         }
-
         return false;
+    }
+
+    public function isAdmin()
+    {
+        $roleName = ModelUser::getUserRole($_SESSION['idUser']);
+        if ($roleName == self::ADMIN_ROLE_NAME) return true;
+        return false;
+    }
+
+    public function checkAccessUser()
+    {
+        if ($this->isGuest()) {
+            header('Location:/user/signin');
+            die;
+        }
+        return true;
+    }
+
+    public function checkAccessAdmin()
+    {
+        if ($this->isGuest()) {
+            header('Location:/user/signin');
+        } else {
+            if (!$this->isAdmin()) {
+                header('HTTP/1.0 403 Forbidden');
+                echo 'You are forbidden!';
+                die;
+            }
+        }
+        return true;
     }
 
     public function generate($contentView, $layoutView, $dataView = null)

@@ -18,13 +18,16 @@ class ControllerUser extends Controller
                 if ($idUser == false) {
                     $errors[] = "Incorrect  data for sign in.";
                 } else {
-                    if (ModelUser::isAdmin($idUser)) {
+                    $_SESSION['idUser'] = $idUser;
+                    $_SESSION['emailUser'] = $email;
+
+                    if ($this->isAdmin()) {
                         header('Location:/admin');
                     } else {
                         header('Location:/');
                     }
-                    $_SESSION['idUser'] = $idUser;
-                    $_SESSION['emailUser'] = $email;                
+                    
+                    die;          
                 }
             }
         } 
