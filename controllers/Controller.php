@@ -44,7 +44,7 @@ class Controller
     public function checkAccessUser()
     {
         if ($this->isGuest()) {
-            header('Location:/user/signin');
+            header('Location: /user/signin');
             die;
         }
         return true;
@@ -53,10 +53,10 @@ class Controller
     public function checkAccessAdmin()
     {
         if ($this->isGuest()) {
-            header('Location:/user/signin');
+            header('Location: /user/signin');
         } else {
             if (!$this->isAdmin()) {
-                header('HTTP/1.0 403 Forbidden');
+                header('HTTP/1.1 403 Forbidden');
                 echo 'You are forbidden!';
                 die;
             }

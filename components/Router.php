@@ -25,8 +25,7 @@ class Router
     private function error404()
 	{
         header('HTTP/1.1 404 Not Found');
-		header("Status: 404 Not Found");
-        header('Location:/404');
+        header('Location: /404');
     }
 
     public function run()
