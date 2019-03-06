@@ -44,7 +44,7 @@ class ControllerOrderItem extends Controller
             $dataView['childTickets'] = $childTickets;
             $dataView['error'] = $error;
                 
-            View::generate('order_item/index.php', 'layouts/main.php', $dataView);
+            $this->generate('order_item/index.php', 'layouts/main.php', $dataView);
         }
         
         return true;
@@ -63,7 +63,7 @@ class ControllerOrderItem extends Controller
             $dataView['idOrder'] = $idOrder;
             $dataView['itemOrder'] = ModelOrderItem::getOrderItemData($id);
             
-            View::generate('order_item/delete.php', 'layouts/main.php', $dataView);
+            $this->generate('order_item/delete.php', 'layouts/main.php', $dataView);
         }
 
         return true;

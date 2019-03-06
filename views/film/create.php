@@ -57,4 +57,5 @@
     </table>
     <br>
     <button type="submit" name="submit" class="btn btn-primary">Save</button>
+    <a class="btn btn-primary" href="/film" role="button">Back to list</a>
 </form>

@@ -8,7 +8,7 @@ class ControllerFilm extends Controller
         if (!$this->isGuest()) {
             $dataView['menuItem'] = 'film';
             $dataView['listFilms'] = ModelFilm::getListFilms();
-            View::generate('film/index.php', 'layouts/admin.php', $dataView);
+            $this->generate('film/index.php', 'layouts/admin.php', $dataView);
         }
         
         return true;
@@ -19,7 +19,7 @@ class ControllerFilm extends Controller
         if (!$this->isGuest()) {
             $dataView['menuItem'] = 'film';
             $dataView['film'] = ModelFilm::getFilmById($id);
-            View::generate('film/view.php', 'layouts/admin.php', $dataView);
+            $this->generate('film/view.php', 'layouts/admin.php', $dataView);
         }
         
         return true;
@@ -56,7 +56,7 @@ class ControllerFilm extends Controller
             $dataView['film'] = ModelFilm::getFilmById($id);
             $dataView['listCategories'] = ModelFilmCategory::categoryList();
             $dataView['errors'] = $errors;
-            View::generate('film/update.php', 'layouts/admin.php', $dataView);
+            $this->generate('film/update.php', 'layouts/admin.php', $dataView);
         }
         
         return true;
@@ -92,7 +92,7 @@ class ControllerFilm extends Controller
             $dataView['menuItem'] = 'film';
             $dataView['listCategories'] = ModelFilmCategory::categoryList();
             $dataView['errors'] = $errors;
-            View::generate('film/create.php', 'layouts/admin.php', $dataView);
+            $this->generate('film/create.php', 'layouts/admin.php', $dataView);
         }
         
         return true;

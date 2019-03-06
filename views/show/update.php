@@ -8,7 +8,6 @@
 <h3 class="text-center my-3">Update show: <?php echo $show['filmtitle']; ?></h3>
 <br>
 <form method="post">
-    <input type="hidden" name="id" value="<?php echo $show["id"]; ?>">
     <table style="width:100%" border="1" cellpadding="3">
         <tr>
             <td style="width:20%">Film</td>
@@ -30,14 +29,14 @@
         <tr>
             <td>Start time</td>
             <td>
-                <input type="text" name="starttime" class="form-control" value="<?php echo $show['starttime_disp']; ?>">
+                <input type="text" name="starttime" class="form-control" value="<?php echo $show['starttime_disp']; ?>" placeholder="hh:mm">
             </td>
         </tr>
         <tr>
         <tr>
             <td>Date show</td>
             <td>                
-                <input type="text" name="dateshow" class="form-control" value="<?php echo $show['dateshow']; ?>">
+                <input type="text" name="dateshow" class="form-control" value="<?php echo $show['dateshow']; ?>" placeholder="yyyy-mm-dd">
             </td>
         </tr>
         <tr>
@@ -72,4 +71,5 @@
     </table>
     <br>
     <button type="submit" name="submit" class="btn btn-primary">Save</button>
+    <a class="btn btn-primary" href="/show" role="button">Back to list</a>
 </form>

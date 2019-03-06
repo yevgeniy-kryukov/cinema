@@ -8,7 +8,6 @@
 <h3 class="text-center my-3">Update film: <?php echo $film['title']; ?></h3>
 <br>
 <form method="post">
-    <input type="hidden" name="id" value="<?php echo $film["id"]; ?>">
     <table style="width:100%" border="1" cellpadding="3">
         <tr>
             <td style="width:20%">Title</td>
@@ -65,4 +64,5 @@
     </table>
     <br>
     <button type="submit" name="submit" class="btn btn-primary">Save</button>
+    <a class="btn btn-primary" href="/film" role="button">Back to list</a>
 </form>

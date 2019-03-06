@@ -7,7 +7,6 @@ function autoloadApp($class)
         '/components/',
         '/controllers/',
         '/models/',
-        '/views/',
     );
     foreach ($array_paths as $path) {
         $path = ROOT . $path . $class . '.php';

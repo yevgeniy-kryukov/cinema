@@ -7,7 +7,7 @@ class ControllerShow extends Controller
     {	
         $dataView['menuItem'] = 'show';
         $dataView['listShows'] = ModelShow::getShowsAll();
-        View::generate('show/index.php', 'layouts/admin.php', $dataView);
+        $this->generate('show/index.php', 'layouts/admin.php', $dataView);
         
         return true;
     }
@@ -17,7 +17,7 @@ class ControllerShow extends Controller
         $dataView = $this->getDataViewHeader();
         $dataView['titleFilm'] = ModelShow::getTitleByFilmId($id);
         $dataView['listShows'] = ModelShow::getShowsByFilmId($id);
-        View::generate('show/film.php', 'layouts/main.php', $dataView);
+        $this->generate('show/film.php', 'layouts/main.php', $dataView);
         
         return true;
     }
@@ -27,7 +27,7 @@ class ControllerShow extends Controller
         if (!$this->isGuest()) {
             $dataView['menuItem'] = 'show';
             $dataView['show'] = ModelShow::getShowData($id);
-            View::generate('show/view.php', 'layouts/admin.php', $dataView);
+            $this->generate('show/view.php', 'layouts/admin.php', $dataView);
         }
         
         return true;
@@ -73,7 +73,7 @@ class ControllerShow extends Controller
             $dataView['listTheaterHalls'] = ModelTheaterHall::getListTheaterHalls();
             $dataView['listFilms'] = ModelFilm::getListFilms();
             $dataView['errors'] = $errors;
-            View::generate('show/update.php', 'layouts/admin.php', $dataView);
+            $this->generate('show/update.php', 'layouts/admin.php', $dataView);
         }
         
         return true;
@@ -118,7 +118,7 @@ class ControllerShow extends Controller
             $dataView['listTheaterHalls'] = ModelTheaterHall::getListTheaterHalls();
             $dataView['listFilms'] = ModelFilm::getListFilms();
             $dataView['errors'] = $errors;
-            View::generate('show/create.php', 'layouts/admin.php', $dataView);
+            $this->generate('show/create.php', 'layouts/admin.php', $dataView);
         }
         
         return true;

@@ -1,6 +1,7 @@
 <h3 class="text-center my-3"><?php echo $film['title']; ?></h3>
 <br>
 <a class="btn btn-primary" href="/film/update/<?php echo $film['id']; ?>" role="button">Update</a>
+<a class="btn btn-primary" href="/film" role="button">Back to list</a>
 <!-- <a class="btn btn-danger" href="/film/delete/<?php echo $film['id']; ?>" role="button">Delete</a> -->
 <br><br>
 <table style="width:100%" border="1" cellpadding="3">

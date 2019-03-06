@@ -22,14 +22,14 @@
         <tr>
             <td>Start time</td>
             <td>
-                <input type="text" name="starttime" class="form-control" value="">
+                <input type="text" name="starttime" class="form-control" value="" placeholder="hh:mm">
             </td>
         </tr>
         <tr>
         <tr>
             <td>Date show</td>
             <td>                
-                <input type="text" name="dateshow" class="form-control" value="">
+                <input type="text" name="dateshow" class="form-control" value="" placeholder="yyyy-mm-dd">
             </td>
         </tr>
         <tr>
@@ -57,4 +57,5 @@
     </table>
     <br>
     <button type="submit" name="submit" class="btn btn-primary">Save</button>
+    <a class="btn btn-primary" href="/show" role="button">Back to list</a>
 </form>

@@ -7,7 +7,7 @@ class ControllerAdmin extends Controller
     {
         if (!$this->isGuest()) {
             $dataView['menuItem'] = 'home';
-            View::generate('admin/index.php', 'layouts/admin.php', $dataView);
+            $this->generate('admin/index.php', 'layouts/admin.php', $dataView);
         }
         return true;
     }

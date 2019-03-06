@@ -32,7 +32,7 @@ class ControllerUser extends Controller
         $dataView['signinEmail'] = $email;
         $dataView['signinErrors'] = $errors;
 
-        View::generate('user/signin.php', 'layouts/sign.php', $dataView);
+        $this->generate('user/signin.php', 'layouts/sign.php', $dataView);
 
         return true;
     }
@@ -61,7 +61,7 @@ class ControllerUser extends Controller
         $dataView["signupResult"] = $result;
         $dataView["signupErrors"] = $errors;
 
-        View::generate('user/signup.php', 'layouts/sign.php', $dataView);
+        $this->generate('user/signup.php', 'layouts/sign.php', $dataView);
 
         return true;
     }

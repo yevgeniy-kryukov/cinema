@@ -19,7 +19,7 @@ class ControllerSite extends Controller
         $dataView['listFilms'] = ModelSite::getListFilms($idCat, $rating);
         $dataView['catName'] = ModelSite::getCategoryNameById($idCat);
 
-        View::generate('site/index.php', 'layouts/main.php', $dataView);
+        $this->generate('site/index.php', 'layouts/main.php', $dataView);
 
         return true;
     }
@@ -29,7 +29,7 @@ class ControllerSite extends Controller
         $dataView = $this->getDataViewHeader();
         $dataView['menuItem'] = 'about'; // replace default value from $dataView['menuItem']
 
-        View::generate('site/about.php', 'layouts/main.php', $dataView);
+        $this->generate('site/about.php', 'layouts/main.php', $dataView);
         
         return true;
     }
