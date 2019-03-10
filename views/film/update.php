@@ -7,7 +7,7 @@
 <?php endif ?>
 <h3 class="text-center my-3">Update film: <?php echo $film['title']; ?></h3>
 <br>
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     <table style="width:100%" border="1" cellpadding="3">
         <tr>
             <td style="width:20%">Title</td>
@@ -51,6 +51,12 @@
                     <option <?php echo $film["rating"] == "PG-13" ? "selected" : ""; ?>>PG-13</option>
                     <option <?php echo $film["rating"] == "R" ? "selected" : ""; ?>>R</option>                        
                 </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Poster</td>
+            <td>
+                <input type="file" name="poster" placeholder="" value="">
             </td>
         </tr>
         <tr>

@@ -41,9 +41,11 @@ class ControllerFilm extends Controller
             if ( (!is_numeric($length)) || !is_int(0 + $length) ) $errors[] = 'The contents of the field "Length" is not the right type';
 
             if ($errors == false) {
-                $result = ModelFilm::updateFilm($id, $title, $description, $category, $length, $rating, $playingNow);
+                $result = ModelFilm::updateFilmById($id, $title, $description, $category, $length, $rating, $playingNow);
                 if ($result) {
                     header('location: /film/index');
+                    self::moveUploadFile($id);
+                    exit;
                 }
             }
         }
@@ -77,9 +79,11 @@ class ControllerFilm extends Controller
             if ( (!is_numeric($length)) || !is_int(0 + $length) ) $errors[] = 'The contents of the field "Length" is not the right type';
 
             if ($errors == false) {
-                $result = ModelFilm::createFilm($title, $description, $category, $length, $rating, $playingNow);
-                if ($result) {
+                $id = ModelFilm::createFilmById($title, $description, $category, $length, $rating, $playingNow);
+                if ($id) {
                     header('location: /film/index');
+                    self::moveUploadFile($id);
+                    exit;
                 }
             }
         }
@@ -90,5 +94,14 @@ class ControllerFilm extends Controller
         $this->generate('film/create.php', 'layouts/admin.php', $dataView);
         
         return true;
+    }
+
+    public function moveUploadFile($id)
+    {
+        if (is_uploaded_file($_FILES["poster"]["tmp_name"])) {
+            $config = include(ROOT . '/config/uploads.php');
+            return move_uploaded_file($_FILES["poster"]["tmp_name"], ROOT . $config['posters'] . "{$id}.jpg");
+        }
+        return false;
     }
 }

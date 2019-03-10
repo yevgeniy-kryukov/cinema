@@ -104,6 +104,7 @@ class ControllerShow extends Controller
                 $result = ModelShow::createShow($film, $starttime, $dateshow, $theaterhall, $adultprice, $childprice);
                 if ($result) {
                     header('location: /show/index');
+                    exit;
                 }
             }
         }

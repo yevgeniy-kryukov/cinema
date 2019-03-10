@@ -10,7 +10,7 @@ class ModelFilm extends Model
                     (CASE WHEN film.playingnow = true THEN 'yes' ELSE 'no' END)  As playingnow_yn
                 FROM shm1.film AS film, shm1.filmcategory AS cat
                 WHERE film.category = cat.id
-                ORDER BY film.playingnow DESC";
+                ORDER BY film.playingnow DESC, film.title";
 
         $result = $db->query($sql);
 
@@ -24,8 +24,7 @@ class ModelFilm extends Model
                     (CASE WHEN film.playingnow = true THEN 'yes' ELSE 'no' END)  As playingnow_yn,
                     film.description, film.length, film.rating, film.ticketssold, film.category
                 FROM shm1.film AS film, shm1.filmcategory AS cat
-                WHERE film.category = cat.id AND film.id = :id
-                ORDER BY film.playingnow DESC";
+                WHERE film.category = cat.id AND film.id = :id";
 
         $result = $db->prepare($sql);
         $result->bindParam('id', $id, PDO::PARAM_INT);
@@ -34,7 +33,7 @@ class ModelFilm extends Model
         return $result->fetch();
     }
 
-    public static function updateFilm($id, $title, $description, $category, $length, $rating, $playingNow)
+    public static function updateFilmById($id, $title, $description, $category, $length, $rating, $playingNow)
     {        
         $db = DataBase::getConnection();
         $sql = 'UPDATE shm1.film 
@@ -54,11 +53,12 @@ class ModelFilm extends Model
         return $result->execute();
     }
 
-    public static function createFilm($title, $description, $category, $length, $rating, $playingNow)
+    public static function createFilmById($title, $description, $category, $length, $rating, $playingNow)
     {        
         $db = DataBase::getConnection();
         $sql = 'INSERT INTO shm1.film (title, description, category, length, rating, playingnow)
-                VALUES (:title, :description, :category, :length, :rating, :playingnow)';
+                VALUES (:title, :description, :category, :length, :rating, :playingnow)
+                RETURNING id';
                 
         $result = $db->prepare($sql);
         $result->bindParam(':title', $title, PDO::PARAM_STR);
@@ -68,7 +68,57 @@ class ModelFilm extends Model
         $result->bindParam(':rating', $rating, PDO::PARAM_STR);
         $result->bindParam(':playingnow', $playingNow, PDO::PARAM_BOOL);
         
-        return $result->execute();
+        if ($result->execute()) {
+            return $db->lastInsertId();
+        }
+
+        return 0;
+    }
+
+    /**
+     * Возвращает путь к изображению
+     * @param integer $id
+     * @return string <p>Путь к изображению</p>
+     */
+    public static function getImageOLD($id)
+    {
+        // Название изображения-пустышки
+        $noImage = 'no-image.jpg';
+        // Путь к папке с товарами
+        $path = '/uploads/images/films/posters/';
+        // Путь к изображению товара
+        $pathToProductImage = $path . $id . '.jpg';
+        if (file_exists($_SERVER['DOCUMENT_ROOT'].$pathToProductImage)) {
+            // Если изображение для товара существует
+            // Возвращаем путь изображения товара
+            return $pathToProductImage;
+        }
+        // Возвращаем путь изображения-пустышки
+        return $path . $noImage;
+    }
+
+/**
+     * Возвращает путь к изображению
+     * @param integer $id
+     * @return string <p>Путь к изображению</p>
+     */
+    public static function getImage($id)
+    {
+        // Название изображения-пустышки
+        $noImage = 'no-image.jpg';
+        // Путь к папке с товарами
+        $config = include(ROOT . '/config/uploads.php');
+        $path = $config['posters'];
+
+        // Путь к изображению товара
+        $pathToProductImage = $path . $id . '.jpg';
+        if (file_exists(ROOT . $pathToProductImage)) {
+            // Если изображение для товара существует
+            // Возвращаем путь изображения товара
+            return $pathToProductImage;
+        }
+        // Возвращаем путь изображения-пустышки
+        return '/template/img/' . $noImage;
     }
 
 }

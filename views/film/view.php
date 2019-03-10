@@ -26,6 +26,10 @@
         <td><?php echo $film['rating']; ?></td>
     </tr>
     <tr>
+        <td>Poster</td>
+        <td><img src="<?php echo ModelFilm::getImage($film["id"]); ?>"></td>
+    </tr>
+    <tr>
         <td>Playing now</td>
         <td><?php echo $film['playingnow_yn']; ?></td>
     </tr>

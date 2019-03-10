@@ -11,7 +11,7 @@
                 $itemTopFilm = $listFilms[$ii];
             ?>
             <div class="carousel-item <?php echo $ii == 0 ? "active" : ""; ?>">
-                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="<?php echo $ii; ?> slide">
+                <img src="<?php echo ModelFilm::getImage($itemTopFilm["id"]); ?>" alt="<?php echo $ii; ?> slide" class="d-block w-100">
                 <div class="container">
                     <div class="carousel-caption 
                         <?php 
@@ -63,7 +63,7 @@
         <p><a class="btn btn-lg btn-primary" href="/show/film/<?php echo $itemTopFilm["id"]; ?>" role="button">Buy a ticket</a></p>
         </div>
         <div class="col-md-5 <?php echo $orderMD5; ?>">
-        <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+        <img class="featurette-image img-fluid mx-auto" src="<?php echo ModelFilm::getImage($itemTopFilm["id"]); ?>">
         </div>
     </div>
     <hr class="featurette-divider">

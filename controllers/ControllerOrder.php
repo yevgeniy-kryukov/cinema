@@ -47,11 +47,11 @@ class ControllerOrder extends Controller
         if (isset($_POST['submit'])) {
             $res = ModelOrder::completeOrder($id);
             if ($res > 0) {
-                header('Location: /order/view/'.$id);
+                header('Location: /order/view/' . $id);
                 $lastCatId = ModelOrder::getCategoryLastOrderItem($id);
                 setcookie('cinemaLastCategory', $lastCatId, time() + 60 * 60 * 24 * 7, '/');
                 Utils::sendEmail($_SESSION['emailUser']);
-                return true;
+                exit;
             }
         }
         

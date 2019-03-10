@@ -22,12 +22,12 @@ class ControllerUser extends Controller
                     $_SESSION['emailUser'] = $email;
 
                     if ($this->isAdmin()) {
-                        header('Location:/admin');
+                        header('Location: /admin');
                     } else {
-                        header('Location:/');
+                        header('Location: /');
                     }
                     
-                    die;          
+                    exit;          
                 }
             }
         } 
@@ -74,9 +74,8 @@ class ControllerUser extends Controller
         setcookie(session_name(), session_id(), time()-60*60*24, "/");
         session_unset();
         session_destroy();
-        header('Location:/user/signin');
-        
-        return true;
+        header('Location: /user/signin');
+        exit;
     }
     
 }

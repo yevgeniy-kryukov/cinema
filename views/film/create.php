@@ -7,7 +7,7 @@
 <?php endif ?>
 <h3 class="text-center my-3">Create film</h3>
 <br>
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     <table style="width:100%" border="1" cellpadding="3">
         <tr>
             <td style="width:20%">Title</td>
@@ -46,6 +46,14 @@
                 </select>
             </td>
         </tr>
+        <tr>
+            <td>Poster</td>
+            <td>
+                <input type="file" name="poster" placeholder="" value="">
+            </td>
+        </tr>
+
+        
         <tr>
             <td>Playing now</td>
             <td>

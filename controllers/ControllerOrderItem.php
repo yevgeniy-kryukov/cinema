@@ -57,7 +57,7 @@ class ControllerOrderItem extends Controller
         if (isset($_POST['submit'])) {
             ModelOrderItem::deleteOrderItem($id);
             header('Location: /order/view/'.$idOrder);
-            return true;
+            exit;
         }
 
         $dataView = $this->getDataViewHeader();
