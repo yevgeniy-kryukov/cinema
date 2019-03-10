@@ -56,9 +56,10 @@ class ControllerShow extends Controller
             if (!is_numeric($childprice))  $errors[] = 'The contents of the field "Child price" is not the right type';
 
             if ($errors == false) {
-                $result = ModelShow::updateShow($id, $film, $starttime, $dateshow, $theaterhall, $adultprice, $childprice);
+                $result = ModelShow::updateShowById($id, $film, $starttime, $dateshow, $theaterhall, $adultprice, $childprice);
                 if ($result) {
                     header('location: /show/index');
+                    exit;
                 }
             }
         }

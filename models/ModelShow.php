@@ -66,7 +66,7 @@ class ModelShow extends Model
         return $result->fetch();
     }
 
-    public static function updateShow($id, $film, $starttime, $dateshow, $theaterhall, $adultprice, $childprice)
+    public static function updateShowById($id, $film, $starttime, $dateshow, $theaterhall, $adultprice, $childprice)
     {        
         $db = DataBase::getConnection();
         $sql = "UPDATE shm1.show 

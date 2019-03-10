@@ -53,12 +53,11 @@ class ModelFilm extends Model
         return $result->execute();
     }
 
-    public static function createFilmById($title, $description, $category, $length, $rating, $playingNow)
+    public static function createFilm($title, $description, $category, $length, $rating, $playingNow)
     {        
         $db = DataBase::getConnection();
         $sql = 'INSERT INTO shm1.film (title, description, category, length, rating, playingnow)
-                VALUES (:title, :description, :category, :length, :rating, :playingnow)
-                RETURNING id';
+                VALUES (:title, :description, :category, :length, :rating, :playingnow)';
                 
         $result = $db->prepare($sql);
         $result->bindParam(':title', $title, PDO::PARAM_STR);
@@ -69,35 +68,13 @@ class ModelFilm extends Model
         $result->bindParam(':playingnow', $playingNow, PDO::PARAM_BOOL);
         
         if ($result->execute()) {
-            return $db->lastInsertId();
+            return $db->lastInsertId('shm1.film_id_seq');
         }
 
         return 0;
     }
 
     /**
-     * Возвращает путь к изображению
-     * @param integer $id
-     * @return string <p>Путь к изображению</p>
-     */
-    public static function getImageOLD($id)
-    {
-        // Название изображения-пустышки
-        $noImage = 'no-image.jpg';
-        // Путь к папке с товарами
-        $path = '/uploads/images/films/posters/';
-        // Путь к изображению товара
-        $pathToProductImage = $path . $id . '.jpg';
-        if (file_exists($_SERVER['DOCUMENT_ROOT'].$pathToProductImage)) {
-            // Если изображение для товара существует
-            // Возвращаем путь изображения товара
-            return $pathToProductImage;
-        }
-        // Возвращаем путь изображения-пустышки
-        return $path . $noImage;
-    }
-
-/**
      * Возвращает путь к изображению
      * @param integer $id
      * @return string <p>Путь к изображению</p>

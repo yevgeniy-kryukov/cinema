@@ -39,12 +39,14 @@ class ControllerFilm extends Controller
             if (!$description) $errors[] = 'Field "Description" is empty';
             if (!$length) $errors[] = 'Field "Length" is empty';
             if ( (!is_numeric($length)) || !is_int(0 + $length) ) $errors[] = 'The contents of the field "Length" is not the right type';
+            $result = $this->checkUploadFileExtension();
+            if ($result !== true) $errors[] = $result;
 
             if ($errors == false) {
                 $result = ModelFilm::updateFilmById($id, $title, $description, $category, $length, $rating, $playingNow);
                 if ($result) {
                     header('location: /film/index');
-                    self::moveUploadFile($id);
+                    $this->moveUploadFile($id);
                     exit;
                 }
             }
@@ -77,12 +79,14 @@ class ControllerFilm extends Controller
             if (!$description) $errors[] = 'Field "Description" is empty';
             if (!$length) $errors[] = 'Field "Length" is empty';
             if ( (!is_numeric($length)) || !is_int(0 + $length) ) $errors[] = 'The contents of the field "Length" is not the right type';
+            $result = $this->checkUploadFileExtension();
+            if ($result !== true) $errors[] = $result;
 
             if ($errors == false) {
-                $id = ModelFilm::createFilmById($title, $description, $category, $length, $rating, $playingNow);
+                $id = ModelFilm::createFilm($title, $description, $category, $length, $rating, $playingNow);
                 if ($id) {
                     header('location: /film/index');
-                    self::moveUploadFile($id);
+                    $this->moveUploadFile($id);
                     exit;
                 }
             }
@@ -103,5 +107,21 @@ class ControllerFilm extends Controller
             return move_uploaded_file($_FILES["poster"]["tmp_name"], ROOT . $config['posters'] . "{$id}.jpg");
         }
         return false;
+    }
+
+    public function checkUploadFileExtension()
+    {
+        if (is_uploaded_file($_FILES["poster"]["tmp_name"])) {
+            $fileType = $_FILES['poster']['type']; //returns the mimetype
+            //$allowedTypes = array("image/jpeg", "image/gif", "image/png");
+            $allowedTypes = array("image/jpeg");
+
+            if (!in_array($fileType, $allowedTypes)) {
+                //$errorMessage = 'Only jpg, gif, and png files are allowed.';
+                $errorMessage = 'Only jpg files are allowed.';
+                return $errorMessage;           
+            }
+        }
+        return true;
     }
 }

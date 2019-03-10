@@ -3,7 +3,7 @@
 class ControllerOrderItem extends Controller
 {
    
-    public function actionIndex($id)
+    public function actionIndex($idShow)
     {
         $this->checkAccessUser();
 
@@ -21,9 +21,9 @@ class ControllerOrderItem extends Controller
             } else {
                 $idOrder = ModelOrder::getIdOrder($idUser);
                 if ($idOrder > 0) {
-                    $resAddItem = ModelOrderItem::addOrderItem($idUser, $id, $idOrder, $adultTickets, $childTickets);
+                    $resAddItem = ModelOrderItem::addOrderItem($idShow, $idOrder, $adultTickets, $childTickets);
                 } else {
-                    $resAddItem = 0;
+                    $resAddItem = -10;
                 }
 
                 if ($resAddItem > 0) {
@@ -40,7 +40,7 @@ class ControllerOrderItem extends Controller
     
         $dataView = $this->getDataViewHeader();
         $dataView['idOrder'] = $idOrder;
-        $dataView['infoShow'] = ModelShow::getShowData($id);
+        $dataView['infoShow'] = ModelShow::getShowData($idShow);
         $dataView['adultTickets'] = $adultTickets;
         $dataView['childTickets'] = $childTickets;
         $dataView['error'] = $error;
