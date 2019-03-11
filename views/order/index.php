@@ -1,3 +1,8 @@
+<?php
+
+use cinema\components\Utils;
+
+?>
 <h3 class="text-center my-2">Show user orders <?php echo $emailUser; ?></h3>
 <table class="table table-hover">
     <thead>

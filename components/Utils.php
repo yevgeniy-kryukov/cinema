@@ -7,6 +7,12 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 class Utils 
 {
+
+    public static function HtmlEncode($string)
+    {
+        return htmlspecialchars($string, ENT_QUOTES);
+    }
+
     public static function sendEmail($email)
     {
         //Create a new PHPMailer instance

@@ -1,3 +1,8 @@
+<?php
+
+use cinema\components\Utils;
+
+?>
 <?php if (is_array($errors)): ?>
     <ul class="text-left my-3">
         <?php foreach ($errors as $error): ?>
@@ -11,12 +16,12 @@
     <table style="width:100%" border="1" cellpadding="3">
         <tr>
             <td style="width:20%">Title</td>
-            <td><input type="text" name="title" class="form-control" value="<?php echo $film['title']; ?>"></td>
+            <td><input type="text" name="title" class="form-control" value="<?php echo Utils::HtmlEncode($film['title']); ?>"></td>
         </tr>
         <tr>
             <td>Description</td>
             <td>
-                <input type="text" name="description" class="form-control" value="<?php echo $film['description']; ?>">
+                <input type="text" name="description" class="form-control" value="<?php echo Utils::HtmlEncode($film['description']); ?>">
             </td>
         </tr>
         <tr>

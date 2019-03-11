@@ -1,3 +1,8 @@
+<?php
+
+use cinema\components\Utils;
+
+?>
 <?php if (is_array($errors)): ?>
     <ul class="text-left my-3">
         <?php foreach ($errors as $error): ?>
@@ -21,7 +26,7 @@
                                 $sel = '';
                             } 
                         ?>
-                        <option value="<?php echo $film['id']; ?>" <?php echo $sel; ?> ><?php echo $film['title']; ?></option>
+                        <option value="<?php echo $film['id']; ?>" <?php echo $sel; ?> ><?php echo Utils::HtmlEncode($film['title']); ?></option>
                     <?php endforeach; ?>                
                 </select>
             </td>
@@ -51,7 +56,7 @@
                                 $sel = '';
                             } 
                         ?>
-                        <option value="<?php echo $hall['id']; ?>" <?php echo $sel; ?> ><?php echo $hall['theatername'] . ', ' . $hall['hall_name']; ?></option>
+                        <option value="<?php echo $hall['id']; ?>" <?php echo $sel; ?> ><?php echo Utils::HtmlEncode($hall['theatername']) . ', ' . Utils::HtmlEncode($hall['hall_name']); ?></option>
                     <?php endforeach; ?>                
                 </select>
             </td>

@@ -1,3 +1,8 @@
+<?php
+
+use cinema\components\Utils;
+
+?>
 <h3 class="text-center my-3"><?php echo $show['filmtitle']; ?></h3>
 <br>
 <a class="btn btn-primary" href="/show/update/<?php echo $show['id']; ?>" role="button">Update</a>
@@ -7,7 +12,7 @@
 <table style="width:100%" border="1" cellpadding="3">
     <tr>
         <td style="width:20%">Film</td>
-        <td><?php echo $show['filmtitle']; ?></td>
+        <td><?php echo Utils::HtmlEncode($show['filmtitle']); ?></td>
     </tr>
     <tr>
         <td>Start time</td>
@@ -19,7 +24,7 @@
     </tr>
     <tr>
         <td>Theater hall</td>
-        <td><?php echo $show['theatername'] . ', ' . $show['hall_name']; ?></td>
+        <td><?php echo Utils::HtmlEncode($show['theatername']) . ', ' . Utils::HtmlEncode($show['hall_name']); ?></td>
     </tr>
     <tr>
         <td>Adult price</td>

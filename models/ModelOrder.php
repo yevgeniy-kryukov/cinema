@@ -61,7 +61,7 @@ class ModelOrder extends Model
 
         $sql = 'SELECT titem.adulttickets, titem.childtickets, show.film
                 FROM shm1.ticketitem As titem, shm1.show As show 
-                WHERE (titem.show = show.film) AND (ticketorder = :idOrder)';
+                WHERE (titem.show = show.id) AND (titem.ticketorder = :idOrder)';
         $result = $db->prepare($sql);
         $result->bindParam(':idOrder', $idOrder, \PDO::PARAM_INT);
         $result->execute();
@@ -69,7 +69,8 @@ class ModelOrder extends Model
         foreach ($result->fetchAll() as $item) {
             $sql = 'UPDATE shm1.film SET ticketssold = ticketssold + :tickets WHERE id = :idFilm';
             $result = $db->prepare($sql);
-            $result->bindParam(':tickets', $item['adulttickets'] + $item['childtickets'], \PDO::PARAM_INT);
+            $tickets = $item['adulttickets'] + $item['childtickets'];
+            $result->bindParam(':tickets', $tickets, \PDO::PARAM_INT);
             $result->bindParam(':idFilm', $item['film'], \PDO::PARAM_INT);
             if (!$result->execute()) {
                 $res = -1;

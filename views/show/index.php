@@ -1,3 +1,8 @@
+<?php
+
+use cinema\components\Utils;
+
+?>
 <h3 class="text-center my-2">List of shows</h3>
 <a class="btn btn-primary" href="/show/create" role="button">Create</a>
 <br><br>
@@ -23,9 +28,9 @@
             <td scope="row"><?php echo $ii; ?></td>
             <td><?php echo $itemShow["dateshow"]; ?></td>
             <td><?php echo $itemShow["starttime_disp"]; ?></td>
-            <td><?php echo $itemShow["theatername"]; ?></td>
-            <td><?php echo $itemShow["hall_name"]; ?></td>
-            <td><?php echo $itemShow["film_title"]; ?></td>
+            <td><?php echo Utils::HtmlEncode($itemShow["theatername"]); ?></td>
+            <td><?php echo Utils::HtmlEncode($itemShow["hall_name"]); ?></td>
+            <td><?php echo Utils::HtmlEncode($itemShow["film_title"]); ?></td>
             <td align="center">
                 <a href="/show/view/<?php echo $itemShow["id"]; ?>">View</a>
                 <a href="/show/update/<?php echo $itemShow["id"]; ?>">Update</a>

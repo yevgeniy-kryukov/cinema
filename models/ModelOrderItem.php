@@ -76,8 +76,6 @@ class ModelOrderItem extends Model
 
     public function changeQuantity($idItem, $ticketType, $newQuantity)
     {
-        $res = 1;
-
         $db = DataBase::getConnection();
 
         $db->beginTransaction();
@@ -87,72 +85,69 @@ class ModelOrderItem extends Model
                 WHERE (titem.show = show.id) AND (titem.id = :idItem)';
         $result = $db->prepare($sql);
         $result->bindParam(':idItem', $idItem, \PDO::PARAM_INT);
-        $result->execute();   
 
-        $resultFetch = $result->fetch();
+        if ($result->execute()) {
+            $resultFetch = $result->fetch();
 
-        if ($ticketType == 1) {
-            $sql = 'UPDATE shm1.ticketitem SET adulttickets = :newQuantity WHERE id = :idItem';
-            $calc = ($newQuantity - $resultFetch['adulttickets']) * $resultFetch['adultprice'];
-        } else {
-            $sql = 'UPDATE shm1.ticketitem SET childtickets = :newQuantity WHERE id = :idItem';
-            $calc = ($newQuantity - $resultFetch['childtickets']) * $resultFetch['childprice'];
+            if ($resultFetch !== false) {
+                
+                if ($ticketType == 1) {
+                    $sql = 'UPDATE shm1.ticketitem SET adulttickets = :newQuantity WHERE id = :idItem';
+                    $calc = ($newQuantity - $resultFetch['adulttickets']) * $resultFetch['adultprice'];
+                } else {
+                    $sql = 'UPDATE shm1.ticketitem SET childtickets = :newQuantity WHERE id = :idItem';
+                    $calc = ($newQuantity - $resultFetch['childtickets']) * $resultFetch['childprice'];
+                }
+                $result = $db->prepare($sql);
+                $result->bindParam(':newQuantity', $newQuantity, \PDO::PARAM_INT);
+                $result->bindParam(':idItem', $idItem, \PDO::PARAM_INT);
+
+                if ($result->execute()) {
+                    $sql = 'UPDATE shm1.ticketorder SET total = total + :calc WHERE id = :idOrder';
+                    $result = $db->prepare($sql);
+                    $result->bindParam(':calc', $calc, \PDO::PARAM_STR);
+                    $result->bindParam(':idOrder', $resultFetch['ticketorder'], \PDO::PARAM_INT);
+                    
+                    if ($result->execute()) {
+                        $db->commit();
+                        return true;
+                    }
+                }
+            }
         }
 
-        $result = $db->prepare($sql);
-        $result->bindParam(':newQuantity', $newQuantity, \PDO::PARAM_INT);
-        $result->bindParam(':idItem', $idItem, \PDO::PARAM_INT);
-        if (!$result->execute()) $res = 0;
-        
-        $sql2 = 'UPDATE shm1.ticketorder SET total = total + :calc WHERE id = :idOrder';
-        $result = $db->prepare($sql2);
-        $result->bindParam(':calc', $calc, \PDO::PARAM_STR);
-        $result->bindParam(':idOrder', $resultFetch['ticketorder'], \PDO::PARAM_INT);
-        if (!$result->execute()) $res = -1;
+        $db->rollBack();
 
-        if ($res == 1) {
-            $db->commit();
-        } else {
-            $db->rollBack();
-        }
-
-        return $res;
+        return false;
     }
     
     
     public static function deleteOrderItem($idItem)
     {
-        $res = 1;
-
         $db = DataBase::getConnection();
 
         $db->beginTransaction();
 
-        if (self::changeQuantity($idItem, 1, 0) == 1) {
-            if (self::changeQuantity($idItem, 2, 0) == 1) {
-                $sql = 'DELETE FROM shm1.ticketitem WHERE id = :idItem';
-                $result = $db->prepare($sql);
-                $result->bindParam(':idItem', $idItem, \PDO::PARAM_INT);
-                if (!$result->execute()) $res = -2;
-            } else {
-                $res = -1;
+        if ( (self::changeQuantity($idItem, 1, 0)) && (self::changeQuantity($idItem, 2, 0)) ) {
+            $sql = 'DELETE FROM shm1.ticketitem WHERE id = :idItem';
+            $result = $db->prepare($sql);
+            $result->bindParam(':idItem', $idItem, \PDO::PARAM_INT);
+            
+            if ($result->execute())  {
+                $db->commit();
+                return true;
             }
-        } else {
-            $res = 0;
-        }
+        } 
 
-        if ($res == 1) {
-            $db->commit();
-        } else {
-            $db->rollBack();
-        }
+        $db->rollBack();
 
-        return $res;
+        return false;
     }
 
     public static function getOrderItemData($idItem)
     {
         $db = DataBase::getConnection();
+        
         $sql = "SELECT t1.id, t1.adulttickets, t1.childtickets, t3.title, to_char(t2.starttime, 'HH24:MI') AS starttime_disp,
                     t4.theatername, t2.film
                 FROM shm1.ticketitem AS t1, shm1.show AS t2, shm1.film AS t3, shm1.theater AS t4, shm1.theaterhall AS t5

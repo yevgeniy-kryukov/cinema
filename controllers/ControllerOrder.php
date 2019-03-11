@@ -4,6 +4,7 @@ namespace cinema\controllers;
 
 use cinema\controllers\Controller;
 use cinema\models\ModelOrder;
+use cinema\components\Utils;
 
 class ControllerOrder extends Controller
 {
@@ -35,7 +36,7 @@ class ControllerOrder extends Controller
         }
 
         $dataView = $this->getDataViewHeader();
-        $dataView["idOrder"] = $id;
+        $dataView['idOrder'] = $id;
         $dataView['orderTotalSum'] = $orderTotalSum;
         $dataView['orderComplete'] = $orderComplete;
         $dataView['orderItems'] = ModelOrder::getOrderItems($id);
@@ -51,7 +52,7 @@ class ControllerOrder extends Controller
         
         if (isset($_POST['submit'])) {
             $res = ModelOrder::completeOrder($id);
-            if ($res > 0) {
+            if ($res == 1) {
                 header('Location: /order/view/' . $id);
                 $lastCatId = ModelOrder::getCategoryLastOrderItem($id);
                 setcookie('cinemaLastCategory', $lastCatId, time() + 60 * 60 * 24 * 7, '/');

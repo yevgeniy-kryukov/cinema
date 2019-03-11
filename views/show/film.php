@@ -1,3 +1,8 @@
+<?php
+
+use cinema\components\Utils;
+
+?>
 <h3 class="text-center my-2">Show Times for <?php echo $titleFilm; ?></h3>
 <table class="table table-hover">
     <thead>
@@ -20,8 +25,8 @@
             <td scope="row"><?php echo $ii; ?></td>
             <td><?php echo $itemShow["dateshow"]; ?></td>
             <td><?php echo $itemShow["starttime_disp"]; ?></td>
-            <td><?php echo $itemShow["theatername"]; ?></td>
-            <td><?php echo $itemShow["hall_name"]; ?></td>
+            <td><?php echo Utils::HtmlEncode($itemShow["theatername"]); ?></td>
+            <td><?php echo Utils::HtmlEncode($itemShow["hall_name"]); ?></td>
             <td align="center">
                 <a href="/orderItem/index/<?php echo $itemShow["id"]; ?>">
                     <img src="/template/img/tickets.gif" width="130" height="39" border="0" alt="Click to book tickets for this show">

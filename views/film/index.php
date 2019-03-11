@@ -1,3 +1,8 @@
+<?php
+
+use cinema\components\Utils;
+
+?>
 <h3 class="text-center my-2">List of films</h3>
 <a class="btn btn-primary" href="/film/create" role="button">Create</a>
 <br><br>
@@ -19,7 +24,7 @@
         ?>
             <tr>
                 <td scope="row"><?php echo $ii; ?></td>
-                <td><?php echo $itemFilm["title"]; ?></td>
+                <td><?php echo Utils::HtmlEncode($itemFilm["title"]); ?></td>
                 <td><?php echo $itemFilm["categoryname"]; ?></td>
                 <td><?php echo $itemFilm["playingnow_yn"]; ?></td>
                 <td align="center">

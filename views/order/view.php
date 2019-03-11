@@ -1,11 +1,16 @@
+<?php
+
+use cinema\components\Utils;
+
+?>
 <h3 class="text-center my-3"><img src="/template/img/your_ticket_order.gif" width="248" height="65"></h3>
 <br>
 <form method="post">
     <?php foreach ($orderItems as $itemOrder): ?>
         <div>
             <div>
-                For the <?php echo $itemOrder["starttime_disp"]; ?> showing of <?php echo $itemOrder["title"]; ?> 
-                at <?php echo $itemOrder["theatername"]; ?>
+                For the <?php echo $itemOrder["starttime_disp"]; ?> showing of <?php echo Utils::HtmlEncode($itemOrder["title"]); ?> 
+                at <?php echo Utils::HtmlEncode($itemOrder["theatername"]); ?>
             </div>
             <div class="form-group col-12">
                 <div>Adult Tickets <?php echo $itemOrder["adulttickets"]; ?></div>
