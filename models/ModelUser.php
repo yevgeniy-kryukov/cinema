@@ -1,5 +1,10 @@
 <?php
 
+namespace cinema\models;
+
+use cinema\components\DataBase;
+use cinema\models\Model;
+
 class ModelUser extends Model
 {
 
@@ -9,7 +14,7 @@ class ModelUser extends Model
         $sql = 'SELECT id, pw FROM security.userapp WHERE email = :email';
 
         $result = $db->prepare($sql);
-        $result->bindParam(':email', $email, PDO::PARAM_STR);
+        $result->bindParam(':email', $email, \PDO::PARAM_STR);
         $result->execute();
 
         $dataUser = $result->fetch();
@@ -43,7 +48,7 @@ class ModelUser extends Model
         $sql = 'SELECT id FROM security.userapp WHERE email = :email';
 
         $result = $db->prepare($sql);
-        $result->bindParam(':email', $email, PDO::PARAM_STR);
+        $result->bindParam(':email', $email, \PDO::PARAM_STR);
         $result->execute();
 
         if ($result->fetch() !== false) {
@@ -60,7 +65,7 @@ class ModelUser extends Model
                 WHERE (us.roleapp = rol.id) AND (us.id = :idUser)";
 
         $result = $db->prepare($sql);
-        $result->bindParam(':idUser', $idUser, PDO::PARAM_INT);
+        $result->bindParam(':idUser', $idUser, \PDO::PARAM_INT);
         $result->execute();
 
         return $result->fetchColumn();
@@ -75,8 +80,8 @@ class ModelUser extends Model
         $sql = 'INSERT INTO security.userapp (email, pw) VALUES (:email, :pw)';
 
         $result = $db->prepare($sql);
-        $result->bindParam(':email', $email, PDO::PARAM_STR);
-        $result->bindParam(':pw', $pwHash, PDO::PARAM_STR);
+        $result->bindParam(':email', $email, \PDO::PARAM_STR);
+        $result->bindParam(':pw', $pwHash, \PDO::PARAM_STR);
         
         return $result->execute();
     }

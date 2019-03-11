@@ -1,5 +1,10 @@
 <?php
 
+namespace cinema\models;
+
+use cinema\components\DataBase;
+use cinema\models\Model;
+
 class ModelOrderItem extends Model
 {
 
@@ -15,14 +20,14 @@ class ModelOrderItem extends Model
 
         $sql = 'SELECT id FROM shm1.ticketitem WHERE (ticketorder = :idOrder) AND (show = :idShow)';
         $result = $db->prepare($sql);
-        $result->bindParam(':idOrder', $idOrder, PDO::PARAM_INT);
-        $result->bindParam(':idShow', $idShow, PDO::PARAM_INT);
+        $result->bindParam(':idOrder', $idOrder, \PDO::PARAM_INT);
+        $result->bindParam(':idShow', $idShow, \PDO::PARAM_INT);
         $result->execute();
 
         if ($result->fetchColumn() === false) {
             $sql = 'SELECT adultprice, childprice FROM shm1.show WHERE id = :idShow';
             $result = $db->prepare($sql);
-            $result->bindParam(':idShow', $idShow, PDO::PARAM_INT);
+            $result->bindParam(':idShow', $idShow, \PDO::PARAM_INT);
             $result->execute(); 
             $price = $result->fetch();  
 
@@ -30,18 +35,18 @@ class ModelOrderItem extends Model
                 $sql = 'INSERT INTO shm1.ticketitem (adulttickets, childtickets, show, ticketorder) 
 				        VALUES (:aTickets, :cTickets, :idShow, :idOrder)';
                 $result = $db->prepare($sql);
-                $result->bindParam(':aTickets', $aTickets, PDO::PARAM_STR);
-                $result->bindParam(':cTickets', $cTickets, PDO::PARAM_STR);
-                $result->bindParam(':idShow', $idShow, PDO::PARAM_INT);
-                $result->bindParam(':idOrder', $idOrder, PDO::PARAM_INT);
+                $result->bindParam(':aTickets', $aTickets, \PDO::PARAM_STR);
+                $result->bindParam(':cTickets', $cTickets, \PDO::PARAM_STR);
+                $result->bindParam(':idShow', $idShow, \PDO::PARAM_INT);
+                $result->bindParam(':idOrder', $idOrder, \PDO::PARAM_INT);
 
                 if ($result->execute()) {
                     $tot = ($aTickets * $price['adultprice']) + ($cTickets * $price['childprice']);
 
                     $sql = 'UPDATE shm1.ticketorder SET total = total + :tot WHERE id = :idOrder';
                     $result = $db->prepare($sql);
-                    $result->bindParam(':tot', $tot, PDO::PARAM_STR);
-                    $result->bindParam(':idOrder', $idOrder, PDO::PARAM_INT);
+                    $result->bindParam(':tot', $tot, \PDO::PARAM_STR);
+                    $result->bindParam(':idOrder', $idOrder, \PDO::PARAM_INT);
 
                     if ($result->execute()) {
                         $res = 1;
@@ -81,7 +86,7 @@ class ModelOrderItem extends Model
                 FROM shm1.ticketitem AS titem, shm1.show AS show
                 WHERE (titem.show = show.id) AND (titem.id = :idItem)';
         $result = $db->prepare($sql);
-        $result->bindParam(':idItem', $idItem, PDO::PARAM_INT);
+        $result->bindParam(':idItem', $idItem, \PDO::PARAM_INT);
         $result->execute();   
 
         $resultFetch = $result->fetch();
@@ -95,14 +100,14 @@ class ModelOrderItem extends Model
         }
 
         $result = $db->prepare($sql);
-        $result->bindParam(':newQuantity', $newQuantity, PDO::PARAM_INT);
-        $result->bindParam(':idItem', $idItem, PDO::PARAM_INT);
+        $result->bindParam(':newQuantity', $newQuantity, \PDO::PARAM_INT);
+        $result->bindParam(':idItem', $idItem, \PDO::PARAM_INT);
         if (!$result->execute()) $res = 0;
         
         $sql2 = 'UPDATE shm1.ticketorder SET total = total + :calc WHERE id = :idOrder';
         $result = $db->prepare($sql2);
-        $result->bindParam(':calc', $calc, PDO::PARAM_STR);
-        $result->bindParam(':idOrder', $resultFetch['ticketorder'], PDO::PARAM_INT);
+        $result->bindParam(':calc', $calc, \PDO::PARAM_STR);
+        $result->bindParam(':idOrder', $resultFetch['ticketorder'], \PDO::PARAM_INT);
         if (!$result->execute()) $res = -1;
 
         if ($res == 1) {
@@ -127,7 +132,7 @@ class ModelOrderItem extends Model
             if (self::changeQuantity($idItem, 2, 0) == 1) {
                 $sql = 'DELETE FROM shm1.ticketitem WHERE id = :idItem';
                 $result = $db->prepare($sql);
-                $result->bindParam(':idItem', $idItem, PDO::PARAM_INT);
+                $result->bindParam(':idItem', $idItem, \PDO::PARAM_INT);
                 if (!$result->execute()) $res = -2;
             } else {
                 $res = -1;
@@ -155,7 +160,7 @@ class ModelOrderItem extends Model
                     AND (t1.id = :idItem)";
         
         $result = $db->prepare($sql);
-        $result->bindParam(':idItem', $idItem, PDO::PARAM_INT);
+        $result->bindParam(':idItem', $idItem, \PDO::PARAM_INT);
         $result->execute();
 
         return $result->fetch();

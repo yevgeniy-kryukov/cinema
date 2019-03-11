@@ -1,3 +1,8 @@
+<?php
+
+use cinema\models\ModelFilm;
+
+?>
 <h3 class="text-center my-3"><?php echo $film['title']; ?></h3>
 <br>
 <a class="btn btn-primary" href="/film/update/<?php echo $film['id']; ?>" role="button">Update</a>

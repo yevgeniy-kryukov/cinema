@@ -1,5 +1,10 @@
 <?php
 
+namespace cinema\models;
+
+use cinema\components\DataBase;
+use cinema\models\Model;
+
 class ModelSite extends Model
 {  
 
@@ -17,8 +22,8 @@ class ModelSite extends Model
         $sql = $sql . " ORDER BY t1.ticketssold DESC";
 
         $result = $db->prepare($sql);
-        if ($idCat != '*') $result->bindParam(':idCat', $idCat, PDO::PARAM_INT);
-        if ($rat != '*') $result->bindParam(':rat', $rat, PDO::PARAM_STR);
+        if ($idCat != '*') $result->bindParam(':idCat', $idCat, \PDO::PARAM_INT);
+        if ($rat != '*') $result->bindParam(':rat', $rat, \PDO::PARAM_STR);
         $result->execute();
 
         return $result->fetchAll();
@@ -36,7 +41,7 @@ class ModelSite extends Model
             $sql = 'SELECT categoryname FROM shm1.filmcategory WHERE id = :idCat';
 
             $result = $db->prepare($sql);
-            $result->bindParam(':idCat', $idCat, PDO::PARAM_INT);
+            $result->bindParam(':idCat', $idCat, \PDO::PARAM_INT);
             $result->execute();
 
             $catName = $result->fetchColumn();

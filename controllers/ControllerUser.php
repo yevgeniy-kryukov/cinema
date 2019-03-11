@@ -1,5 +1,10 @@
 <?php
 
+namespace cinema\controllers;
+
+use cinema\controllers\Controller;
+use cinema\models\ModelUser;
+
 class ControllerUser extends Controller
 {
     public function actionSignin()

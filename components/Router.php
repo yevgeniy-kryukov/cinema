@@ -1,5 +1,7 @@
 <?php
 
+namespace cinema\components;
+
 /**
  * Class Router
  * Route builder
@@ -44,6 +46,7 @@ class Router
 
                 $controllerName = array_shift($segments);
                 $controllerName = 'Controller' . ucfirst($controllerName);
+                $controllerName = '\\cinema\\controllers\\' . $controllerName;
 
                 $actionName = array_shift($segments);
                 $actionName = 'action' . ucfirst($actionName);

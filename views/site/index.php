@@ -1,3 +1,8 @@
+<?php
+
+use cinema\models\ModelFilm;
+
+?>
 <h1 class="text-center my-2">Today's <?php echo $catName; ?> Top Picks</h1>
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">

@@ -1,5 +1,10 @@
 <?php
 
+namespace cinema\controllers;
+
+use cinema\controllers\Controller;
+use cinema\models\{ModelFilm, ModelFilmCategory};
+
 class ControllerFilm extends Controller
 {
 

@@ -1,5 +1,10 @@
 <?php
 
+namespace cinema\controllers;
+
+use cinema\controllers\Controller;
+use cinema\models\{Model, ModelShow, ModelTheater, ModelTheaterHall, ModelFilm};
+
 class ControllerShow extends Controller
 {
 

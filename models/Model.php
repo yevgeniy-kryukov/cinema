@@ -1,5 +1,7 @@
 <?php
 
+namespace cinema\models;
+
 class Model
 {
     

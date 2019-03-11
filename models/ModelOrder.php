@@ -1,5 +1,10 @@
 <?php
 
+namespace cinema\models;
+
+use cinema\components\DataBase;
+use cinema\models\Model;
+
 class ModelOrder extends Model
 {
 
@@ -12,7 +17,7 @@ class ModelOrder extends Model
                 ORDER BY complete, order_date DESC, id DESC";
         
         $result = $db->prepare($sql);
-        $result->bindParam(':idUser', $idUser, PDO::PARAM_INT);
+        $result->bindParam(':idUser', $idUser, \PDO::PARAM_INT);
         $result->execute();
 
         return $result->fetchAll();
@@ -24,7 +29,7 @@ class ModelOrder extends Model
         $sql = 'SELECT * FROM shm1.ticketorder WHERE id = :idOrder';
 
         $result = $db->prepare($sql);
-        $result->bindParam(':idOrder', $idOrder, PDO::PARAM_INT);
+        $result->bindParam(':idOrder', $idOrder, \PDO::PARAM_INT);
         $result->execute();
 
         return $result->fetch();
@@ -40,7 +45,7 @@ class ModelOrder extends Model
                     AND (t1.ticketorder = :idOrder)";
         
         $result = $db->prepare($sql);
-        $result->bindParam(':idOrder', $idOrder, PDO::PARAM_INT);
+        $result->bindParam(':idOrder', $idOrder, \PDO::PARAM_INT);
         $result->execute();
 
         return $result->fetchAll();
@@ -58,14 +63,14 @@ class ModelOrder extends Model
                 FROM shm1.ticketitem As titem, shm1.show As show 
                 WHERE (titem.show = show.film) AND (ticketorder = :idOrder)';
         $result = $db->prepare($sql);
-        $result->bindParam(':idOrder', $idOrder, PDO::PARAM_INT);
+        $result->bindParam(':idOrder', $idOrder, \PDO::PARAM_INT);
         $result->execute();
 
         foreach ($result->fetchAll() as $item) {
             $sql = 'UPDATE shm1.film SET ticketssold = ticketssold + :tickets WHERE id = :idFilm';
             $result = $db->prepare($sql);
-            $result->bindParam(':tickets', $item['adulttickets'] + $item['childtickets'], PDO::PARAM_INT);
-            $result->bindParam(':idFilm', $item['film'], PDO::PARAM_INT);
+            $result->bindParam(':tickets', $item['adulttickets'] + $item['childtickets'], \PDO::PARAM_INT);
+            $result->bindParam(':idFilm', $item['film'], \PDO::PARAM_INT);
             if (!$result->execute()) {
                 $res = -1;
                 break;
@@ -75,7 +80,7 @@ class ModelOrder extends Model
         if ($res == 1) {
             $sql = 'UPDATE shm1.ticketorder SET complete = true WHERE id = :idOrder';
             $result = $db->prepare($sql);
-            $result->bindParam(':idOrder', $idOrder, PDO::PARAM_INT);
+            $result->bindParam(':idOrder', $idOrder, \PDO::PARAM_INT);
             if (!$result->execute()) $res = -2;
         }
 
@@ -98,7 +103,7 @@ class ModelOrder extends Model
                 LIMIT 1;';
         
         $result = $db->prepare($sql);
-        $result->bindParam(':idOrder', $idOrder, PDO::PARAM_INT);
+        $result->bindParam(':idOrder', $idOrder, \PDO::PARAM_INT);
         $result->execute();
 
         return $result->fetchColumn();
@@ -112,7 +117,7 @@ class ModelOrder extends Model
 
         $sql = 'SELECT id FROM shm1.ticketorder WHERE (complete = false) AND (userapp = :idUser)';
         $result = $db->prepare($sql);
-        $result->bindParam(':idUser', $idUser, PDO::PARAM_INT);
+        $result->bindParam(':idUser', $idUser, \PDO::PARAM_INT);
         $result->execute();
 
         $resultFetch = $result->fetchColumn();
@@ -120,7 +125,7 @@ class ModelOrder extends Model
         if ($resultFetch === false) {
             $sql = 'INSERT INTO shm1.ticketorder (total, complete, userapp) VALUES (0, false, :idUser)';
             $result = $db->prepare($sql);
-            $result->bindParam(':idUser', $idUser, PDO::PARAM_INT);
+            $result->bindParam(':idUser', $idUser, \PDO::PARAM_INT);
             if ($result->execute()) {
                 $idOrder = $db->lastInsertId('shm1.ticketorder_id_seq');
             }

@@ -1,5 +1,6 @@
 <?php
 
+use cinema\components\Router;
 
 // FRONT CONTROLLER
 

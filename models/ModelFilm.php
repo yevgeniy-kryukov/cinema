@@ -1,5 +1,10 @@
 <?php
 
+namespace cinema\models;
+
+use cinema\components\DataBase;
+use cinema\models\Model;
+
 class ModelFilm extends Model
 {
 
@@ -27,7 +32,7 @@ class ModelFilm extends Model
                 WHERE film.category = cat.id AND film.id = :id";
 
         $result = $db->prepare($sql);
-        $result->bindParam('id', $id, PDO::PARAM_INT);
+        $result->bindParam('id', $id, \PDO::PARAM_INT);
         $result->execute();
 
         return $result->fetch();
@@ -42,13 +47,13 @@ class ModelFilm extends Model
                 WHERE id = :id';
                 
         $result = $db->prepare($sql);
-        $result->bindParam(':title', $title, PDO::PARAM_STR);
-        $result->bindParam(':description', $description, PDO::PARAM_STR);
-        $result->bindParam(':category', $category, PDO::PARAM_INT);
-        $result->bindParam(':length', $length, PDO::PARAM_INT);
-        $result->bindParam(':rating', $rating, PDO::PARAM_STR);
-        $result->bindParam(':playingnow', $playingNow, PDO::PARAM_BOOL);
-        $result->bindParam(':id', $id, PDO::PARAM_INT);
+        $result->bindParam(':title', $title, \PDO::PARAM_STR);
+        $result->bindParam(':description', $description, \PDO::PARAM_STR);
+        $result->bindParam(':category', $category, \PDO::PARAM_INT);
+        $result->bindParam(':length', $length, \PDO::PARAM_INT);
+        $result->bindParam(':rating', $rating, \PDO::PARAM_STR);
+        $result->bindParam(':playingnow', $playingNow, \PDO::PARAM_BOOL);
+        $result->bindParam(':id', $id, \PDO::PARAM_INT);
 
         return $result->execute();
     }
@@ -60,12 +65,12 @@ class ModelFilm extends Model
                 VALUES (:title, :description, :category, :length, :rating, :playingnow)';
                 
         $result = $db->prepare($sql);
-        $result->bindParam(':title', $title, PDO::PARAM_STR);
-        $result->bindParam(':description', $description, PDO::PARAM_STR);
-        $result->bindParam(':category', $category, PDO::PARAM_INT);
-        $result->bindParam(':length', $length, PDO::PARAM_INT);
-        $result->bindParam(':rating', $rating, PDO::PARAM_STR);
-        $result->bindParam(':playingnow', $playingNow, PDO::PARAM_BOOL);
+        $result->bindParam(':title', $title, \PDO::PARAM_STR);
+        $result->bindParam(':description', $description, \PDO::PARAM_STR);
+        $result->bindParam(':category', $category, \PDO::PARAM_INT);
+        $result->bindParam(':length', $length, \PDO::PARAM_INT);
+        $result->bindParam(':rating', $rating, \PDO::PARAM_STR);
+        $result->bindParam(':playingnow', $playingNow, \PDO::PARAM_BOOL);
         
         if ($result->execute()) {
             return $db->lastInsertId('shm1.film_id_seq');

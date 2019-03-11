@@ -1,5 +1,9 @@
 <?php
 
+namespace cinema\controllers;
+
+use cinema\models\{ModelUser, ModelFilmCategory};
+
 class Controller 
 {
 

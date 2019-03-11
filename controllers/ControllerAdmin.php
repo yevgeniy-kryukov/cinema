@@ -1,5 +1,9 @@
 <?php
 
+namespace cinema\controllers;
+
+use cinema\controllers\Controller;
+
 class ControllerAdmin extends Controller
 {
     
