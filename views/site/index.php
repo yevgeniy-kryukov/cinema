@@ -16,7 +16,7 @@ use cinema\models\ModelFilm;
                 $itemTopFilm = $listFilms[$ii];
             ?>
             <div class="carousel-item <?php echo $ii == 0 ? "active" : ""; ?>">
-                <img src="<?php echo ModelFilm::getImage($itemTopFilm["id"]); ?>" alt="<?php echo $ii; ?> slide" class="d-block w-100">
+                <img src="<?php echo ModelFilm::getPosterURI($itemTopFilm["id"]); ?>" alt="<?php echo $ii; ?> slide" class="d-block w-100">
                 <div class="container">
                     <div class="carousel-caption 
                         <?php 
@@ -68,7 +68,7 @@ use cinema\models\ModelFilm;
         <p><a class="btn btn-lg btn-primary" href="/show/film/<?php echo $itemTopFilm["id"]; ?>" role="button">Buy a ticket</a></p>
         </div>
         <div class="col-md-5 <?php echo $orderMD5; ?>">
-        <img class="featurette-image img-fluid mx-auto" src="<?php echo ModelFilm::getImage($itemTopFilm["id"]); ?>">
+        <img class="featurette-image img-fluid mx-auto" src="<?php echo ModelFilm::getPosterURI($itemTopFilm["id"]); ?>">
         </div>
     </div>
     <hr class="featurette-divider">

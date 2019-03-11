@@ -11,7 +11,6 @@ namespace cinema\components;
 class DataBase
 {
 
-
     /**
      * Connects to database and returns PDO object
      */
@@ -21,9 +20,7 @@ class DataBase
         $params = include($paramsPath);
       
         $dsn = "pgsql:host={$params['dbhost']};dbname={$params['dbname']}";
-        $db = new \PDO($dsn, $params['dbuser'], $params['dbpass']);
-
-        //$db->exec("set names utf8");
+        $db = new \PDO($dsn, $params['dbuser'], $params['dbpass'], []);
 
         return $db;
     }

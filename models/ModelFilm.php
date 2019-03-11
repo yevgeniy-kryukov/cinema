@@ -79,28 +79,17 @@ class ModelFilm extends Model
         return 0;
     }
 
-    /**
-     * Возвращает путь к изображению
-     * @param integer $id
-     * @return string <p>Путь к изображению</p>
-     */
-    public static function getImage($id)
+    public static function getPosterURI($id)
     {
-        // Название изображения-пустышки
-        $noImage = 'no-image.jpg';
-        // Путь к папке с товарами
         $config = include(ROOT . '/config/uploads.php');
         $path = $config['posters'];
 
-        // Путь к изображению товара
-        $pathToProductImage = $path . $id . '.jpg';
-        if (file_exists(ROOT . $pathToProductImage)) {
-            // Если изображение для товара существует
-            // Возвращаем путь изображения товара
-            return $pathToProductImage;
+        $pathToImage = $path . $id . '.jpg';
+        if (file_exists(ROOT . $pathToImage)) {
+            return $pathToImage;
         }
-        // Возвращаем путь изображения-пустышки
-        return '/template/img/' . $noImage;
+     
+        return $config['no-poster'];
     }
 
 }

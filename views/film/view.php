@@ -32,7 +32,7 @@ use cinema\models\ModelFilm;
     </tr>
     <tr>
         <td>Poster</td>
-        <td><img src="<?php echo ModelFilm::getImage($film["id"]); ?>"></td>
+        <td><img src="<?php echo ModelFilm::getPosterURI($film["id"]); ?>"></td>
     </tr>
     <tr>
         <td>Playing now</td>
