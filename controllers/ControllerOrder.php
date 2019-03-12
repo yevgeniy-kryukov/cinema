@@ -4,7 +4,7 @@ namespace cinema\controllers;
 
 use cinema\controllers\Controller;
 use cinema\models\ModelOrder;
-use cinema\components\Utils;
+use cinema\components\Mail;
 
 class ControllerOrder extends Controller
 {
@@ -56,7 +56,7 @@ class ControllerOrder extends Controller
                 header('Location: /order/view/' . $id);
                 $lastCatId = ModelOrder::getCategoryLastOrderItem($id);
                 setcookie('cinemaLastCategory', $lastCatId, time() + 60 * 60 * 24 * 7, '/');
-                Utils::sendEmail($_SESSION['emailUser']);
+                Mail::send($_SESSION['emailUser']);
                 exit;
             }
         }

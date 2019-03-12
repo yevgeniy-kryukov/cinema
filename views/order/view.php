@@ -1,6 +1,6 @@
 <?php
 
-use cinema\components\Utils;
+use cinema\components\Html;
 
 ?>
 <h3 class="text-center my-3"><img src="/template/img/your_ticket_order.gif" width="248" height="65"></h3>
@@ -9,8 +9,8 @@ use cinema\components\Utils;
     <?php foreach ($orderItems as $itemOrder): ?>
         <div>
             <div>
-                For the <?php echo $itemOrder["starttime_disp"]; ?> showing of <?php echo Utils::HtmlEncode($itemOrder["title"]); ?> 
-                at <?php echo Utils::HtmlEncode($itemOrder["theatername"]); ?>
+                For the <?php echo $itemOrder["starttime_disp"]; ?> showing of <?php echo Html::encode($itemOrder["title"]); ?> 
+                at <?php echo Html::encode($itemOrder["theatername"]); ?>
             </div>
             <div class="form-group col-12">
                 <div>Adult Tickets <?php echo $itemOrder["adulttickets"]; ?></div>

@@ -1,6 +1,6 @@
 <?php
 
-use cinema\components\Utils;
+use cinema\components\Html;
 
 ?>
 <h3 class="text-center my-3"><?php echo $show['filmtitle']; ?></h3>
@@ -12,7 +12,7 @@ use cinema\components\Utils;
 <table style="width:100%" border="1" cellpadding="3">
     <tr>
         <td style="width:20%">Film</td>
-        <td><?php echo Utils::HtmlEncode($show['filmtitle']); ?></td>
+        <td><?php echo Html::encode($show['filmtitle']); ?></td>
     </tr>
     <tr>
         <td>Start time</td>
@@ -24,7 +24,7 @@ use cinema\components\Utils;
     </tr>
     <tr>
         <td>Theater hall</td>
-        <td><?php echo Utils::HtmlEncode($show['theatername']) . ', ' . Utils::HtmlEncode($show['hall_name']); ?></td>
+        <td><?php echo Html::encode($show['theatername']) . ', ' . Html::encode($show['hall_name']); ?></td>
     </tr>
     <tr>
         <td>Adult price</td>

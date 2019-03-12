@@ -1,6 +1,6 @@
 <?php
 
-use cinema\components\Utils;
+use cinema\components\Html;
 
 ?>
 <h3 class="text-center my-2">List of theater halls</h3>
@@ -22,8 +22,8 @@ use cinema\components\Utils;
         ?>
         <tr>
             <td scope="row"><?php echo $ii; ?></td>
-            <td><?php echo Utils::HtmlEncode($itemHall["theatername"]); ?></td>
-            <td><?php echo Utils::HtmlEncode($itemHall["hall_name"]); ?></td>
+            <td><?php echo Html::encode($itemHall["theatername"]); ?></td>
+            <td><?php echo Html::encode($itemHall["hall_name"]); ?></td>
             <td><?php echo $itemHall["seats_number"]; ?></td>
             <td align="center">
                 <a href="/hall/view/<?php echo $itemHall["id"]; ?>">View</a>

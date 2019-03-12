@@ -5,15 +5,10 @@ namespace cinema\components;
 use PHPMailer\PHPMailer\PHPMailer;
 //use PHPMailer\PHPMailer\Exception;
 
-class Utils 
+class Mail 
 {
 
-    public static function HtmlEncode($string)
-    {
-        return htmlspecialchars($string, ENT_QUOTES);
-    }
-
-    public static function sendEmail($email)
+    public static function send($email)
     {
         //Create a new PHPMailer instance
         $mail = new PHPMailer;

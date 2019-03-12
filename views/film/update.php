@@ -1,6 +1,6 @@
 <?php
 
-use cinema\components\Utils;
+use cinema\components\Html;
 
 ?>
 <?php if (is_array($errors)): ?>
@@ -16,12 +16,12 @@ use cinema\components\Utils;
     <table style="width:100%" border="1" cellpadding="3">
         <tr>
             <td style="width:20%">Title</td>
-            <td><input type="text" name="title" class="form-control" value="<?php echo Utils::HtmlEncode($film['title']); ?>"></td>
+            <td><input type="text" name="title" class="form-control" value="<?php echo Html::encode($film['title']); ?>"></td>
         </tr>
         <tr>
             <td>Description</td>
             <td>
-                <input type="text" name="description" class="form-control" value="<?php echo Utils::HtmlEncode($film['description']); ?>">
+                <input type="text" name="description" class="form-control" value="<?php echo Html::encode($film['description']); ?>">
             </td>
         </tr>
         <tr>

@@ -1,13 +1,13 @@
 <?php
 
-use cinema\components\Utils;
+use cinema\components\Html;
 
 ?>
 <h3 class="text-center my-3">Do you really want to delete this item from order?</h3>
 <form method="post">
     <div>
-        <div>For the <?php echo $itemOrder["starttime_disp"]; ?> showing of <?php echo Utils::HtmlEncode($itemOrder["title"]); ?> 
-        at <?php echo Utils::HtmlEncode($itemOrder["theatername"]); ?></div>
+        <div>For the <?php echo $itemOrder["starttime_disp"]; ?> showing of <?php echo Html::encode($itemOrder["title"]); ?> 
+        at <?php echo Html::encode($itemOrder["theatername"]); ?></div>
         <div class="form-group col-12">
             <div>Adult Tickets <?php echo $itemOrder["adulttickets"]; ?></div>
         </div>

@@ -1,11 +1,11 @@
 <?php
 
-use cinema\components\Utils;
+use cinema\components\Html;
 
 ?>
 <h3 class="text-center my-2">
     For the <?php echo $infoShow['starttime_disp']; ?> 
-    showing of <?php echo Utils::HtmlEncode($infoShow['filmtitle']); ?> at <?php echo Utils::HtmlEncode($infoShow['theatername']); ?>
+    showing of <?php echo Html::encode($infoShow['filmtitle']); ?> at <?php echo Html::encode($infoShow['theatername']); ?>
 </h3><br>
 
 <form name="tickets" method="post">

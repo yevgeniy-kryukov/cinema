@@ -1,7 +1,7 @@
 <?php
 
 use cinema\models\ModelFilm;
-use cinema\components\Utils;
+use cinema\components\Html;
 
 ?>
 <h1 class="text-center my-2">Today's <?php echo $catName; ?> Top Picks</h1>
@@ -28,8 +28,8 @@ use cinema\components\Utils;
                         } 
                         ?>
                         ">
-                        <h1><?php echo Utils::HtmlEncode($itemTopFilm["title"]); ?></h1>
-                        <p><?php echo Utils::HtmlEncode($itemTopFilm["description"]); ?></p>
+                        <h1><?php echo Html::encode($itemTopFilm["title"]); ?></h1>
+                        <p><?php echo Html::encode($itemTopFilm["description"]); ?></p>
                         <p>Genre <span class="font-weight-bold"><?php echo $itemTopFilm["categoryname"]; ?></span> Length <span class="font-weight-bold"><?php echo $itemTopFilm["length"]; ?> minutes</span> rating <span class="font-weight-bold"><?php echo $itemTopFilm["rating"]; ?></span>.</p>
                         <p><a class="btn btn-lg btn-primary" href="/show/film/<?php echo $itemTopFilm["id"]; ?>" role="button">Buy a ticket</a></p>
                     </div>
@@ -63,8 +63,8 @@ use cinema\components\Utils;
         ?>
     <div class="row featurette">
         <div class="col-md-7 <?php echo $orderMD7; ?>">
-        <h2 class="featurette-heading"><?php echo Utils::HtmlEncode($itemTopFilm["title"]); ?>.</h2>
-        <p class="lead"><?php echo Utils::HtmlEncode($itemTopFilm["description"]); ?>.</p>
+        <h2 class="featurette-heading"><?php echo Html::encode($itemTopFilm["title"]); ?>.</h2>
+        <p class="lead"><?php echo Html::encode($itemTopFilm["description"]); ?>.</p>
         <p>Genre <span class="font-weight-bold"><?php echo $itemTopFilm["categoryname"]; ?></span> Length <span class="font-weight-bold"><?php echo $itemTopFilm["length"]; ?> minutes</span> rating <span class="font-weight-bold"><?php echo $itemTopFilm["rating"]; ?></span>.</p>
         <p><a class="btn btn-lg btn-primary" href="/show/film/<?php echo $itemTopFilm["id"]; ?>" role="button">Buy a ticket</a></p>
         </div>
