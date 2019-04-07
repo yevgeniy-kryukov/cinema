@@ -15,4 +15,11 @@ class ControllerTheater extends Controller
         $this->generate('theater/index.php', 'layouts/admin.php', $dataView);
         return true;
     }
+
+    public function actionPriceList($idTheater)
+    {	
+        $this->checkAccessAdmin();
+        echo json_encode(ModelTheater::getTheaterPrice($idTheater));
+        return true;
+    }
 }

@@ -26,7 +26,7 @@ use cinema\components\Html;
         ?>
         <tr>
             <td scope="row"><?php echo $ii; ?></td>
-            <td><?php echo $itemShow["dateshow"]; ?></td>
+            <td><?php echo $itemShow["dateshow_disp"]; ?></td>
             <td><?php echo $itemShow["starttime_disp"]; ?></td>
             <td><?php echo Html::encode($itemShow["theatername"]); ?></td>
             <td><?php echo Html::encode($itemShow["hall_name"]); ?></td>

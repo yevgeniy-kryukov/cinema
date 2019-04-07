@@ -5,7 +5,7 @@ namespace cinema\models;
 class Model
 {
     
-    public static function validateDate($date, $format = 'Y-m-d')
+    public static function validateDate($date, $format = 'd/m/Y')
     {
         $d = \DateTime::createFromFormat($format, $date);
         // The Y ( 4 digits year ) returns TRUE for any integer 

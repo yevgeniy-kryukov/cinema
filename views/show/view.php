@@ -20,7 +20,7 @@ use cinema\components\Html;
     </tr>
     <tr>
         <td>Date show</td>
-        <td><?php echo $show['dateshow']; ?></td>
+        <td><?php echo $show['dateshow_disp']; ?></td>
     </tr>
     <tr>
         <td>Theater hall</td>

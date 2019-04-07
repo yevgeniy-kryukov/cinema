@@ -18,4 +18,16 @@ class ModelTheater extends Model
         return $result->fetchAll();
     }
 
+    public static function getTheaterPrice($idTheater)
+    {
+        $db = DataBase::getConnection();  
+        $sql = "SELECT adultprice, childprice FROM shm1.theater WHERE id = :idTheater";
+
+        $result = $db->prepare($sql);
+        $result->bindParam(':idTheater', $idTheater, \PDO::PARAM_INT);
+        $result->execute();
+
+        return $result->fetch(\PDO::FETCH_ASSOC);
+    }
+
 }

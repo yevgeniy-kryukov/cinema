@@ -18,6 +18,7 @@ use cinema\components\Html;
             <td style="width:20%">Film</td>
             <td>
                 <select name="film" class="form-control">
+                    <option value=""></option>
                     <?php foreach ($listFilms as $film): ?>
                         <?php 
                             if ($film['id'] == $show['filmid']) { 
@@ -34,20 +35,21 @@ use cinema\components\Html;
         <tr>
             <td>Start time</td>
             <td>
-                <input type="text" name="starttime" class="form-control" value="<?php echo $show['starttime_disp']; ?>" placeholder="hh:mm">
+                <input type="text" name="starttime" id="starttime" class="form-control time-input" value="<?php echo $show['starttime_disp']; ?>">
             </td>
         </tr>
         <tr>
         <tr>
             <td>Date show</td>
             <td>                
-                <input type="text" name="dateshow" class="form-control" value="<?php echo $show['dateshow']; ?>" placeholder="yyyy-mm-dd">
+                <input type="text" name="dateshow" id="dateshow" class="form-control date-input" value="<?php echo $show['dateshow_disp']; ?>">
             </td>
         </tr>
         <tr>
             <td>Theater hall</td>
             <td>
                 <select name="theaterhall" class="form-control">
+                    <option value=""></option>
                     <?php foreach ($listTheaterHalls as $hall): ?>
                         <?php 
                             if ($hall['id'] == $show['hallid']) { 
@@ -64,13 +66,13 @@ use cinema\components\Html;
         <tr>
             <td>Adult price</td>
             <td>
-                <input type="text" name="adultprice" class="form-control" value="<?php echo $show['adultprice']; ?>">
+                <input type="text" name="adultprice" id="adultprice" class="form-control" value="<?php echo $show['adultprice']; ?>">
             </td>
         </tr>
         <tr>
             <td>Child price</td>
             <td>
-                <input type="text" name="childprice" class="form-control" value="<?php echo $show['childprice']; ?>">
+                <input type="text" name="childprice" id="childprice" class="form-control" value="<?php echo $show['childprice']; ?>">
             </td>
         </tr>
     </table>

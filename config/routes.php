@@ -51,6 +51,7 @@ return array(
     'theater' => 'theater/index',
     'theater/index' => 'theater/index',
     'theater/view/([0-9]+)' => 'theater/view/$1',
+    'theater/priceList/([0-9]+)' => 'theater/priceList/$1',
     // theater hall
     'theaterHall' => 'theaterHall/index',
     'theaterHall/index' => 'theaterHall/index',

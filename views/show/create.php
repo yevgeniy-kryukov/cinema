@@ -13,6 +13,7 @@
             <td style="width:20%">Film</td>
             <td>
                 <select name="film" class="form-control">
+                    <option value=""></option>
                     <?php foreach ($listFilms as $film): ?>
                         <option value="<?php echo $film['id']; ?>" ><?php echo $film['title']; ?></option>
                     <?php endforeach; ?>                
@@ -22,20 +23,21 @@
         <tr>
             <td>Start time</td>
             <td>
-                <input type="text" name="starttime" class="form-control" value="" placeholder="hh:mm">
+                <input type="text" name="starttime" id="starttime" class="form-control time-input" value="">
             </td>
         </tr>
         <tr>
         <tr>
             <td>Date show</td>
             <td>                
-                <input type="text" name="dateshow" class="form-control" value="" placeholder="yyyy-mm-dd">
+                <input type="text" name="dateshow" id="dateshow" class="form-control date-input" value="">
             </td>
         </tr>
         <tr>
             <td>Theater hall</td>
             <td>
-                <select name="theaterhall" class="form-control">
+                <select name="theaterhall" id="theaterhall" class="form-control" onChange="getTheaterPrice(this)">
+                    <option value=""></option>
                     <?php foreach ($listTheaterHalls as $hall): ?>
                         <option value="<?php echo $hall['id']; ?>"><?php echo $hall['theatername'] . ', ' . $hall['hall_name']; ?></option>
                     <?php endforeach; ?>                
@@ -45,13 +47,13 @@
         <tr>
             <td>Adult price</td>
             <td>
-                <input type="text" name="adultprice" class="form-control" value="">
+                <input type="text" name="adultprice" id="adultprice" class="form-control" value="">
             </td>
         </tr>
         <tr>
             <td>Child price</td>
             <td>
-                <input type="text" name="childprice" class="form-control" value="">
+                <input type="text" name="childprice" id="childprice" class="form-control" value="">
             </td>
         </tr>
     </table>

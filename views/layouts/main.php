@@ -14,6 +14,9 @@
 
     <!-- Custom styles for this template -->
     <link href="/template/css/carousel.css" rel="stylesheet">
+
+    <!-- Main styles for this template -->
+    <link href="/template/css/main.css" rel="stylesheet">
   </head>
   <body>
 
@@ -97,6 +100,8 @@
     <script src="/template/js/bootstrap.min.js"></script>
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
     <script src="/template/js/holder.min.js"></script>
+    <script language="JavaScript" type="text/JavaScript" src="/template/js/util.js"></script>
     <script language="JavaScript" type="text/JavaScript" src="/template/js/myAjax.js"></script>
+    <script language="JavaScript" type="text/JavaScript" src="/template/js/scripts.js"></script>
   </body>
 </html>
